@@ -1,0 +1,6 @@
+.husky/_
+coverage
+dist/bundle.js
+node_modules
+.env
+package-lock.json
