@@ -1,13 +1,14 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <h1>The beginning...</h1>,
-  },
-]);
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      {/* <Header /> */}
+      <Routes>
+        <Route path="/" element={<h1>The beginning...</h1>} />
+      </Routes>
+      {/* <Footer /> */}
+    </BrowserRouter>
+  );
 }
