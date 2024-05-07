@@ -32,11 +32,7 @@ const baseConfig = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'assets/',
-        },
+        use: 'file-loader'
       },
     ],
   },
