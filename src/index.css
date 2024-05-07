@@ -1,3 +1,36 @@
+/* Fonts */
+@font-face {
+  font-family: 'Clash Display Regular';
+  src:
+    url('./assets/fonts/clash-display/ClashDisplay-Regular.woff2') format('woff2'),
+    url('./assets/fonts/clash-display/ClashDisplay-Regular.woff') format('woff'),
+    url('./assets/fonts/clash-display/ClashDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Clash Display Medium';
+  src:
+    url('./assets/fonts/clash-display/ClashDisplay-Medium.woff2') format('woff2'),
+    url('./assets/fonts/clash-display/ClashDisplay-Medium.woff') format('woff'),
+    url('./assets/fonts/clash-display/ClashDisplay-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+/* Global colors */
+:root {
+  --dark-primary: #004e5b;
+  --primary: #0093ab;
+  --light-grey: #f9f9f9;
+  --border-grey: #ebe8f4;
+  --border-dark: #cac6da;
+  --error: #bc3333;
+  --white: #ffffff;
+}
+
 * {
   margin: 0;
+  font-family: 'Clash Display Regular';
 }
