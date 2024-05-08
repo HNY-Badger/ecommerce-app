@@ -1,6 +1,7 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const Dotenv = require('dotenv-webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const baseConfig = {
   entry: './src/index.tsx',
@@ -37,7 +38,12 @@ const baseConfig = {
     ],
   },
   plugins: [
-    new Dotenv()
+    new Dotenv(),
+    new CopyPlugin({
+      patterns: [
+          { from: 'public' }
+      ]
+    })
   ]
 };
 
