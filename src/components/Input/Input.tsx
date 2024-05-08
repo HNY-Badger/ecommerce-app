@@ -4,9 +4,9 @@ import * as styles from './Input.module.css';
 type Props = {
   value: string;
   onInput: FormEventHandler<HTMLInputElement>;
-  type?: 'text' | 'password' | 'email' | 'date';
   label: string;
   id: string;
+  type?: 'text' | 'password' | 'email' | 'date';
   error?: string;
   placeholder?: string;
   required?: boolean;
@@ -34,8 +34,8 @@ export default function Input({
       <input
         value={value}
         onInput={onInput}
-        type={type}
         id={id}
+        type={type}
         placeholder={placeholder}
         className={`${styles.input} ${error && styles.input_error}`}
         required={required}
