@@ -1,9 +1,9 @@
-import React, { FormEventHandler } from 'react';
+import React, { ChangeEventHandler } from 'react';
 import * as styles from './Input.module.css';
 
 type Props = {
   value: string;
-  onInput: FormEventHandler<HTMLInputElement>;
+  onInput: ChangeEventHandler<HTMLInputElement>;
   label: string;
   id: string;
   type?: 'text' | 'password' | 'email' | 'date';
