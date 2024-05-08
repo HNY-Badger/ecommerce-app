@@ -1,6 +1,7 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const Dotenv = require('dotenv-webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const baseConfig = {
   entry: './src/index.tsx',
@@ -20,20 +21,29 @@ const baseConfig = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          }
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'assets/',
-        },
+        use: 'file-loader'
       },
     ],
   },
   plugins: [
-    new Dotenv()
+    new Dotenv(),
+    new CopyPlugin({
+      patterns: [
+          { from: 'public' }
+      ]
+    })
   ]
 };
 

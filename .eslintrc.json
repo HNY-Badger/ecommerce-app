@@ -37,6 +37,7 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "error",
     "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/require-default-props": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

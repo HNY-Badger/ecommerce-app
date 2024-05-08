@@ -1,0 +1,33 @@
+.button {
+  cursor: pointer;
+  border: none;
+  padding: 16px 32px 16px 32px;
+  color: var(--white);
+  transition: 0.25s;
+
+  &.dark {
+    background-color: var(--dark-primary);
+  }
+  &.white {
+    color: var(--dark-primary);
+    background-color: var(--white);
+  }
+  &.grey {
+    color: var(--dark-primary);
+    background-color: var(--light-grey);
+  }
+  &.dark:hover,
+  &.white:hover,
+  &.grey:hover {
+    color: var(--white);
+    background-color: var(--primary);
+  }
+
+  /* Questionable decision since its not tied to global colors. Opacity is not an option */
+  &.transparent {
+    background-color: #ffffff0f;
+  }
+  &.transparent:hover {
+    background-color: #ffffff28;
+  }
+}
