@@ -14,18 +14,7 @@ type Props = {
   max?: string;
 };
 
-export default function Input({
-  value,
-  onInput,
-  type = 'text',
-  label,
-  id,
-  error,
-  placeholder,
-  required,
-  min,
-  max,
-}: Props) {
+function Input({ value, onInput, type = 'text', label, id, error, placeholder, required, min, max }: Props) {
   return (
     <div className={styles.input_box}>
       <label htmlFor={id} className={styles.label}>
@@ -46,3 +35,5 @@ export default function Input({
     </div>
   );
 }
+
+export default Input;
