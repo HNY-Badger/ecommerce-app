@@ -1,0 +1,29 @@
+.input_box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label,
+.input {
+  color: var(--dark-primary);
+}
+
+.input {
+  padding: 6px 10px;
+  background-color: #004e5b0f;
+  border: none;
+  outline: none;
+  transition: 0.25s;
+}
+
+.input_error {
+  box-shadow:
+    inset 1px 1px 0px var(--error),
+    inset -1px -1px 0px var(--error);
+}
+
+.error {
+  color: var(--error);
+  white-space: pre-wrap;
+}

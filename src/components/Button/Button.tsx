@@ -8,7 +8,7 @@ interface Props {
   type?: 'button' | 'submit';
 }
 
-export default function Button({ onClick, children, variant = 'dark', type = 'button' }: Props) {
+function Button({ onClick, children, variant = 'dark', type = 'button' }: Props) {
   return (
     // Type stupidity is made due to ESlint error :/
     <button
@@ -20,3 +20,5 @@ export default function Button({ onClick, children, variant = 'dark', type = 'bu
     </button>
   );
 }
+
+export default Button;
