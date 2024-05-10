@@ -19,13 +19,22 @@
   margin-top: 10px;
 }
 
-.image {
+.image_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 50%;
-  background: #83a9ac url(../../assets/images/main.png) no-repeat center / contain;
+  background-color: #83a9ac;
+}
+
+.image {
+  width: 95%;
+  height: 95%;
+  object-fit: contain;
 }
 
 @media (max-width: 800px) {
-  .image {
+  .image_wrapper {
     display: none;
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import * as style from './ShopDescription.module.css';
+import image from '../../assets/images/main.png';
 
 function ShopDescription() {
   return (
@@ -19,7 +20,9 @@ function ShopDescription() {
           convenient, and enriched way of living.
         </p>
       </div>
-      <div className={style.image} />
+      <div className={style.image_wrapper}>
+        <img className={style.image} src={image} alt="Electronics products" />
+      </div>
     </div>
   );
 }
