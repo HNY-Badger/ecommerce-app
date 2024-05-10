@@ -28,23 +28,21 @@ const baseConfig = {
             options: {
               modules: true,
             },
-          }
-        ]
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf)$/,
-        use: 'file-loader'
+        type: 'asset/resource',
       },
     ],
   },
   plugins: [
     new Dotenv(),
     new CopyPlugin({
-      patterns: [
-          { from: 'public' }
-      ]
-    })
-  ]
+      patterns: [{ from: 'public' }],
+    }),
+  ],
 };
 
 module.exports = ({ mode }) => {

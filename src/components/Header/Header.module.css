@@ -1,0 +1,23 @@
+.header {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+:global(.active) {
+  font-family: 'Clash Display Medium';
+  color: var(--dark-primary);
+}
