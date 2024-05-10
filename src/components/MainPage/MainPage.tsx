@@ -1,7 +1,8 @@
 import React from 'react';
+import ShopDescription from './ShopDescription';
 
 function MainPage() {
-  return <h1>Main page</h1>;
+  return <ShopDescription />;
 }
 
 export default MainPage;
