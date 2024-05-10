@@ -6,7 +6,7 @@ function Header() {
   return (
     <header className={style.header}>
       <nav className={style.nav}>
-        <NavLink to="." end className={style.link}>
+        <NavLink to="." className={style.link}>
           Main
         </NavLink>
         <NavLink to="login" className={style.link}>
