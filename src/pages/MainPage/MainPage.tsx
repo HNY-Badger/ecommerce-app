@@ -1,5 +1,5 @@
 import React from 'react';
-import ShopDescription from './ShopDescription';
+import ShopDescription from '../../components/MainPage/ShopDescription';
 
 function MainPage() {
   return <ShopDescription />;

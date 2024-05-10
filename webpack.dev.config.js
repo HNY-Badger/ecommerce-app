@@ -5,6 +5,6 @@ module.exports = {
   devtool: 'eval-source-map',
   devServer: {
     static: path.resolve(__dirname, 'public'),
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 };

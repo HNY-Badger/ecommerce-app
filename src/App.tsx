@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
-import MainPage from './components/MainPage/MainPage';
-import LoginPage from './components/LoginPage/LoginPage';
-import RegistrationPage from './components/RegistrationPage/RegistrationPage';
-import NotFoundPage from './components/NotFoundPage/NotFoundPage';
+import MainPage from './pages/MainPage/MainPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 export default function App() {
   return (
