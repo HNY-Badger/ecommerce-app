@@ -21,7 +21,7 @@
 
 .image {
   min-width: 50%;
-  background: var(--primary) url(../../assets/images/main.png) no-repeat center / contain;
+  background: #83a9ac url(../../assets/images/main.png) no-repeat center / contain;
 }
 
 @media (max-width: 800px) {
