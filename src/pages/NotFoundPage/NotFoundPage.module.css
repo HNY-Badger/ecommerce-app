@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: var(--dark-primary);
+  gap: 150px;
+}
+
+.wrapper_text {
+  display: flex;
+  align-items: center;
+  text-align: end;
+  width: 452px;
+}
+
+.wrapper_text h1 {
+  color: var(--white);
+  font-size: 128px;
+}
+
+.wrapper_block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  background-color: #83a9ac;
+  width: 520px;
+  height: 540px;
+}
+
+.wrapper_block {
+  color: var(--white);
+  font-size: 128px;
+}
