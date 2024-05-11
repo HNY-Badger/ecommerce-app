@@ -3,7 +3,7 @@ import * as styles from './Input.module.css';
 
 type Props = {
   value: string;
-  onInput: ChangeEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   label: string;
   id: string;
   type?: 'text' | 'password' | 'email' | 'date';
@@ -14,7 +14,7 @@ type Props = {
   max?: string;
 };
 
-function Input({ value, onInput, type = 'text', label, id, error, placeholder, required, min, max }: Props) {
+function Input({ value, onChange, type = 'text', label, id, error, placeholder, required, min, max }: Props) {
   return (
     <div className={styles.input_box}>
       <label htmlFor={id} className={styles.label}>
@@ -22,7 +22,7 @@ function Input({ value, onInput, type = 'text', label, id, error, placeholder, r
       </label>
       <input
         value={value}
-        onInput={onInput}
+        onChange={onChange}
         id={id}
         type={type}
         placeholder={placeholder}

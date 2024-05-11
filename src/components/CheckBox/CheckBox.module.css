@@ -1,0 +1,17 @@
+.checkbox_wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.checkbox {
+  accent-color: var(--dark-primary);
+  cursor: pointer;
+}
+
+.checkbox:disabled {
+  cursor: default;
+}
+
+.label {
+  color: var(--dark-primary);
+}
