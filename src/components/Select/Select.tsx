@@ -6,7 +6,7 @@ export type Option = {
   value: string;
 };
 
-type SelectProps = {
+type Props = {
   value: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
   label: string;
@@ -14,7 +14,7 @@ type SelectProps = {
   options: Option[];
 };
 
-function Select({ value, onChange, id, label, options }: SelectProps) {
+function Select({ value, onChange, id, label, options }: Props) {
   return (
     <div className={styles.select_wrapper}>
       <label htmlFor={id} className={styles.label}>
