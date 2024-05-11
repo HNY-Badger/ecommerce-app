@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler } from 'react';
 import * as styles from './CheckBox.module.css';
 
-type CheckBoxProps = {
+type Props = {
   checked: boolean;
   onChange: ChangeEventHandler<HTMLInputElement>;
   label: string;
@@ -9,7 +9,7 @@ type CheckBoxProps = {
   disabled?: boolean;
 };
 
-function CheckBox({ checked, onChange, label, id, disabled }: CheckBoxProps) {
+function CheckBox({ checked, onChange, label, id, disabled }: Props) {
   return (
     <div className={styles.checkbox_wrapper}>
       <input
