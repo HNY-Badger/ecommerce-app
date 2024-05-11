@@ -4,10 +4,10 @@ import ShopFeatures from '../../components/MainPage/ShopFeatures/ShopFeatures';
 
 function MainPage() {
   return (
-    <>
+    <main>
       <ShopDescription />
       <ShopFeatures />
-    </>
+    </main>
   );
 }
 

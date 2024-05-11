@@ -25,7 +25,7 @@ const data = [
   },
   {
     icon: IoShieldCheckmarkOutline,
-    title: 'Service and warrantys',
+    title: 'Service and warranties',
     description: 'Our experts are always ready to assist and resolve any issues',
   },
 ];
