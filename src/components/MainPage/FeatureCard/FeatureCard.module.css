@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 250px;
+}
+
+.icon {
+  font-size: 25px;
+}
+
+.title {
+  font-family: 'Clash Display Regular';
+}
