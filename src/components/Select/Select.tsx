@@ -4,7 +4,6 @@ import * as styles from './Select.module.css';
 export type Option = {
   text: string;
   value: string;
-  key: number;
 };
 
 type SelectProps = {
@@ -23,7 +22,7 @@ function Select({ value, onChange, id, label, options }: SelectProps) {
       </label>
       <select value={value} onChange={onChange} id={id} className={styles.select}>
         {options.map((option) => (
-          <option key={option.key} className={styles.option} value={option.value}>
+          <option key={value} className={styles.option} value={option.value}>
             {option.text}
           </option>
         ))}
