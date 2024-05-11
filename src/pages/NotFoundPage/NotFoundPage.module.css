@@ -3,6 +3,8 @@
   justify-content: center;
   background-color: var(--dark-primary);
   gap: 150px;
+  max-width: 100%;
+  margin: 100px auto;
 }
 
 .wrapper_text {
@@ -10,6 +12,9 @@
   align-items: center;
   text-align: end;
   width: 452px;
+  transition:
+    width 2s,
+    height 2s;
 }
 
 .wrapper_text h1 {
@@ -26,9 +31,63 @@
   background-color: #83a9ac;
   width: 520px;
   height: 540px;
+  transition:
+    width 2s,
+    height 2s;
 }
 
 .wrapper_block h2 {
   color: var(--white);
   font-size: 128px;
+}
+
+@media (max-width: 800px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .wrapper_text {
+    text-align: center;
+    width: 350px;
+  }
+
+  .wrapper_text h1 {
+    font-size: 72px;
+  }
+
+  .wrapper_block {
+    width: 320px;
+    height: 340px;
+    transition:
+      width 2s,
+      height 2s;
+  }
+
+  .wrapper_block h2 {
+    font-size: 72px;
+  }
+}
+
+@media (max-width: 350px) {
+  .wrapper_text {
+    justify-content: center;
+  }
+
+  .wrapper_text h1 {
+    font-size: 32px;
+  }
+
+  .wrapper_block {
+    width: 220px;
+    height: 240px;
+    transition:
+      width 2s,
+      height 2s;
+  }
+
+  .wrapper_block h2 {
+    font-size: 32px;
+  }
 }
