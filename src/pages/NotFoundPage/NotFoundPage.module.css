@@ -28,7 +28,7 @@
   height: 540px;
 }
 
-.wrapper_block {
+.wrapper_block h2 {
   color: var(--white);
   font-size: 128px;
 }
