@@ -10,9 +10,19 @@
 
 .cards {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
   align-self: stretch;
   margin-top: 20px;
+}
+
+@media (max-width: 1150px) {
+  .wrapper {
+    max-width: 750px;
+  }
+
+  .cards {
+    justify-content: space-around;
+  }
 }

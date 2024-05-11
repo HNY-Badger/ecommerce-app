@@ -13,7 +13,7 @@ function FeatureCard({ title, description, icon: Icon }: Props) {
   return (
     <div className={style.wrapper}>
       <Icon className={style.icon} />
-      <h4 className={style.title}>{title}</h4>
+      <h4>{title}</h4>
       <p>{description}</p>
     </div>
   );
