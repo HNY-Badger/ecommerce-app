@@ -1,0 +1,22 @@
+.select_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label,
+.select {
+  color: var(--dark-primary);
+}
+
+.select {
+  padding: 6px 10px;
+  background-color: #004e5b0f;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.option {
+  padding: 0;
+}
