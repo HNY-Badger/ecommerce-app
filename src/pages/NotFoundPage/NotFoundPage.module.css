@@ -28,7 +28,7 @@
 .wrapper_text p,
 .wrapper_block p {
   color: var(--white);
-  font-size: 128px;
+  font-size: 8rem;
 }
 
 @media (max-width: 800px) {
@@ -50,7 +50,7 @@
 
   .wrapper_text p,
   .wrapper_block p {
-    font-size: 72px;
+    font-size: 4.5rem;
   }
 }
 
@@ -67,6 +67,6 @@
 
   .wrapper_text p,
   .wrapper_block p {
-    font-size: 32px;
+    font-size: 2rem;
   }
 }
