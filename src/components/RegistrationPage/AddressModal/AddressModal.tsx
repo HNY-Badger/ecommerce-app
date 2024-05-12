@@ -101,7 +101,7 @@ function AddressModal({ onClose, info }: Props) {
           error={address.postalCode.error}
           onChange={(e) => inputHandler(e.target.value, address.country === 'US' ? 'postalCodeUS' : 'postalCodeCA')}
           label="Postal code"
-          id="postal_code"
+          id="postalCode"
         />
         <Select
           value={address.country}
