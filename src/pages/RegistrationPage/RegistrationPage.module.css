@@ -1,0 +1,27 @@
+.registration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.heading {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 450px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+
+  & > button {
+    flex: 1;
+  }
+}

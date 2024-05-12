@@ -1,0 +1,38 @@
+.address_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.top_address {
+  display: flex;
+  justify-content: space-between;
+}
+
+.address {
+  width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.buttons {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+
+  & > button {
+    all: unset;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    transition: 0.25s;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+}
+
+.bottom_address {
+  display: flex;
+  gap: 5px;
+}
