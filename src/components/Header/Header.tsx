@@ -7,7 +7,7 @@ function Header() {
     <header className={style.header}>
       <nav className={style.nav}>
         <NavLink to="/" className={style.link}>
-          Main
+          Home
         </NavLink>
         <NavLink to="login" className={style.link}>
           Login

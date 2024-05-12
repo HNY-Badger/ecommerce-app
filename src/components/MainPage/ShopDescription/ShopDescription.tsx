@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as style from './ShopDescription.module.css';
-import image from '../../assets/images/main.png';
+import image from '../../../assets/images/main.png';
 
 function ShopDescription() {
   return (

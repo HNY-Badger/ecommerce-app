@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1280px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: var(--dark-primary);
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-self: stretch;
+  margin-top: 20px;
+}
+
+@media (max-width: 1150px) {
+  .wrapper {
+    max-width: 750px;
+  }
+
+  .cards {
+    justify-content: space-around;
+  }
+}
