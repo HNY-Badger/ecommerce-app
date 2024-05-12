@@ -17,26 +17,26 @@ type AddressState = {
 };
 type Props = {
   onClose: () => void;
-  info?: AddressData;
+  addressData: AddressData | null;
 };
 
-function AddressModal({ onClose, info }: Props) {
+function AddressModal({ onClose, addressData }: Props) {
   const dispatch = useAppDispatch();
 
   const [address, setAddress] = useState<AddressState>({
     street: {
-      value: info?.street ?? '',
+      value: addressData?.street ?? '',
       error: '',
     },
     city: {
-      value: info?.city ?? '',
+      value: addressData?.city ?? '',
       error: '',
     },
     postalCode: {
-      value: info?.postalCode ?? '',
+      value: addressData?.postalCode ?? '',
       error: '',
     },
-    country: info?.country ?? 'US',
+    country: addressData?.country ?? 'US',
   });
 
   const inputHandler = (value: string, input: InputType | 'country') => {
@@ -76,7 +76,7 @@ function AddressModal({ onClose, info }: Props) {
       postalCode: address.postalCode.value,
       country: address.country,
     };
-    dispatch(setGlobalAddress({ info: newAddress, prevKey: info?.key }));
+    dispatch(setGlobalAddress({ info: newAddress, prevKey: addressData?.key }));
     onClose();
   };
   return (
@@ -115,7 +115,7 @@ function AddressModal({ onClose, info }: Props) {
         />
         <div className={styles.buttons}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={submitHandler}>{info ? 'Edit address' : 'Add address'}</Button>
+          <Button onClick={submitHandler}>{addressData ? 'Edit address' : 'Add address'}</Button>
         </div>
       </form>
     </div>

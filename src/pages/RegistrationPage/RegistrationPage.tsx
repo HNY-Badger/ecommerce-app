@@ -20,7 +20,7 @@ type UserState = {
 
 type ModalState = {
   isOpen: boolean;
-  addressData: AddressData | undefined;
+  addressData: AddressData | null;
 };
 
 function formatDate(date: Date): string {
@@ -33,7 +33,7 @@ function formatDate(date: Date): string {
 
 function RegistrationPage() {
   const navigate = useNavigate();
-  const [modal, setModal] = useState<ModalState>({ isOpen: false, addressData: undefined });
+  const [modal, setModal] = useState<ModalState>({ isOpen: false, addressData: null });
   const [user, setUser] = useState<UserState>({
     email: {
       value: '',
@@ -86,11 +86,11 @@ function RegistrationPage() {
     // Api here
   };
   const setEditModeHandler = (key: string): void => {
-    setModal({ isOpen: true, addressData: addresses.find((address) => address.key === key) });
+    setModal({ isOpen: true, addressData: addresses.find((address) => address.key === key) ?? null });
   };
   return (
     <div className={styles.registration}>
-      {modal.isOpen && <AddressModal info={modal.addressData} onClose={() => setModal({ isOpen: false, addressData: undefined })} />}
+      {modal.isOpen && <AddressModal addressData={modal.addressData} onClose={() => setModal({ isOpen: false, addressData: null })} />}
       <form className={styles.form}>
         <h2 className={styles.heading}>Create an account</h2>
         <Input
@@ -132,7 +132,7 @@ function RegistrationPage() {
           type="date"
         />
         <Addresses setEditMode={setEditModeHandler} error={addressesError} />
-        <Button onClick={() => setModal({ isOpen: true, addressData: undefined })}>Add address</Button>
+        <Button onClick={() => setModal({ isOpen: true, addressData: null })}>Add address</Button>
         <div className={styles.buttons}>
           <Button onClick={() => navigate('/login')}>To login</Button>
           <Button onClick={registerHandler}>Register</Button>
