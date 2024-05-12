@@ -1,9 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import addressesReducer from './reducers/RegAddressesSlice';
 
-const rootReducer = combineReducers({
-  addressesReducer,
-});
+const rootReducer = combineReducers({});
 
 export const store = configureStore({
   reducer: rootReducer,

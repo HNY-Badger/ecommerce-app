@@ -3,7 +3,7 @@ export type InputType =
   | 'password'
   | 'firstName'
   | 'lastName'
-  | 'birthday'
+  | 'dateOfBirth'
   | 'street'
   | 'city'
   | 'postalCodeUS'

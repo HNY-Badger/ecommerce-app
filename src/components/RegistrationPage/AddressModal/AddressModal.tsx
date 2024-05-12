@@ -1,11 +1,10 @@
 import React, { MouseEventHandler, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import * as styles from './AddressModal.module.css';
 import Input from '../../Input/Input';
 import Select from '../../Select/Select';
 import Button from '../../Button/Button';
 import Validation from '../../../data/Validation/validation';
-import { setAddress as setGlobalAddress } from '../../../store/reducers/RegAddressesSlice';
-import { useAppDispatch } from '../../../store/hooks/redux';
 import { InputState, InputType } from '../../../types/input';
 import { AddressData } from '../../../types/user';
 
@@ -17,15 +16,14 @@ type AddressState = {
 };
 type Props = {
   onClose: () => void;
+  addAddress: (data: AddressData) => void;
   addressData: AddressData | null;
 };
 
-function AddressModal({ onClose, addressData }: Props) {
-  const dispatch = useAppDispatch();
-
+function AddressModal({ onClose, addAddress, addressData }: Props) {
   const [address, setAddress] = useState<AddressState>({
     street: {
-      value: addressData?.street ?? '',
+      value: addressData?.streetName ?? '',
       error: '',
     },
     city: {
@@ -69,14 +67,13 @@ function AddressModal({ onClose, addressData }: Props) {
     if (Object.values(address).some((input) => input !== 'US' && input !== 'CA' && !input.value)) {
       return;
     }
-    const newAddress: AddressData = {
-      key: `${address.city.value}${address.postalCode.value}${address.country}`,
-      street: address.street.value,
+    addAddress({
+      key: addressData?.key ?? uuidv4(),
+      streetName: address.street.value,
       city: address.city.value,
       postalCode: address.postalCode.value,
       country: address.country,
-    };
-    dispatch(setGlobalAddress({ info: newAddress, prevKey: addressData?.key }));
+    });
     onClose();
   };
   return (

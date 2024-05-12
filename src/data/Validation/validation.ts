@@ -1,4 +1,4 @@
-import { InputType } from "../../types/input";
+import { InputType } from '../../types/input';
 
 type Rule = {
   check: (text: string) => boolean;
@@ -74,7 +74,7 @@ ruleSet.set('lastName', [
     message: 'Only English letters or spaces are allowed',
   },
 ]);
-ruleSet.set('birthday', [
+ruleSet.set('dateOfBirth', [
   {
     check(text) {
       const now = new Date();

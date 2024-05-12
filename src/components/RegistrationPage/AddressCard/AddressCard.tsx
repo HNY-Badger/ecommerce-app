@@ -1,39 +1,30 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { MdEdit, MdRemoveCircle } from 'react-icons/md';
 import * as styles from './AddressCard.module.css';
 import CheckBox from '../../CheckBox/CheckBox';
-import { removeAddress, setDefaultAddress } from '../../../store/reducers/RegAddressesSlice';
-import { useAppDispatch } from '../../../store/hooks/redux';
 import { AddressData } from '../../../types/user';
 
 type Props = {
   addressData: AddressData;
   setEditMode: (key: string) => void;
-  billing?: boolean;
-  shipping?: boolean;
+  removeAddress: () => void;
+  setDefaultAddress: (checked: boolean, type: 'defaultBillingAddress' | 'defaultShippingAddress') => void;
+  billing: boolean;
+  shipping: boolean;
 };
 
-function AddressCard({ addressData, setEditMode, billing, shipping }: Props) {
-  const dispatch = useAppDispatch();
-
-  const editHandler: MouseEventHandler<HTMLButtonElement> = () => {
-    setEditMode(addressData.key);
-  };
-  const removeHandler: MouseEventHandler<HTMLButtonElement> = () => {
-    dispatch(removeAddress(addressData.key));
-  };
-  const setDefaultHandler = (checked: boolean, type: 'billing' | 'shipping') => {
-    dispatch(setDefaultAddress({ key: addressData.key, checked, type }));
-  };
+function AddressCard({ addressData, setEditMode, removeAddress, setDefaultAddress, billing, shipping }: Props) {
   return (
     <div className={styles.address_wrapper}>
       <div className={styles.top_address}>
-        <p className={styles.address}>{`${addressData.street}, ${addressData.city}, ${addressData.postalCode}, ${addressData.country}`}</p>
+        <p
+          className={styles.address}
+        >{`${addressData.streetName}, ${addressData.city}, ${addressData.postalCode}, ${addressData.country}`}</p>
         <div className={styles.buttons}>
-          <button aria-label="edit" type="button" onClick={editHandler}>
+          <button aria-label="edit" type="button" onClick={() => setEditMode(addressData.key)}>
             <MdEdit style={{ width: '100%', height: '100%' }} />
           </button>
-          <button aria-label="remove" type="button" onClick={removeHandler}>
+          <button aria-label="remove" type="button" onClick={removeAddress}>
             <MdRemoveCircle style={{ width: '100%', height: '100%' }} />
           </button>
         </div>
@@ -43,13 +34,13 @@ function AddressCard({ addressData, setEditMode, billing, shipping }: Props) {
           label="Billing"
           id={`billing-${addressData.key}`}
           checked={billing ?? false}
-          onChange={(e) => setDefaultHandler(e.target.checked, 'billing')}
+          onChange={(e) => setDefaultAddress(e.target.checked, 'defaultBillingAddress')}
         />
         <CheckBox
           label="Shipping"
           id={`shipping-${addressData.key}`}
           checked={shipping ?? false}
-          onChange={(e) => setDefaultHandler(e.target.checked, 'shipping')}
+          onChange={(e) => setDefaultAddress(e.target.checked, 'defaultShippingAddress')}
         />
       </div>
     </div>
