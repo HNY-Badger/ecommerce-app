@@ -12,7 +12,7 @@ function NotFoundPage() {
       </div>
       <div className={style.wrapper_block}>
         <h2>404</h2>
-        <Link to=".">
+        <Link to="/">
           <Button type="button">Return to Home Page</Button>
         </Link>
       </div>
