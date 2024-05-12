@@ -8,10 +8,10 @@ function NotFoundPage() {
   return (
     <div className={style.wrapper}>
       <div className={style.wrapper_text}>
-        <h1>Page Not Found</h1>
+        <p>Page Not Found</p>
       </div>
       <div className={style.wrapper_block}>
-        <h2>404</h2>
+        <p>404</p>
         <Link to="/">
           <Button type="button">Return to Home Page</Button>
         </Link>
