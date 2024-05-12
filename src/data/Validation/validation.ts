@@ -1,27 +1,12 @@
+import { InputType } from "../../types/input";
+
 type Rule = {
   check: (text: string) => boolean;
   message: string;
 };
 
-export type InputType =
-  | 'email'
-  | 'password'
-  | 'firstName'
-  | 'lastName'
-  | 'birthday'
-  | 'street'
-  | 'city'
-  | 'postalCodeUS'
-  | 'postalCodeCA';
-
 const ruleSet = new Map<InputType, Rule[]>();
 ruleSet.set('email', [
-  // { // Doesn't work correctly for some reason. Same Regex works on regex101.com. Fails on 'test@gmail.comццц'
-  //   check(text) {
-  //     return /^[A-Za-z0-9!#$%&'*+\/=?^_`{|}~.@\-]+$/.test(text)
-  //   },
-  //   message: 'Only English letters, numbers or special characters are allowed'
-  // },
   {
     check(text) {
       return /(.+)@(.+){2,}\.(.+){2,}/.test(text);

@@ -1,21 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-
-export type AddressInfo = {
-  key: string;
-  street: string;
-  city: string;
-  postalCode: string;
-  country: 'US' | 'CA';
-};
+import { AddressData } from '../../types/user';
 
 type AddressesState = {
-  addresses: AddressInfo[];
-  billing: AddressInfo | null;
-  shipping: AddressInfo | null;
+  addresses: AddressData[];
+  billing: AddressData | null;
+  shipping: AddressData | null;
 };
 
 type SetType = {
-  info: AddressInfo;
+  info: AddressData;
   prevKey?: string;
 };
 

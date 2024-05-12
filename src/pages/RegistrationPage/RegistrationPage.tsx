@@ -4,17 +4,11 @@ import * as styles from './RegistrationPage.module.css';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import AddressModal from '../../components/RegistrationPage/AddressModal/AddressModal';
-import Validation, { InputType } from '../../data/Validation/validation';
+import Validation from '../../data/Validation/validation';
 import Addresses from '../../components/RegistrationPage/Addresses/Addresses';
-import { AddressInfo } from '../../store/reducers/RegAddressesSlice';
 import { useAppSelector } from '../../store/hooks/redux';
-
-export type InputState<T> = {
-  value: T;
-  error: string;
-};
-
-export type SetEditCallback = (key: string) => void;
+import { InputState, InputType } from '../../types/input';
+import { AddressData } from '../../types/user';
 
 type UserState = {
   email: InputState<string>;
@@ -26,7 +20,7 @@ type UserState = {
 
 type ModalState = {
   isOpen: boolean;
-  edit: AddressInfo | undefined;
+  addressData: AddressData | undefined;
 };
 
 function formatDate(date: Date): string {
@@ -39,7 +33,7 @@ function formatDate(date: Date): string {
 
 function RegistrationPage() {
   const navigate = useNavigate();
-  const [modal, setModal] = useState<ModalState>({ isOpen: false, edit: undefined });
+  const [modal, setModal] = useState<ModalState>({ isOpen: false, addressData: undefined });
   const [user, setUser] = useState<UserState>({
     email: {
       value: '',
@@ -91,12 +85,12 @@ function RegistrationPage() {
     }
     // Api here
   };
-  const setEditHandler: SetEditCallback = (key: string): void => {
-    setModal({ isOpen: true, edit: addresses.find((address) => address.key === key) });
+  const setEditModeHandler = (key: string): void => {
+    setModal({ isOpen: true, addressData: addresses.find((address) => address.key === key) });
   };
   return (
     <div className={styles.registration}>
-      {modal.isOpen && <AddressModal info={modal.edit} onClose={() => setModal({ isOpen: false, edit: undefined })} />}
+      {modal.isOpen && <AddressModal info={modal.addressData} onClose={() => setModal({ isOpen: false, addressData: undefined })} />}
       <form className={styles.form}>
         <h2 className={styles.heading}>Create an account</h2>
         <Input
@@ -137,8 +131,8 @@ function RegistrationPage() {
           max={formatDate(new Date())}
           type="date"
         />
-        <Addresses setEdit={setEditHandler} error={addressesError} />
-        <Button onClick={() => setModal({ isOpen: true, edit: undefined })}>Add address</Button>
+        <Addresses setEditMode={setEditModeHandler} error={addressesError} />
+        <Button onClick={() => setModal({ isOpen: true, addressData: undefined })}>Add address</Button>
         <div className={styles.buttons}>
           <Button onClick={() => navigate('/login')}>To login</Button>
           <Button onClick={registerHandler}>Register</Button>

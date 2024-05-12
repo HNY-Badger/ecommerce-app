@@ -2,14 +2,13 @@ import React from 'react';
 import * as styles from './Addresses.module.css';
 import AddressCard from '../AddressCard/AddressCard';
 import { useAppSelector } from '../../../store/hooks/redux';
-import { SetEditCallback } from '../../../pages/RegistrationPage/RegistrationPage';
 
 type Props = {
-  setEdit: SetEditCallback;
+  setEditMode: (key: string) => void;
   error?: string;
 };
 
-function Addresses({ setEdit, error }: Props) {
+function Addresses({ setEditMode, error }: Props) {
   const { addresses, billing, shipping } = useAppSelector((state) => state.addressesReducer);
 
   return (
@@ -20,8 +19,8 @@ function Addresses({ setEdit, error }: Props) {
         {addresses.map((address) => (
           <AddressCard
             key={address.key}
-            info={address}
-            setEdit={setEdit}
+            addressData={address}
+            setEditMode={setEditMode}
             billing={address === billing}
             shipping={address === shipping}
           />

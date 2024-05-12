@@ -3,10 +3,11 @@ import * as styles from './AddressModal.module.css';
 import Input from '../../Input/Input';
 import Select from '../../Select/Select';
 import Button from '../../Button/Button';
-import { InputState } from '../../../pages/RegistrationPage/RegistrationPage';
-import Validation, { InputType } from '../../../data/Validation/validation';
-import { AddressInfo, setAddress as setGlobalAddress } from '../../../store/reducers/RegAddressesSlice';
+import Validation from '../../../data/Validation/validation';
+import { setAddress as setGlobalAddress } from '../../../store/reducers/RegAddressesSlice';
 import { useAppDispatch } from '../../../store/hooks/redux';
+import { InputState, InputType } from '../../../types/input';
+import { AddressData } from '../../../types/user';
 
 type AddressState = {
   street: InputState<string>;
@@ -16,7 +17,7 @@ type AddressState = {
 };
 type Props = {
   onClose: () => void;
-  info?: AddressInfo;
+  info?: AddressData;
 };
 
 function AddressModal({ onClose, info }: Props) {
@@ -68,14 +69,14 @@ function AddressModal({ onClose, info }: Props) {
     if (Object.values(address).some((input) => input !== 'US' && input !== 'CA' && !input.value)) {
       return;
     }
-    const newInfo: AddressInfo = {
+    const newAddress: AddressData = {
       key: `${address.city.value}${address.postalCode.value}${address.country}`,
       street: address.street.value,
       city: address.city.value,
       postalCode: address.postalCode.value,
       country: address.country,
     };
-    dispatch(setGlobalAddress({ info: newInfo, prevKey: info?.key }));
+    dispatch(setGlobalAddress({ info: newAddress, prevKey: info?.key }));
     onClose();
   };
   return (
