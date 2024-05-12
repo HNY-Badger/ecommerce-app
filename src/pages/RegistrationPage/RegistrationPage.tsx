@@ -95,7 +95,7 @@ function RegistrationPage() {
     setModal({ isOpen: true, edit: addresses.find((address) => address.key === key) });
   };
   return (
-    <main className={styles.registration}>
+    <div className={styles.registration}>
       {modal.isOpen && <AddressModal info={modal.edit} onClose={() => setModal({ isOpen: false, edit: undefined })} />}
       <form className={styles.form}>
         <h2 className={styles.heading}>Create an account</h2>
@@ -144,7 +144,7 @@ function RegistrationPage() {
           <Button onClick={registerHandler}>Register</Button>
         </div>
       </form>
-    </main>
+    </div>
   );
 }
 
