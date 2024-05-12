@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from 'react';
 import { MdEdit, MdRemoveCircle } from 'react-icons/md';
 import * as styles from './AddressCard.module.css';
 import CheckBox from '../../CheckBox/CheckBox';
-import { AddressInfo, regAdressesSlice } from '../../../store/reducers/RegAddressesSlice';
+import { AddressInfo, removeAddress, setDefaultAddress } from '../../../store/reducers/RegAddressesSlice';
 import { useAppDispatch } from '../../../store/hooks/redux';
 
 type Props = {
@@ -14,7 +14,6 @@ type Props = {
 
 function AddressCard({ info, setEdit, billing, shipping }: Props) {
   const dispatch = useAppDispatch();
-  const { removeAddress, setDefaultAddress } = regAdressesSlice.actions;
 
   const editHandler: MouseEventHandler<HTMLButtonElement> = () => {
     setEdit(info.key, billing ?? false, shipping ?? false);

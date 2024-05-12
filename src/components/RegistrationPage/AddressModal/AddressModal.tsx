@@ -5,7 +5,7 @@ import Select from '../../Select/Select';
 import Button from '../../Button/Button';
 import { InputState } from '../../../pages/RegistrationPage/RegistrationPage';
 import Validation, { InputType } from '../../../data/Validation/validation';
-import { AddressInfo, regAdressesSlice } from '../../../store/reducers/RegAddressesSlice';
+import { AddressInfo, setAddress as setGlobalAddress } from '../../../store/reducers/RegAddressesSlice';
 import { useAppDispatch } from '../../../store/hooks/redux';
 
 type AddressState = {
@@ -21,7 +21,6 @@ type Props = {
 
 function AddressModal({ onClose, info }: Props) {
   const dispatch = useAppDispatch();
-  const { setAddress: setGlobalAddress } = regAdressesSlice.actions;
 
   const [address, setAddress] = useState<AddressState>({
     street: {

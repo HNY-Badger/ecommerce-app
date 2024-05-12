@@ -67,4 +67,5 @@ export const regAdressesSlice = createSlice({
   },
 });
 
+export const { setAddress, removeAddress, setDefaultAddress } = regAdressesSlice.actions;
 export default regAdressesSlice.reducer;
