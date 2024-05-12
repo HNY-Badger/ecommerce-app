@@ -14,11 +14,6 @@
   width: 452px;
 }
 
-.wrapper_text h1 {
-  color: var(--white);
-  font-size: 128px;
-}
-
 .wrapper_block {
   display: flex;
   flex-direction: column;
@@ -30,7 +25,8 @@
   height: 540px;
 }
 
-.wrapper_block h2 {
+.wrapper_text p,
+.wrapper_block p {
   color: var(--white);
   font-size: 128px;
 }
@@ -47,16 +43,13 @@
     width: 350px;
   }
 
-  .wrapper_text h1 {
-    font-size: 72px;
-  }
-
   .wrapper_block {
     width: 320px;
     height: 340px;
   }
 
-  .wrapper_block h2 {
+  .wrapper_text p,
+  .wrapper_block p {
     font-size: 72px;
   }
 }
@@ -67,16 +60,13 @@
     width: 250px;
   }
 
-  .wrapper_text h1 {
-    font-size: 32px;
-  }
-
   .wrapper_block {
     width: 220px;
     height: 240px;
   }
 
-  .wrapper_block h2 {
+  .wrapper_text p,
+  .wrapper_block p {
     font-size: 32px;
   }
 }
