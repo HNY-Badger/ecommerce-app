@@ -22,7 +22,7 @@ function Select({ value, onChange, id, label, options }: Props) {
       </label>
       <select value={value} onChange={onChange} id={id} className={styles.select}>
         {options.map((option) => (
-          <option key={value} className={styles.option} value={option.value}>
+          <option key={option.value} className={styles.option} value={option.value}>
             {option.text}
           </option>
         ))}

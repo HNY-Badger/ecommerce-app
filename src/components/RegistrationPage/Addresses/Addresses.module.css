@@ -1,0 +1,13 @@
+.addresses_wrapper {
+  color: var(--dark-primary);
+}
+
+.addresses_error {
+  color: var(--error);
+}
+
+.addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

@@ -1,0 +1,35 @@
+.modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0000002a;
+  z-index: 2;
+}
+
+.form {
+  width: 390px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--white);
+}
+
+.checkboxes {
+  display: flex;
+  gap: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  & > button {
+    flex: 1;
+  }
+}
