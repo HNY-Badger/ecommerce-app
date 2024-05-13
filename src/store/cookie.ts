@@ -1,6 +1,6 @@
 type CookieKey = 'accessToken' | 'refreshToken' | 'customerID';
 
-export default class Cookie {
+class Cookie {
   public static getCookie(key: CookieKey): string | undefined {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${key}=`);
@@ -20,3 +20,5 @@ export default class Cookie {
     document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
   }
 }
+
+export default Cookie;
