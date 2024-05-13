@@ -33,7 +33,8 @@ class TokenAPI {
       .post<CustomerTokenResponse>(`/${process.env.CTP_PROJECT_KEY}/customers/token`, data)
       .then((resp) => {
         const accessExpire = new Date(new Date().getTime() + resp.data.expires_in);
-        const refreshExpire = new Date(new Date().getTime() + 2592000000); // 30 days
+        const refreshLifeTime = 2592000000; // 30 days
+        const refreshExpire = new Date(new Date().getTime() + refreshLifeTime);
         Cookie.setCookie('accessToken', resp.data.access_token, accessExpire);
         Cookie.setCookie('refreshToken', resp.data.refresh_token, refreshExpire);
         return resp.data;
