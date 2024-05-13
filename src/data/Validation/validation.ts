@@ -85,7 +85,7 @@ ruleSet.set('dateOfBirth', [
     message: 'You must at least 13 years old',
   },
 ]);
-ruleSet.set('street', [
+ruleSet.set('streetName', [
   {
     check(text) {
       return /(.+){1,}/.test(text);
@@ -112,7 +112,7 @@ ruleSet.set('postalCodeUS', [
     check(text) {
       return /^\d{5}(?:-\d{4})?$/.test(text);
     },
-    message: `Postal code doesn't meet U.S. format`,
+    message: `Postal code doesn't meet U.S. format\n(e.g., 12345)`,
   },
 ]);
 ruleSet.set('postalCodeCA', [
@@ -120,7 +120,7 @@ ruleSet.set('postalCodeCA', [
     check(text) {
       return /^[A-Z]\d[A-Z] \d[A-Z]\d$/.test(text);
     },
-    message: `Postal code doesn't meet Canada format`,
+    message: `Postal code doesn't meet Canada format\n(e.g., A1B 2C3)`,
   },
 ]);
 class Validation {

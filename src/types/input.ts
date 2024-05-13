@@ -4,12 +4,7 @@ export type InputType =
   | 'firstName'
   | 'lastName'
   | 'dateOfBirth'
-  | 'street'
+  | 'streetName'
   | 'city'
   | 'postalCodeUS'
   | 'postalCodeCA';
-
-export type InputState<T> = {
-  value: T;
-  error: string;
-};
