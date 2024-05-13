@@ -17,6 +17,10 @@
   cursor: pointer;
 }
 
+.link:hover {
+  color: var(--dark-primary);
+}
+
 :global(.active) {
   font-family: 'Clash Display Medium';
   color: var(--dark-primary);
