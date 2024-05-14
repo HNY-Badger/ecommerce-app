@@ -1,9 +1,11 @@
+export type CountryType = 'US' | 'CA';
+
 export type AddressData = {
   key: string;
   streetName: string;
   city: string;
   postalCode: string;
-  country: 'US' | 'CA';
+  country: CountryType;
 };
 
 export type CustomerRegistrationData = {
@@ -13,7 +15,9 @@ export type CustomerRegistrationData = {
   lastName: string;
   dateOfBirth: string;
   addresses: AddressData[];
+  shippingAddresses: number[];
   defaultShippingAddress?: number;
+  billingAddresses: number[];
   defaultBillingAddress?: number;
 };
 

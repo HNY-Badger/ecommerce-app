@@ -1,4 +1,4 @@
-type CookieKey = 'accessToken' | 'refreshToken' | 'customerID';
+type CookieKey = 'accessToken' | 'refreshToken';
 
 class Cookie {
   public static getCookie(key: CookieKey): string | undefined {
@@ -8,10 +8,11 @@ class Cookie {
     return undefined;
   }
 
-  public static setCookie(key: CookieKey, value: string, expires?: Date): void {
+  public static setCookie(key: CookieKey, value: string, expires?: number): void {
     let cookie = `${key}=${value};path=/;`;
     if (expires) {
-      cookie += `expires=${expires.toUTCString()}`;
+      const expireDate = new Date(new Date().getTime() + expires);
+      cookie += `expires=${expireDate.toUTCString()}`;
     }
     document.cookie = cookie;
   }

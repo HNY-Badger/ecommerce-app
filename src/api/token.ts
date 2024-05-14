@@ -1,7 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import Cookie from '../store/cookie';
 import { TokenResponse, CustomerTokenResponse } from '../types/token';
-import { APIErrorResponse } from '../types/api';
 
 class TokenAPI {
   private static tokenAPI = axios.create({
@@ -12,66 +11,61 @@ class TokenAPI {
     },
   });
 
-  public static async updateToken(): Promise<TokenResponse | CustomerTokenResponse | undefined> {
+  public static async updateToken(): Promise<TokenResponse | CustomerTokenResponse> {
     if (Cookie.getCookie('refreshToken')) {
-      return this.refreshCustomerToken().catch(() => {
+      try {
+        const resp = await this.refreshCustomerToken();
+        return resp;
+      } catch {
         Cookie.removeCookie('refreshToken');
         return this.getAnonToken();
-      });
+      }
     }
     return this.getAnonToken();
   }
 
-  public static async getCustomerToken(email: string, password: string): Promise<CustomerTokenResponse | undefined> {
+  public static async getCustomerToken(email: string, password: string): Promise<CustomerTokenResponse> {
     const data = {
       grant_type: 'password',
       scope: `${process.env.CTP_SCOPES}`,
       username: email,
       password,
     };
-    return this.tokenAPI
-      .post<CustomerTokenResponse>(`/${process.env.CTP_PROJECT_KEY}/customers/token`, data)
-      .then((resp) => {
-        const accessExpire = new Date(new Date().getTime() + resp.data.expires_in);
-        const refreshLifeTime = 2592000000; // 30 days
-        const refreshExpire = new Date(new Date().getTime() + refreshLifeTime);
-        Cookie.setCookie('accessToken', resp.data.access_token, accessExpire);
-        Cookie.setCookie('refreshToken', resp.data.refresh_token, refreshExpire);
-        return resp.data;
-      })
-      .catch((err: AxiosError<APIErrorResponse>) => Promise.reject(err.response?.data));
+    const resp = await this.tokenAPI.post<CustomerTokenResponse>(
+      `/${process.env.CTP_PROJECT_KEY}/customers/token`,
+      data
+    );
+    const accessLifetime = resp.data.expires_in;
+    const refreshLifetime = 2592000000; // 30 days
+    Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime);
+    Cookie.setCookie('refreshToken', resp.data.refresh_token, refreshLifetime);
+    return resp.data;
   }
 
-  private static async refreshCustomerToken(): Promise<TokenResponse | undefined> {
+  private static async refreshCustomerToken(): Promise<TokenResponse> {
     const data = {
       grant_type: 'refresh_token',
       refresh_token: Cookie.getCookie('refreshToken'),
     };
-    return this.tokenAPI
-      .post<TokenResponse>('/token', data)
-      .then((resp) => {
-        if (resp.status === 200) {
-          const expire = new Date(new Date().getTime() + resp.data.expires_in);
-          Cookie.setCookie('accessToken', resp.data.access_token, expire);
-        }
-        return resp.data;
-      })
-      .catch((err: AxiosError<APIErrorResponse>) => Promise.reject(err.response?.data));
+    const resp = await this.tokenAPI.post<TokenResponse>('/token', data);
+    if (resp.status === 200) {
+      const accessLifetime = resp.data.expires_in;
+      Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime);
+    }
+    return resp.data;
   }
 
-  private static async getAnonToken(): Promise<TokenResponse | undefined> {
+  private static async getAnonToken(): Promise<TokenResponse> {
     const data = {
       grant_type: 'client_credentials',
       scope: `${process.env.CTP_SCOPES}`,
     };
-    return this.tokenAPI
-      .post<TokenResponse>(`/${process.env.CTP_PROJECT_KEY}/anonymous/token`, data)
-      .then((resp) => {
-        const expire = new Date(new Date().getTime() + resp.data.expires_in);
-        Cookie.setCookie('accessToken', resp.data.access_token, expire);
-        return resp.data;
-      })
-      .catch((err: AxiosError<APIErrorResponse>) => Promise.reject(err.response?.data));
+    const resp = await this.tokenAPI.post<TokenResponse>(`/${process.env.CTP_PROJECT_KEY}/anonymous/token`, data);
+    if (resp.status === 200) {
+      const accessLifetime = resp.data.expires_in;
+      Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime);
+    }
+    return resp.data;
   }
 }
 
