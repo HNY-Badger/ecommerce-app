@@ -2,7 +2,6 @@ import axios from 'axios';
 import { CustomerRegistrationData, CustomerResponse } from '../types/customer';
 import Cookie from '../store/cookie';
 import TokenAPI from './token';
-import LocalStorage from '../store/localStorage';
 
 class AuthAPI {
   private static authAPI = axios.create({

@@ -1,6 +1,7 @@
 export type CountryType = 'US' | 'CA';
 
 export type AddressData = {
+  id: string;
   key: string;
   streetName: string;
   city: string;
@@ -24,9 +25,15 @@ export type CustomerRegistrationData = {
 export type Customer = {
   id: string;
   email: string;
+  password: string;
   firstName: string;
   lastName: string;
-  password: string;
+  dateOfBirth: string;
+  addresses: AddressData[];
+  billingAddressIds: string[];
+  defaultBillingAddressId: string;
+  shippingAddressIds: string[];
+  defaultShippingAddressId: string;
 };
 
 export type CustomerResponse = {
