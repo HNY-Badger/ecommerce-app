@@ -18,11 +18,12 @@ class AuthAPI {
       const resp = await TokenAPI.updateToken();
       token = resp?.access_token;
     }
-    return this.authAPI.post(`/${process.env.CTP_PROJECT_KEY}/customers`, data, {
+    const resp = await this.authAPI.post<CustomerResponse>(`/${process.env.CTP_PROJECT_KEY}/customers`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    return resp.data;
   }
 
   public static async login(email: string, password: string): Promise<CustomerResponse> {
@@ -37,7 +38,6 @@ class AuthAPI {
         },
       }
     );
-    LocalStorage.setItem('customer', resp.data.customer);
     return resp.data;
   }
 }
