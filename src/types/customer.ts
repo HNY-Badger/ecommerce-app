@@ -1,6 +1,6 @@
 export type CountryType = 'US' | 'CA';
 
-export type AddressData = {
+export type Address = {
   id: string;
   key: string;
   streetName: string;
@@ -9,12 +9,17 @@ export type AddressData = {
   country: CountryType;
 };
 
-export type CustomerRegistrationData = {
+export type AddressData = Omit<Address, 'id'>;
+
+type CustomerBaseInfo = {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
   dateOfBirth: string;
+};
+
+export type CustomerRegistrationData = CustomerBaseInfo & {
   addresses: AddressData[];
   shippingAddresses: number[];
   defaultShippingAddress?: number;
@@ -22,14 +27,9 @@ export type CustomerRegistrationData = {
   defaultBillingAddress?: number;
 };
 
-export type Customer = {
+export type Customer = CustomerBaseInfo & {
   id: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  addresses: AddressData[];
+  addresses: Address[];
   billingAddressIds: string[];
   defaultBillingAddressId: string;
   shippingAddressIds: string[];
