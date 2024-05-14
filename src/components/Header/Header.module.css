@@ -14,14 +14,14 @@
 .link {
   text-decoration: none;
   color: var(--link-color);
-  cursor: pointer;
 }
 
 .link:hover {
   color: var(--dark-primary);
 }
 
-:global(.active) {
+.link_active {
   font-family: 'Clash Display Medium';
   color: var(--dark-primary);
+  text-decoration: none;
 }
