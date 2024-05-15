@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import MainLayout from './components/MainLayout/MainLayout';
 import MainPage from './pages/MainPage/MainPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
@@ -10,14 +9,14 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 export default function App() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<MainPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="registration" element={<RegistrationPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }
