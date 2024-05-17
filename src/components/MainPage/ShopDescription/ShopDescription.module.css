@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   min-width: 50%;
-  background-color: #83a9ac;
+  background-color: var(--primary);
 }
 
 .image {

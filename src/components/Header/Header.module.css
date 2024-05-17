@@ -1,7 +1,9 @@
 .header {
+  display: flex;
   max-width: 1280px;
   margin: 0 auto;
   padding: 40px 20px;
+  position: relative;
 }
 
 .nav {
@@ -24,4 +26,30 @@
   font-family: 'Clash Display Medium';
   color: var(--dark-primary);
   text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .header {
+    justify-content: start;
+    margin: 0;
+    padding-left: 50px;
+  }
+
+  .nav {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 100px 50px;
+    background-color: var(--white);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    transition: all 0.3s;
+    transform: translateX(-100%);
+  }
+
+  .nav_open {
+    transform: translateX(0);
+  }
 }

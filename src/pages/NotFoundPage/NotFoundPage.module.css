@@ -20,7 +20,7 @@
   justify-content: center;
   align-items: center;
   gap: 50px;
-  background-color: #83a9ac;
+  background-color: var(--primary);
   width: 520px;
   height: 540px;
 }
