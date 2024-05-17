@@ -30,12 +30,13 @@
 
 @media (max-width: 768px) {
   .header {
-    justify-content: start;
+    justify-content: end;
     margin: 0;
-    padding-left: 50px;
+    padding: 27px 20px;
   }
 
   .nav {
+    font-size: 2rem;
     flex-direction: column;
     justify-content: flex-start;
     padding: 100px 50px;
@@ -46,7 +47,7 @@
     bottom: 0;
     top: 0;
     transition: all 0.3s;
-    transform: translateX(-100%);
+    transform: translateX(100%);
   }
 
   .nav_open {
