@@ -11,6 +11,10 @@
   cursor: pointer;
 }
 
+.burger_open {
+  position: fixed;
+}
+
 .line {
   width: 30px;
   height: 2px;
