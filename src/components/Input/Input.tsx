@@ -4,35 +4,22 @@ import * as styles from './Input.module.css';
 type Props = {
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  label: string;
   id: string;
-  type?: 'text' | 'password' | 'email' | 'date';
-  error?: string;
-  placeholder?: string;
-  required?: boolean;
-  min?: string;
+  type?: 'password' | 'date' | 'text' | 'email';
+  error?: boolean;
   max?: string;
 };
 
-function Input({ value, onChange, type = 'text', label, id, error, placeholder, required, min, max }: Props) {
+function Input({ value, onChange, id, type = 'text', error, max }: Props) {
   return (
-    <div className={styles.input_box}>
-      <label htmlFor={id} className={styles.label}>
-        {label}
-      </label>
-      <input
-        value={value}
-        onChange={onChange}
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        className={`${styles.input} ${error ? styles.input_error : ''}`}
-        required={required}
-        min={min}
-        max={max}
-      />
-      {error && <p className={styles.error}>{error}</p>}
-    </div>
+    <input
+      value={value}
+      onChange={onChange}
+      id={id}
+      type={type}
+      className={`${styles.input} ${error ? styles.input_error : ''}`}
+      max={max}
+    />
   );
 }
 

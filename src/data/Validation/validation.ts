@@ -13,6 +13,12 @@ ruleSet.set('email', [
     },
     message: `Email doesn't meet format`,
   },
+  {
+    check(text) {
+      return !/[\s]/.test(text);
+    },
+    message: `Email shouldn't contain white spaces`,
+  },
 ]);
 ruleSet.set('password', [
   {
@@ -41,9 +47,10 @@ ruleSet.set('password', [
   },
   {
     check(text) {
-      return /^[A-Za-z0-9]*$/.test(text);
+      return /^[A-Za-z0-9!@#$%^&*]*$/.test(text);
     },
-    message: 'Only English letters or numbers are allowed',
+    message:
+      'Password can only contain:\n  - English letters (A-z)\n  - Numbers (0-9)\n  - Special characters (! @ # $ % ^ & *)',
   },
 ]);
 ruleSet.set('firstName', [

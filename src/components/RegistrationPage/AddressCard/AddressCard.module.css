@@ -3,12 +3,12 @@
   flex-direction: column;
 }
 
-.top_address {
+.address {
   display: flex;
   justify-content: space-between;
 }
 
-.address {
+.address_text {
   width: 100%;
   overflow-wrap: break-word;
   word-break: break-all;
@@ -32,7 +32,7 @@
   }
 }
 
-.bottom_address {
+.checkboxes {
   display: flex;
   gap: 5px;
 }

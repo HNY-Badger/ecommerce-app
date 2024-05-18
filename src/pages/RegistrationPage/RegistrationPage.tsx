@@ -1,26 +1,39 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import * as styles from './RegistrationPage.module.css';
-import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
-import AddressModal from '../../components/RegistrationPage/AddressModal/AddressModal';
 import Validation from '../../data/Validation/validation';
-import Addresses from '../../components/RegistrationPage/Addresses/Addresses';
 import { InputType } from '../../types/input';
-import { AddressData, UserRegistrationData } from '../../types/user';
+import { AddressData, CustomerRegistrationData } from '../../types/customer';
+import AuthAPI from '../../api/auth';
+import { APIErrorResponse } from '../../types/api';
+import Spinner from '../../components/Spinner/Spinner';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
+import { customerLogin } from '../../store/reducers/CustomerSlice';
+import TokenAPI from '../../api/token';
+import { notify } from '../../store/reducers/NotificationSlice';
+import AddressModal from '../../components/RegistrationPage/AddressModal/AddressModal';
+import FormInput from '../../components/FormInput/FormInput';
+import Addresses from '../../components/RegistrationPage/Addresses/Addresses';
 
-type InputErrors = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  addresses: string;
+type InputsState = Omit<
+  CustomerRegistrationData,
+  'addresses' | 'billingAddresses' | 'defaultBillingAddress' | 'shippingAddresses' | 'defaultShippingAddress'
+>;
+
+type SpecialAddresses = {
+  billingAddresses: number[];
+  shippingAddresses: number[];
 };
 
-type ModalState = {
-  isOpen: boolean;
-  addressData: AddressData | null;
+type DefaultAddresses = {
+  defaultBillingAddress?: number;
+  defaultShippingAddress?: number;
+};
+
+type InputErrors = InputsState & {
+  addresses: string;
 };
 
 function formatDate(date: Date): string {
@@ -33,18 +46,25 @@ function formatDate(date: Date): string {
 
 function RegistrationPage() {
   const navigate = useNavigate();
-  const [modal, setModal] = useState<ModalState>({ isOpen: false, addressData: null });
-  const [userData, setUserData] = useState<UserRegistrationData>({
+
+  const dispatch = useAppDispatch();
+  const { customer } = useAppSelector((state) => state.customerReducer);
+  useEffect(() => {
+    if (customer) {
+      navigate('/');
+    }
+  }, [customer]);
+  const [modal, setModal] = useState<boolean>(false);
+  const [editAddress, setEditAddress] = useState<AddressData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [inputsData, setInputsData] = useState<InputsState>({
     email: '',
     password: '',
     firstName: '',
     lastName: '',
     dateOfBirth: '',
-    addresses: [],
-    defaultShippingAddress: -1,
-    defaultBillingAddress: -1,
   });
-  const [inputErrors, setInputErrors] = useState<InputErrors>({
+  const [inputsErrors, setInputsErrors] = useState<InputErrors>({
     email: '',
     password: '',
     firstName: '',
@@ -52,11 +72,18 @@ function RegistrationPage() {
     dateOfBirth: '',
     addresses: '',
   });
+  const [globalError, setGlobalError] = useState<string>('');
+  const [addresses, setAddresses] = useState<AddressData[]>([]);
+  const [specialAddresses, setSpecialAddresses] = useState<SpecialAddresses>({
+    billingAddresses: [],
+    shippingAddresses: [],
+  });
+  const [defaultAddresses, setDefaultAddresses] = useState<DefaultAddresses>({});
 
   const addAddress = (data: AddressData) => {
     // If there is identical address, we don't add new one
     if (
-      userData.addresses.some(
+      addresses.some(
         (address) =>
           address.city === data.city &&
           address.country === data.country &&
@@ -66,133 +93,174 @@ function RegistrationPage() {
     ) {
       return;
     }
-    setUserData((prev) => {
-      const newState = { ...prev };
-      const { defaultBillingAddress: billingIndex } = newState;
-      const { defaultShippingAddress: shippingIndex } = newState;
-      const filtered = userData.addresses.filter((address) => address.key !== data.key);
-      newState.addresses = [...filtered, data];
-      newState.defaultBillingAddress =
-        billingIndex >= 0 && newState.addresses[billingIndex].key === data.key
-          ? newState.addresses.length - 1
-          : billingIndex;
-      newState.defaultShippingAddress =
-        shippingIndex >= 0 && newState.addresses[shippingIndex].key === data.key
-          ? newState.addresses.length - 1
-          : shippingIndex;
-      return newState;
+    setAddresses((prev) => {
+      const newAddresses = [...prev];
+      const newAddress = newAddresses.find((address) => address.key === data.key);
+      if (newAddress) {
+        newAddress.streetName = data.streetName;
+        newAddress.city = data.city;
+        newAddress.postalCode = data.postalCode;
+        newAddress.country = data.country;
+      } else {
+        newAddresses.push(data);
+      }
+      return newAddresses;
     });
-    setInputErrors((prev) => ({
+    setInputsErrors((prev) => ({
       ...prev,
       addresses: '',
     }));
   };
-  const removeAddress = (key: string) => {
-    setUserData((prev) => {
-      const newState = { ...prev };
-      const { defaultBillingAddress: billingIndex } = newState;
-      const { defaultShippingAddress: shippingIndex } = newState;
-      newState.defaultBillingAddress =
-        billingIndex >= 0 && newState.addresses[billingIndex].key === key ? -1 : billingIndex;
-      newState.defaultShippingAddress =
-        shippingIndex >= 0 && newState.addresses[shippingIndex].key === key ? -1 : shippingIndex;
-      newState.addresses = newState.addresses.filter((address) => address.key !== key);
-      return newState;
-    });
-  };
   const setDefaultAddress = (
-    key: string,
+    index: number,
     checked: boolean,
     type: 'defaultBillingAddress' | 'defaultShippingAddress'
   ) => {
-    setUserData((prev) => {
-      const newState = { ...prev };
+    setDefaultAddresses((prev) => {
+      const defaults = { ...prev };
       if (checked) {
-        newState[type] = newState.addresses.findIndex((address) => address.key === key);
+        defaults[type] = index;
       } else {
-        newState[type] = -1;
+        defaults[type] = defaults[type] === index ? undefined : defaults[type];
       }
-      return newState;
+      return defaults;
     });
+  };
+  const setAddressType = (index: number, checked: boolean, type: 'billingAddresses' | 'shippingAddresses') => {
+    setSpecialAddresses((prev) => {
+      const specials = { ...prev };
+      if (checked) {
+        specials[type].push(index);
+      } else {
+        specials[type] = specials[type].filter((i) => index !== i);
+        const defaultType = type === 'billingAddresses' ? 'defaultBillingAddress' : 'defaultShippingAddress';
+        setDefaultAddress(index, false, defaultType);
+      }
+      return specials;
+    });
+  };
+  const removeAddress = (key: string) => {
+    const index = addresses.findIndex((address) => address.key === key);
+    setAddressType(index, false, 'billingAddresses');
+    setAddressType(index, false, 'shippingAddresses');
+    setAddresses((prev) => prev.filter((address) => address.key !== key));
   };
 
   const inputHandler = (value: string, input: InputType) => {
-    setUserData((prev) => ({
+    setInputsData((prev) => ({
       ...prev,
       [input]: value,
     }));
-    setInputErrors((prev) => ({
+    setInputsErrors((prev) => ({
       ...prev,
       [input]: Validation.checkValidity(value, input),
     }));
+    setGlobalError('');
   };
-  const registerHandler: MouseEventHandler<HTMLButtonElement> = () => {
+  const registerHandler: MouseEventHandler<HTMLButtonElement> = async () => {
     // If any errors are present, don't submit
-    if (Object.values(inputErrors).some((error) => error.length > 0)) {
+    if (Object.values(inputsErrors).some((error) => error.length > 0)) {
       return;
     }
     // If any field is empty, don't submit (Except addresses)
     if (
-      Object.values(userData).some((text) => typeof text !== 'number' && typeof text !== 'object' && text.length === 0)
+      Object.entries(inputsData).some(([key, value]) => {
+        if (value.length === 0) {
+          setInputsErrors((prev) => ({
+            ...prev,
+            [key]: 'This field is required',
+          }));
+          return true;
+        }
+        return false;
+      })
     ) {
       return;
     }
-    if (userData.addresses.length === 0) {
-      setInputErrors((prev) => ({
+    // Check if addresses are empty
+    if (addresses.length === 0) {
+      setInputsErrors((prev) => ({
         ...prev,
-        addresses: 'You should add at least one address',
+        addresses: 'Add at least one address',
       }));
+      return;
     }
-    // Api here
+    setLoading(true);
+    try {
+      const resp = await AuthAPI.register({ ...inputsData, ...specialAddresses, ...defaultAddresses, addresses });
+      await TokenAPI.getCustomerToken(inputsData.email, inputsData.password);
+      dispatch(notify({ text: 'Account successfully created', type: 'success' }));
+      dispatch(customerLogin(resp.customer));
+    } catch (e) {
+      const err = e as AxiosError<APIErrorResponse>;
+      let inputType = '';
+      const message = err.response?.data.message ?? 'An unexpected error occurred, please, try again later';
+      if (message.toLowerCase().includes('email')) {
+        inputType = 'email';
+      } else if (message.toLowerCase().includes('address')) {
+        inputType = 'addresses';
+      }
+      if (inputType) {
+        setInputsErrors((prev) => ({
+          ...prev,
+          [inputType]: message,
+        }));
+      } else {
+        setGlobalError(message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
-  const setEditModeHandler = (key: string): void => {
-    setModal({ isOpen: true, addressData: userData.addresses.find((address) => address.key === key) ?? null });
+  const setEditModeHandler = (index: number): void => {
+    setModal(true);
+    setEditAddress(addresses[index]);
   };
+
   return (
     <div className={styles.registration}>
-      {modal.isOpen && (
+      {modal && (
         <AddressModal
-          addressData={modal.addressData}
-          onClose={() => setModal({ isOpen: false, addressData: null })}
-          addAddress={(data: AddressData) => addAddress(data)}
+          addressData={editAddress}
+          onClose={() => setModal(false)}
+          addAddress={(data) => addAddress(data)}
         />
       )}
       <form className={styles.form}>
         <h2 className={styles.heading}>Create an account</h2>
-        <Input
+        <FormInput
           label="Email"
           id="email"
-          value={userData.email}
-          error={inputErrors.email}
+          error={inputsErrors.email}
+          value={inputsData.email}
           onChange={(e) => inputHandler(e.target.value, 'email')}
-          type="email"
         />
-        <Input
+        <FormInput
           label="Password"
           id="pass"
-          value={userData.password}
-          error={inputErrors.password}
+          error={inputsErrors.password}
+          value={inputsData.password}
           onChange={(e) => inputHandler(e.target.value, 'password')}
         />
-        <Input
+        <FormInput
           label="First name"
           id="firstName"
-          value={userData.firstName}
-          error={inputErrors.firstName}
+          error={inputsErrors.firstName}
+          value={inputsData.firstName}
           onChange={(e) => inputHandler(e.target.value, 'firstName')}
         />
-        <Input
+        <FormInput
           label="Last name"
           id="lastName"
-          value={userData.lastName}
-          error={inputErrors.lastName}
+          error={inputsErrors.lastName}
+          value={inputsData.lastName}
           onChange={(e) => inputHandler(e.target.value, 'lastName')}
         />
-        <Input
+        <FormInput
           label="Date of birth"
           id="birthday"
-          value={userData.dateOfBirth}
-          error={inputErrors.dateOfBirth}
+          error={inputsErrors.dateOfBirth}
+          value={inputsData.dateOfBirth}
           onChange={(e) => inputHandler(e.target.value, 'dateOfBirth')}
           max={formatDate(new Date())}
           type="date"
@@ -201,15 +269,31 @@ function RegistrationPage() {
           setEditMode={setEditModeHandler}
           removeAddress={removeAddress}
           setDefaultAddress={setDefaultAddress}
-          addresses={userData.addresses}
-          billing={userData.defaultBillingAddress}
-          shipping={userData.defaultShippingAddress}
-          error={inputErrors.addresses}
+          setAddressType={setAddressType}
+          addresses={addresses}
+          billing={specialAddresses.billingAddresses}
+          shipping={specialAddresses.shippingAddresses}
+          defaultBilling={defaultAddresses.defaultBillingAddress}
+          defaultShipping={defaultAddresses.defaultShippingAddress}
+          error={inputsErrors.addresses}
         />
-        <Button onClick={() => setModal({ isOpen: true, addressData: null })}>Add address</Button>
+        {globalError && <p className={styles.error}>{globalError}</p>}
+        <Button
+          onClick={() => {
+            setModal(true);
+            setEditAddress(null);
+          }}
+        >
+          Add address
+        </Button>
         <div className={styles.buttons}>
           <Button onClick={() => navigate('/login')}>To login</Button>
-          <Button onClick={registerHandler}>Register</Button>
+          <Button onClick={registerHandler}>
+            <div className={styles.button_loading}>
+              <p>Register</p>
+              {loading && <Spinner height="16px" />}
+            </div>
+          </Button>
         </div>
       </form>
     </div>

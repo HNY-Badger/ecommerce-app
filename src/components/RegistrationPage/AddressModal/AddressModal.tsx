@@ -1,14 +1,14 @@
 import React, { MouseEventHandler, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import * as styles from './AddressModal.module.css';
-import Input from '../../Input/Input';
+import FormInput from '../../FormInput/FormInput';
 import Select from '../../Select/Select';
 import Button from '../../Button/Button';
 import Validation from '../../../data/Validation/validation';
 import { InputType } from '../../../types/input';
-import { AddressData } from '../../../types/user';
+import { AddressData, CountryType } from '../../../types/customer';
 
-type AddressState = Omit<AddressData, 'key'>;
+type AddressState = Omit<AddressData, 'key' | 'country'>;
 type InputErrors = {
   streetName: string;
   city: string;
@@ -25,8 +25,8 @@ function AddressModal({ onClose, addAddress, addressData }: Props) {
     streetName: addressData?.streetName ?? '',
     city: addressData?.city ?? '',
     postalCode: addressData?.postalCode ?? '',
-    country: addressData?.country ?? 'US',
   });
+  const [country, setCountry] = useState<CountryType>('US');
   const [inputErrors, setInputErrors] = useState<InputErrors>({
     streetName: '',
     city: '',
@@ -35,10 +35,7 @@ function AddressModal({ onClose, addAddress, addressData }: Props) {
 
   const inputHandler = (value: string, input: InputType | 'country') => {
     if (input === 'country') {
-      setAddress((prev) => ({
-        ...prev,
-        country: value === 'US' ? 'US' : 'CA',
-      }));
+      setCountry(value === 'US' ? 'US' : 'CA');
       setInputErrors((prev) => ({
         ...prev,
         postalCode: Validation.checkValidity(address.postalCode, value === 'US' ? 'postalCodeUS' : 'postalCodeCA'),
@@ -61,7 +58,18 @@ function AddressModal({ onClose, addAddress, addressData }: Props) {
       return;
     }
     // If any field is empty, don't submit
-    if (Object.values(address).some((value) => value.length === 0)) {
+    if (
+      Object.entries(address).some(([key, value]) => {
+        if (value.length === 0) {
+          setInputErrors((prev) => ({
+            ...prev,
+            [key]: 'This field is required',
+          }));
+          return true;
+        }
+        return false;
+      })
+    ) {
       return;
     }
     addAddress({
@@ -69,36 +77,36 @@ function AddressModal({ onClose, addAddress, addressData }: Props) {
       streetName: address.streetName,
       city: address.city,
       postalCode: address.postalCode,
-      country: address.country,
+      country,
     });
     onClose();
   };
   return (
-    <div role="presentation" className={styles.modal} onClick={onClose}>
-      <form role="presentation" className={styles.form} onClick={(e) => e.stopPropagation()}>
-        <Input
-          value={address.streetName}
-          error={inputErrors.streetName}
-          onChange={(e) => inputHandler(e.target.value, 'streetName')}
+    <div role="presentation" className={styles.modal} onMouseDown={onClose}>
+      <form role="presentation" className={styles.form} onMouseDown={(e) => e.stopPropagation()}>
+        <FormInput
           label="Street"
           id="street"
+          error={inputErrors.streetName}
+          value={address.streetName}
+          onChange={(e) => inputHandler(e.target.value, 'streetName')}
         />
-        <Input
-          value={address.city}
-          error={inputErrors.city}
-          onChange={(e) => inputHandler(e.target.value, 'city')}
+        <FormInput
           label="City"
           id="city"
+          error={inputErrors.city}
+          value={address.city}
+          onChange={(e) => inputHandler(e.target.value, 'city')}
         />
-        <Input
-          value={address.postalCode}
-          error={inputErrors.postalCode}
-          onChange={(e) => inputHandler(e.target.value, address.country === 'US' ? 'postalCodeUS' : 'postalCodeCA')}
+        <FormInput
           label="Postal code"
           id="postalCode"
+          error={inputErrors.postalCode}
+          value={address.postalCode}
+          onChange={(e) => inputHandler(e.target.value, country === 'US' ? 'postalCodeUS' : 'postalCodeCA')}
         />
         <Select
-          value={address.country}
+          value={country}
           onChange={(e) => inputHandler(e.target.value, 'country')}
           label="Country"
           id="country"

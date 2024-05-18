@@ -1,8 +1,9 @@
 .registration {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
+  padding: 20px 10px;
 }
 
 .heading {
@@ -24,4 +25,15 @@
   & > button {
     flex: 1;
   }
+}
+
+.button_loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.error {
+  color: var(--error);
 }

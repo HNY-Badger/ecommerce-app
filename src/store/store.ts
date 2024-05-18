@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import notificationReducer from './reducers/NotificationSlice';
+import customerReducer from './reducers/CustomerSlice';
 
 const rootReducer = combineReducers({
   notificationReducer,
+  customerReducer,
 });
 
 export const store = configureStore({

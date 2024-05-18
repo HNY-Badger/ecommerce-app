@@ -1,0 +1,14 @@
+.input_box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  color: var(--dark-primary);
+}
+
+.error {
+  color: var(--error);
+  white-space: pre-wrap;
+}

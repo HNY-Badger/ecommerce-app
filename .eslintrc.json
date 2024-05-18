@@ -49,7 +49,10 @@
         "ts": "never",
         "tsx": "never"
       }
-   ]
+   ],
+   "jsx-a11y/label-has-associated-control": [ 2, {
+    "controlComponents": ["Input"]
+  }]
   },
   "globals": {
     "NodeJS": true
