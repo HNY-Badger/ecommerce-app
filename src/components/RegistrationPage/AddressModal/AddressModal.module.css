@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0000002a;
+  background-color: var(--modal-backdrop);
   z-index: 2;
 }
 
