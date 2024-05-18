@@ -26,6 +26,11 @@
   font-size: 25px;
   color: var(--white);
   vertical-align: middle;
+  transition: 0.25s;
+
+  &:hover {
+    color: var(--primary);
+  }
 }
 
 .copyright {
