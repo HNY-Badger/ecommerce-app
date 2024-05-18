@@ -7,11 +7,9 @@ import Button from '../../components/Button/Button';
 function NotFoundPage() {
   return (
     <div className={style.wrapper}>
-      <div className={style.wrapper_text}>
-        <p>Page Not Found</p>
-      </div>
-      <div className={style.wrapper_block}>
-        <p>404</p>
+      <p className={style.text}>Page Not Found</p>
+      <div className={style.code_wrapper}>
+        <p className={style.code}>404</p>
         <Link to="/">
           <Button type="button">Return to Home Page</Button>
         </Link>
