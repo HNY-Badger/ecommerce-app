@@ -13,6 +13,11 @@
   margin: 0 auto;
 }
 
+.logout {
+  all: unset;
+  cursor: pointer;
+}
+
 .link {
   text-decoration: none;
   color: var(--link-color);

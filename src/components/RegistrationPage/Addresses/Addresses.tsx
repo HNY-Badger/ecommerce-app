@@ -1,19 +1,37 @@
 import React from 'react';
 import * as styles from './Addresses.module.css';
 import AddressCard from '../AddressCard/AddressCard';
-import { AddressData } from '../../../types/user';
+import { AddressData } from '../../../types/customer';
 
 type Props = {
-  setEditMode: (key: string) => void;
+  setEditMode: (index: number) => void;
   removeAddress: (key: string) => void;
-  setDefaultAddress: (key: string, checked: boolean, type: 'defaultBillingAddress' | 'defaultShippingAddress') => void;
+  setDefaultAddress: (
+    index: number,
+    checked: boolean,
+    type: 'defaultBillingAddress' | 'defaultShippingAddress'
+  ) => void;
+  setAddressType: (index: number, checked: boolean, type: 'billingAddresses' | 'shippingAddresses') => void;
   addresses: AddressData[];
-  billing: number;
-  shipping: number;
+  billing: number[];
+  shipping: number[];
+  defaultBilling?: number;
+  defaultShipping?: number;
   error?: string;
 };
 
-function Addresses({ setEditMode, removeAddress, setDefaultAddress, addresses, billing, shipping, error }: Props) {
+function Addresses({
+  setEditMode,
+  removeAddress,
+  setDefaultAddress,
+  setAddressType,
+  addresses,
+  billing,
+  shipping,
+  defaultBilling,
+  defaultShipping,
+  error,
+}: Props) {
   return (
     <div className={styles.addresses_wrapper}>
       <p>Addresses</p>
@@ -23,13 +41,14 @@ function Addresses({ setEditMode, removeAddress, setDefaultAddress, addresses, b
           <AddressCard
             key={address.key}
             addressData={address}
-            setEditMode={setEditMode}
+            setEditMode={() => setEditMode(index)}
             removeAddress={() => removeAddress(address.key)}
-            setDefaultAddress={(checked: boolean, type: 'defaultBillingAddress' | 'defaultShippingAddress') =>
-              setDefaultAddress(address.key, checked, type)
-            }
-            billing={index === billing}
-            shipping={index === shipping}
+            setDefaultAddress={(checked, type) => setDefaultAddress(index, checked, type)}
+            setAddressType={(checked, type) => setAddressType(index, checked, type)}
+            billing={billing.includes(index)}
+            shipping={shipping.includes(index)}
+            defaultBilling={index === defaultBilling}
+            defaultShipping={index === defaultShipping}
           />
         ))}
       </div>
