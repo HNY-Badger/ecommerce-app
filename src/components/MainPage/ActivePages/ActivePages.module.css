@@ -1,0 +1,27 @@
+.links_wrapper {
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: var(--dark-primary);
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.link {
+  all: unset;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: 0.25s;
+
+  &:hover {
+    color: var(--primary);
+    transform: scale(1.15);
+  }
+}
