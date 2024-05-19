@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import * as styles from './LoginPage.module.css';
 import FormInput from '../../components/FormInput/FormInput';
 import { InputType } from '../../types/input';
 import Validation from '../../data/Validation/validation';
-import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import Spinner from '../../components/Spinner/Spinner';
 import AuthAPI from '../../api/auth';
 import { APIErrorResponse } from '../../types/api';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { customerLogin } from '../../store/reducers/CustomerSlice';
+import FormPassInput from '../../components/FormPassInput/FormPassInput';
 
 type Inputs = {
   email: string;
@@ -30,7 +29,6 @@ function LoginPage() {
     }
   }, [customer]);
 
-  const [passIsVisible, setPassIsVisible] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [inputsData, setInputsData] = useState<Inputs>({ email: '', password: '' });
   const [inputsErrors, setInputsErrors] = useState<Inputs>({ email: '', password: '' });
@@ -46,9 +44,6 @@ function LoginPage() {
       [input]: Validation.checkValidity(value, input),
     }));
     setGlobalError('');
-  };
-  const passVisibilityHandler = () => {
-    setPassIsVisible((prev) => !prev);
   };
   const loginHandler = async () => {
     // If any errors are present, don't submit
@@ -95,22 +90,13 @@ function LoginPage() {
           error={inputsErrors.email}
           onChange={(e) => inputHandler(e.target.value, 'email')}
         />
-        <div className={styles.password_box}>
-          <div className={styles.label_box}>
-            <label htmlFor="pass">Password</label>
-            <button className={styles.password_hide} type="button" onClick={passVisibilityHandler}>
-              {passIsVisible ? <FaRegEye /> : <FaRegEyeSlash />}
-            </button>
-          </div>
-          <Input
-            id="pass"
-            value={inputsData.password}
-            error={inputsErrors.password.length > 0}
-            onChange={(e) => inputHandler(e.target.value, 'password')}
-            type={passIsVisible ? 'text' : 'password'}
-          />
-          <p className={styles.error}>{inputsErrors.password}</p>
-        </div>
+        <FormPassInput
+          label="Password"
+          id="pass"
+          value={inputsData.password}
+          error={inputsErrors.password}
+          onChange={(e) => inputHandler(e.target.value, 'password')}
+        />
         <p className={styles.error}>{globalError}</p>
         <div className={styles.buttons}>
           <Button onClick={() => navigate('/registration')}>To registration</Button>

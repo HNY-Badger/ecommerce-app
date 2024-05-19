@@ -16,6 +16,7 @@ import { notify } from '../../store/reducers/NotificationSlice';
 import AddressModal from '../../components/RegistrationPage/AddressModal/AddressModal';
 import FormInput from '../../components/FormInput/FormInput';
 import Addresses from '../../components/RegistrationPage/Addresses/Addresses';
+import FormPassInput from '../../components/FormPassInput/FormPassInput';
 
 type InputsState = Omit<
   CustomerRegistrationData,
@@ -235,11 +236,11 @@ function RegistrationPage() {
           value={inputsData.email}
           onChange={(e) => inputHandler(e.target.value, 'email')}
         />
-        <FormInput
+        <FormPassInput
           label="Password"
           id="pass"
-          error={inputsErrors.password}
           value={inputsData.password}
+          error={inputsErrors.password}
           onChange={(e) => inputHandler(e.target.value, 'password')}
         />
         <FormInput
