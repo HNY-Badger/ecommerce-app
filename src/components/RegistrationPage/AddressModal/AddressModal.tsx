@@ -18,9 +18,10 @@ type Props = {
   onClose: () => void;
   addAddress: (data: AddressData) => void;
   addressData: AddressData | null;
+  testid?: string;
 };
 
-function AddressModal({ onClose, addAddress, addressData }: Props) {
+function AddressModal({ onClose, addAddress, addressData, testid }: Props) {
   const [address, setAddress] = useState<AddressState>({
     streetName: addressData?.streetName ?? '',
     city: addressData?.city ?? '',
@@ -82,7 +83,7 @@ function AddressModal({ onClose, addAddress, addressData }: Props) {
     onClose();
   };
   return (
-    <div role="presentation" className={styles.modal} onMouseDown={onClose}>
+    <div role="presentation" className={styles.modal} onMouseDown={onClose} data-testid={testid}>
       <form role="presentation" className={styles.form} onMouseDown={(e) => e.stopPropagation()}>
         <FormInput
           label="Street"

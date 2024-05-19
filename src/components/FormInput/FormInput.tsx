@@ -10,12 +10,13 @@ type Props = {
   type?: 'password' | 'date' | 'text' | 'email';
   error?: string;
   max?: string;
+  testid?: string;
 };
 
-function FormInput({ value, onChange, type = 'text', label, id, error, max }: Props) {
+function FormInput({ value, onChange, type = 'text', label, id, error, max, testid }: Props) {
   return (
     <div className={styles.input_box}>
-      <label htmlFor={id} className={styles.label}>
+      <label htmlFor={id} className={styles.label} data-testid={`${testid}-label`}>
         {label}
       </label>
       <Input
@@ -25,8 +26,13 @@ function FormInput({ value, onChange, type = 'text', label, id, error, max }: Pr
         id={id}
         error={error !== undefined && error.length > 0}
         max={max}
+        testid={`${testid}-input`}
       />
-      {error && <p className={styles.error}>{error}</p>}
+      {error && (
+        <p className={styles.error} data-testid={`${testid}-error`}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }

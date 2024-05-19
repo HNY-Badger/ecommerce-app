@@ -9,9 +9,10 @@ type Props = {
   label: string;
   id: string;
   error?: string;
+  testid?: string;
 };
 
-function FormPassInput({ value, onChange, label, id, error }: Props) {
+function FormPassInput({ value, onChange, label, id, error, testid }: Props) {
   const [passIsVisible, setPassIsVisible] = useState<boolean>(false);
   const passVisibilityHandler = () => {
     setPassIsVisible((prev) => !prev);
@@ -20,7 +21,9 @@ function FormPassInput({ value, onChange, label, id, error }: Props) {
   return (
     <div className={styles.password_box}>
       <div className={styles.label_box}>
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={id} data-testid={`${testid}-label`}>
+          {label}
+        </label>
         <button className={styles.password_hide} type="button" onClick={passVisibilityHandler}>
           {passIsVisible ? <FaRegEye /> : <FaRegEyeSlash />}
         </button>
@@ -31,8 +34,11 @@ function FormPassInput({ value, onChange, label, id, error }: Props) {
         error={error !== undefined && error.length > 0}
         onChange={onChange}
         type={passIsVisible ? 'text' : 'password'}
+        testid={`${testid}-input`}
       />
-      <p className={styles.error}>{error}</p>
+      <p className={styles.error} data-testid={`${testid}-error`}>
+        {error}
+      </p>
     </div>
   );
 }

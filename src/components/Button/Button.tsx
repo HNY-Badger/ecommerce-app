@@ -6,15 +6,17 @@ interface Props {
   children?: React.ReactNode;
   variant?: 'dark' | 'white' | 'grey' | 'transparent';
   type?: 'button' | 'submit';
+  testid?: string;
 }
 
-function Button({ onClick, children, variant = 'dark', type = 'button' }: Props) {
+function Button({ onClick, children, variant = 'dark', type = 'button', testid }: Props) {
   return (
     // Type stupidity is made due to ESlint error :/
     <button
       type={type === 'submit' ? 'submit' : 'button'}
       className={`${styles.button} ${styles[variant]}`}
       onClick={onClick}
+      data-testid={testid}
     >
       {children}
     </button>

@@ -8,9 +8,10 @@ type Props = {
   type?: 'password' | 'date' | 'text' | 'email';
   error?: boolean;
   max?: string;
+  testid?: string;
 };
 
-function Input({ value, onChange, id, type = 'text', error, max }: Props) {
+function Input({ value, onChange, id, type = 'text', error, max, testid }: Props) {
   return (
     <input
       value={value}
@@ -19,6 +20,7 @@ function Input({ value, onChange, id, type = 'text', error, max }: Props) {
       type={type}
       className={`${styles.input} ${error ? styles.input_error : ''}`}
       max={max}
+      data-testid={testid}
     />
   );
 }
