@@ -89,7 +89,7 @@ ruleSet.set('dateOfBirth', [
       const difference = now.getTime() - birthday.getTime();
       return difference / (1000 * 60 * 60 * 24 * 365.25) >= 13;
     },
-    message: 'You must at least 13 years old',
+    message: 'You must be at least 13 years old',
   },
 ]);
 ruleSet.set('streetName', [
