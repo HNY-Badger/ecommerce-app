@@ -36,4 +36,5 @@
 
 .error {
   color: var(--error);
+  white-space: pre-wrap;
 }
