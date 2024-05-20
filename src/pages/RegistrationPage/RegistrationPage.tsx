@@ -225,6 +225,7 @@ function RegistrationPage() {
           addressData={editAddress}
           onClose={() => setModal(false)}
           addAddress={(data) => addAddress(data)}
+          testid="address-modal"
         />
       )}
       <form className={styles.form}>
@@ -235,6 +236,7 @@ function RegistrationPage() {
           error={inputsErrors.email}
           value={inputsData.email}
           onChange={(e) => inputHandler(e.target.value, 'email')}
+          testid="email"
         />
         <FormPassInput
           label="Password"
@@ -242,6 +244,7 @@ function RegistrationPage() {
           value={inputsData.password}
           error={inputsErrors.password}
           onChange={(e) => inputHandler(e.target.value, 'password')}
+          testid="password"
         />
         <FormInput
           label="First name"
@@ -249,6 +252,7 @@ function RegistrationPage() {
           error={inputsErrors.firstName}
           value={inputsData.firstName}
           onChange={(e) => inputHandler(e.target.value, 'firstName')}
+          testid="first-name"
         />
         <FormInput
           label="Last name"
@@ -256,6 +260,7 @@ function RegistrationPage() {
           error={inputsErrors.lastName}
           value={inputsData.lastName}
           onChange={(e) => inputHandler(e.target.value, 'lastName')}
+          testid="last-name"
         />
         <FormInput
           label="Date of birth"
@@ -265,6 +270,7 @@ function RegistrationPage() {
           onChange={(e) => inputHandler(e.target.value, 'dateOfBirth')}
           max={formatDate(new Date())}
           type="date"
+          testid="date-of-birth"
         />
         <Addresses
           setEditMode={setEditModeHandler}
@@ -284,12 +290,13 @@ function RegistrationPage() {
             setModal(true);
             setEditAddress(null);
           }}
+          testid="add-address"
         >
           Add address
         </Button>
         <div className={styles.buttons}>
           <Button onClick={() => navigate('/login')}>To login</Button>
-          <Button onClick={registerHandler}>
+          <Button onClick={registerHandler} testid="registration-button">
             <div className={styles.button_loading}>
               <p>Register</p>
               {loading && <Spinner height="16px" />}

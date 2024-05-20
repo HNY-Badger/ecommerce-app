@@ -43,7 +43,7 @@ test('Validation for LastName', () => {
 });
 
 test('Validation for DdateOfBirth', () => {
-  expect(Validation.checkValidity('01.01.2023', 'dateOfBirth')).toBe(`You must at least 13 years old\n`);
+  expect(Validation.checkValidity('01.01.2023', 'dateOfBirth')).toBe(`You must be at least 13 years old\n`);
   expect(Validation.checkValidity('01.01.2000', 'dateOfBirth')).toBe('');
 });
 

@@ -89,6 +89,7 @@ function LoginPage() {
           value={inputsData.email}
           error={inputsErrors.email}
           onChange={(e) => inputHandler(e.target.value, 'email')}
+          testid="email"
         />
         <FormPassInput
           label="Password"
@@ -96,12 +97,12 @@ function LoginPage() {
           value={inputsData.password}
           error={inputsErrors.password}
           onChange={(e) => inputHandler(e.target.value, 'password')}
+          testid="password"
         />
         <p className={styles.error}>{globalError}</p>
         <div className={styles.buttons}>
           <Button onClick={() => navigate('/registration')}>To registration</Button>
-
-          <Button onClick={loginHandler}>
+          <Button onClick={loginHandler} testid="login-button">
             <div className={styles.button_loading}>
               <p>Login</p>
               {loading && <Spinner height="16px" />}
