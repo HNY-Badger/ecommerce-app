@@ -24,13 +24,13 @@ type InputsState = Omit<
 >;
 
 type SpecialAddresses = {
-  billingAddresses: number[];
-  shippingAddresses: number[];
+  billingAddresses: string[];
+  shippingAddresses: string[];
 };
 
 type DefaultAddresses = {
-  defaultBillingAddress?: number;
-  defaultShippingAddress?: number;
+  defaultBillingAddress?: string;
+  defaultShippingAddress?: string;
 };
 
 type InputErrors = InputsState & {
@@ -113,37 +113,36 @@ function RegistrationPage() {
     }));
   };
   const setDefaultAddress = (
-    index: number,
+    key: string,
     checked: boolean,
     type: 'defaultBillingAddress' | 'defaultShippingAddress'
   ) => {
     setDefaultAddresses((prev) => {
       const defaults = { ...prev };
       if (checked) {
-        defaults[type] = index;
+        defaults[type] = key;
       } else {
-        defaults[type] = defaults[type] === index ? undefined : defaults[type];
+        defaults[type] = defaults[type] === key ? undefined : defaults[type];
       }
       return defaults;
     });
   };
-  const setAddressType = (index: number, checked: boolean, type: 'billingAddresses' | 'shippingAddresses') => {
+  const setAddressType = (key: string, checked: boolean, type: 'billingAddresses' | 'shippingAddresses') => {
     setSpecialAddresses((prev) => {
       const specials = { ...prev };
       if (checked) {
-        specials[type].push(index);
+        specials[type].push(key);
       } else {
-        specials[type] = specials[type].filter((i) => index !== i);
+        specials[type] = specials[type].filter((k) => key !== k);
         const defaultType = type === 'billingAddresses' ? 'defaultBillingAddress' : 'defaultShippingAddress';
-        setDefaultAddress(index, false, defaultType);
+        setDefaultAddress(key, false, defaultType);
       }
       return specials;
     });
   };
   const removeAddress = (key: string) => {
-    const index = addresses.findIndex((address) => address.key === key);
-    setAddressType(index, false, 'billingAddresses');
-    setAddressType(index, false, 'shippingAddresses');
+    setAddressType(key, false, 'billingAddresses');
+    setAddressType(key, false, 'shippingAddresses');
     setAddresses((prev) => prev.filter((address) => address.key !== key));
   };
 
@@ -188,7 +187,30 @@ function RegistrationPage() {
     }
     setLoading(true);
     try {
-      const resp = await AuthAPI.register({ ...inputsData, ...specialAddresses, ...defaultAddresses, addresses });
+      // Convertion from keys to indexes for API
+      const billingAddresses: number[] = specialAddresses.billingAddresses.map((key) =>
+        addresses.findIndex((address) => address.key === key)
+      );
+      let defaultBillingAddress: number | undefined = addresses.findIndex(
+        (address) => address.key === defaultAddresses.defaultBillingAddress
+      );
+      defaultBillingAddress = defaultBillingAddress > -1 ? defaultBillingAddress : undefined;
+      const shippingAddresses: number[] = specialAddresses.shippingAddresses.map((key) =>
+        addresses.findIndex((address) => address.key === key)
+      );
+      let defaultShippingAddress: number | undefined = addresses.findIndex(
+        (address) => address.key === defaultAddresses.defaultShippingAddress
+      );
+      defaultShippingAddress = defaultShippingAddress > -1 ? defaultShippingAddress : undefined;
+
+      const resp = await AuthAPI.register({
+        ...inputsData,
+        billingAddresses,
+        defaultBillingAddress,
+        shippingAddresses,
+        defaultShippingAddress,
+        addresses,
+      });
       await TokenAPI.getCustomerToken(inputsData.email, inputsData.password);
       dispatch(notify({ text: 'Account successfully created', type: 'success' }));
       dispatch(customerLogin(resp.customer));
@@ -213,9 +235,12 @@ function RegistrationPage() {
       setLoading(false);
     }
   };
-  const setEditModeHandler = (index: number): void => {
-    setModal(true);
-    setEditAddress(addresses[index]);
+  const setEditModeHandler = (key: string): void => {
+    const addr = addresses.find((address) => address.key === key);
+    if (addr) {
+      setModal(true);
+      setEditAddress(addr);
+    }
   };
 
   return (
@@ -225,6 +250,7 @@ function RegistrationPage() {
           addressData={editAddress}
           onClose={() => setModal(false)}
           addAddress={(data) => addAddress(data)}
+          testid="address-modal"
         />
       )}
       <form className={styles.form}>
@@ -235,6 +261,7 @@ function RegistrationPage() {
           error={inputsErrors.email}
           value={inputsData.email}
           onChange={(e) => inputHandler(e.target.value, 'email')}
+          testid="email"
         />
         <FormPassInput
           label="Password"
@@ -242,6 +269,7 @@ function RegistrationPage() {
           value={inputsData.password}
           error={inputsErrors.password}
           onChange={(e) => inputHandler(e.target.value, 'password')}
+          testid="password"
         />
         <FormInput
           label="First name"
@@ -249,6 +277,7 @@ function RegistrationPage() {
           error={inputsErrors.firstName}
           value={inputsData.firstName}
           onChange={(e) => inputHandler(e.target.value, 'firstName')}
+          testid="first-name"
         />
         <FormInput
           label="Last name"
@@ -256,6 +285,7 @@ function RegistrationPage() {
           error={inputsErrors.lastName}
           value={inputsData.lastName}
           onChange={(e) => inputHandler(e.target.value, 'lastName')}
+          testid="last-name"
         />
         <FormInput
           label="Date of birth"
@@ -265,6 +295,7 @@ function RegistrationPage() {
           onChange={(e) => inputHandler(e.target.value, 'dateOfBirth')}
           max={formatDate(new Date())}
           type="date"
+          testid="date-of-birth"
         />
         <Addresses
           setEditMode={setEditModeHandler}
@@ -284,12 +315,13 @@ function RegistrationPage() {
             setModal(true);
             setEditAddress(null);
           }}
+          testid="add-address"
         >
           Add address
         </Button>
         <div className={styles.buttons}>
           <Button onClick={() => navigate('/login')}>To login</Button>
-          <Button onClick={registerHandler}>
+          <Button onClick={registerHandler} testid="registration-button">
             <div className={styles.button_loading}>
               <p>Register</p>
               {loading && <Spinner height="16px" />}

@@ -4,19 +4,15 @@ import AddressCard from '../AddressCard/AddressCard';
 import { AddressData } from '../../../types/customer';
 
 type Props = {
-  setEditMode: (index: number) => void;
+  setEditMode: (key: string) => void;
   removeAddress: (key: string) => void;
-  setDefaultAddress: (
-    index: number,
-    checked: boolean,
-    type: 'defaultBillingAddress' | 'defaultShippingAddress'
-  ) => void;
-  setAddressType: (index: number, checked: boolean, type: 'billingAddresses' | 'shippingAddresses') => void;
+  setDefaultAddress: (key: string, checked: boolean, type: 'defaultBillingAddress' | 'defaultShippingAddress') => void;
+  setAddressType: (key: string, checked: boolean, type: 'billingAddresses' | 'shippingAddresses') => void;
   addresses: AddressData[];
-  billing: number[];
-  shipping: number[];
-  defaultBilling?: number;
-  defaultShipping?: number;
+  billing: string[];
+  shipping: string[];
+  defaultBilling?: string;
+  defaultShipping?: string;
   error?: string;
 };
 
@@ -37,18 +33,18 @@ function Addresses({
       <p>Addresses</p>
       {error && <p className={styles.addresses_error}>{error}</p>}
       <div className={styles.addresses}>
-        {addresses.map((address, index) => (
+        {addresses.map((address) => (
           <AddressCard
             key={address.key}
             addressData={address}
-            setEditMode={() => setEditMode(index)}
+            setEditMode={() => setEditMode(address.key)}
             removeAddress={() => removeAddress(address.key)}
-            setDefaultAddress={(checked, type) => setDefaultAddress(index, checked, type)}
-            setAddressType={(checked, type) => setAddressType(index, checked, type)}
-            billing={billing.includes(index)}
-            shipping={shipping.includes(index)}
-            defaultBilling={index === defaultBilling}
-            defaultShipping={index === defaultShipping}
+            setDefaultAddress={(checked, type) => setDefaultAddress(address.key, checked, type)}
+            setAddressType={(checked, type) => setAddressType(address.key, checked, type)}
+            billing={billing.includes(address.key)}
+            shipping={shipping.includes(address.key)}
+            defaultBilling={address.key === defaultBilling}
+            defaultShipping={address.key === defaultShipping}
           />
         ))}
       </div>
