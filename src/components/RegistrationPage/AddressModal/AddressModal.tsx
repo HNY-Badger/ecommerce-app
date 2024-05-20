@@ -27,7 +27,7 @@ function AddressModal({ onClose, addAddress, addressData, testid }: Props) {
     city: addressData?.city ?? '',
     postalCode: addressData?.postalCode ?? '',
   });
-  const [country, setCountry] = useState<CountryType>('US');
+  const [country, setCountry] = useState<CountryType>(addressData?.country ?? 'US');
   const [inputErrors, setInputErrors] = useState<InputErrors>({
     streetName: '',
     city: '',
