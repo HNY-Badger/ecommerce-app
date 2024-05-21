@@ -1,0 +1,40 @@
+.login {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 450px;
+}
+
+.heading {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+
+  & > button {
+    flex: 1;
+  }
+}
+
+.button_loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.error {
+  color: var(--error);
+  white-space: pre-wrap;
+}

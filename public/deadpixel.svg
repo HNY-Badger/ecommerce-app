@@ -1,0 +1,53 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="3" y="2" width="2" height="3" fill="#FF0000"/>
+<rect x="3" y="45" width="2" height="3" fill="#FF0000"/>
+<rect x="6" y="2" width="2" height="3" fill="#00FF00"/>
+<rect x="6" y="45" width="2" height="3" fill="#00FF00"/>
+<rect x="9" y="2" width="2" height="3" fill="#0000FF"/>
+<rect x="9" y="45" width="2" height="3" fill="#0000FF"/>
+<rect x="12" y="2" width="2" height="3" fill="#FF0000"/>
+<rect x="12" y="45" width="2" height="3" fill="#FF0000"/>
+<rect x="15" y="2" width="2" height="3" fill="#00FF00"/>
+<rect x="15" y="45" width="2" height="3" fill="#00FF00"/>
+<rect x="18" y="2" width="2" height="3" fill="#0000FF"/>
+<rect x="18" y="45" width="2" height="3" fill="#0000FF"/>
+<rect x="21" y="2" width="2" height="3" fill="#FF0000"/>
+<rect x="21" y="45" width="2" height="3" fill="#FF0000"/>
+<rect x="24" y="2" width="2" height="3" fill="#00FF00"/>
+<rect x="24" y="45" width="2" height="3" fill="#00FF00"/>
+<rect x="27" y="2" width="2" height="3" fill="#0000FF"/>
+<rect x="27" y="45" width="2" height="3" fill="#0000FF"/>
+<rect x="30" y="2" width="2" height="3" fill="#FF0000"/>
+<rect x="30" y="45" width="2" height="3" fill="#FF0000"/>
+<rect x="33" y="2" width="2" height="3" fill="#00FF00"/>
+<rect x="33" y="45" width="2" height="3" fill="#00FF00"/>
+<rect x="36" y="2" width="2" height="3" fill="#0000FF"/>
+<rect x="36" y="45" width="2" height="3" fill="#0000FF"/>
+<path d="M35.339 33.2039L34.7339 34.4141C34.5875 34.3771 34.4035 34.3314 34.187 34.2794C33.5954 34.1374 32.7599 33.9483 31.7825 33.7591C29.8333 33.3818 27.2971 33 25 33C22.7029 33 20.1667 33.3818 18.2175 33.7591C17.2401 33.9483 16.4046 34.1374 15.813 34.2794C15.5965 34.3314 15.4125 34.3771 15.2661 34.4141L14.6544 33.1908C20.8076 29.6042 28.71 29.5976 35.339 33.2039Z" fill="white" stroke="black"/>
+<path d="M21.5 21.5C21.5 23.2496 21.2264 24.811 20.8011 25.9167C20.5878 26.4712 20.3461 26.8857 20.1032 27.1528C19.8604 27.4198 19.6558 27.5 19.5 27.5C19.3442 27.5 19.1396 27.4198 18.8968 27.1528C18.6539 26.8857 18.4122 26.4712 18.1989 25.9167C17.7736 24.811 17.5 23.2496 17.5 21.5C17.5 19.7504 17.7736 18.189 18.1989 17.0833C18.4122 16.5288 18.6539 16.1143 18.8968 15.8472C19.1396 15.5802 19.3442 15.5 19.5 15.5C19.6558 15.5 19.8604 15.5802 20.1032 15.8472C20.3461 16.1143 20.5878 16.5288 20.8011 17.0833C21.2264 18.189 21.5 19.7504 21.5 21.5Z" fill="white" stroke="black"/>
+<path d="M32.5 21.5C32.5 23.2496 32.2264 24.811 31.8011 25.9167C31.5878 26.4712 31.3461 26.8857 31.1032 27.1528C30.8604 27.4198 30.6558 27.5 30.5 27.5C30.3442 27.5 30.1396 27.4198 29.8968 27.1528C29.6539 26.8857 29.4122 26.4712 29.1989 25.9167C28.7736 24.811 28.5 23.2496 28.5 21.5C28.5 19.7504 28.7736 18.189 29.1989 17.0833C29.4122 16.5288 29.6539 16.1143 29.8968 15.8472C30.1396 15.5802 30.3442 15.5 30.5 15.5C30.6558 15.5 30.8604 15.5802 31.1032 15.8472C31.3461 16.1143 31.5878 16.5288 31.8011 17.0833C32.2264 18.189 32.5 19.7504 32.5 21.5Z" fill="white" stroke="black"/>
+<rect x="39" y="2" width="2" height="3" fill="#FF0000"/>
+<rect x="39" y="32" width="2" height="12" fill="#FF0000"/>
+<rect x="39" y="45" width="2" height="3" fill="#FF0000"/>
+<rect x="42" y="2" width="2" height="3" fill="#00FF00"/>
+<rect x="42" y="32" width="2" height="12" fill="#00FF00"/>
+<rect x="42" y="45" width="2" height="3" fill="#00FF00"/>
+<rect x="45" y="2" width="2" height="3" fill="#0000FF"/>
+<rect x="45" y="32" width="2" height="12" fill="#0000FF"/>
+<rect x="39" y="19" width="2" height="12" fill="#FF0000"/>
+<rect x="42" y="19" width="2" height="12" fill="#00FF00"/>
+<rect x="45" y="19" width="2" height="12" fill="#0000FF"/>
+<rect x="39" y="6" width="2" height="12" fill="#FF0000"/>
+<rect x="42" y="6" width="2" height="12" fill="#00FF00"/>
+<rect x="45" y="6" width="2" height="12" fill="#0000FF"/>
+<rect x="3" y="32" width="2" height="12" fill="#FF0000"/>
+<rect x="6" y="32" width="2" height="12" fill="#00FF00"/>
+<rect x="9" y="32" width="2" height="12" fill="#0000FF"/>
+<rect x="3" y="19" width="2" height="12" fill="#FF0000"/>
+<rect x="6" y="19" width="2" height="12" fill="#00FF00"/>
+<rect x="9" y="19" width="2" height="12" fill="#0000FF"/>
+<rect x="3" y="6" width="2" height="12" fill="#FF0000"/>
+<rect x="6" y="6" width="2" height="12" fill="#00FF00"/>
+<rect x="9" y="6" width="2" height="12" fill="#0000FF"/>
+<rect x="45" y="45" width="2" height="3" fill="#0000FF"/>
+</svg>

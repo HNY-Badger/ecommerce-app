@@ -1,0 +1,39 @@
+.footer {
+  margin-top: auto;
+  color: var(--white);
+  background-color: var(--dark-primary);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 50px;
+  row-gap: 10px;
+  max-width: 1280px;
+  padding: 30px 20px;
+  margin: 0 auto;
+  background-color: var(--dark-primary);
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 25px;
+  color: var(--white);
+  vertical-align: middle;
+  transition: 0.25s;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+.copyright {
+  font-size: 22px;
+  vertical-align: middle;
+}

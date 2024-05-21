@@ -1,0 +1,44 @@
+.spinner {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  overflow: hidden;
+  animation: spin 2s infinite linear;
+}
+
+.part1,
+.part2,
+.part3,
+.part4 {
+  --main-offest: 75%;
+  border-radius: 100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.part1 {
+  top: var(--main-offest);
+  background-color: #00fff29a;
+}
+.part2 {
+  right: var(--main-offest);
+  background-color: #00ddff81;
+}
+.part3 {
+  bottom: var(--main-offest);
+  background-color: #00b7ff85;
+}
+.part4 {
+  left: var(--main-offest);
+  background-color: #0084ff80;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

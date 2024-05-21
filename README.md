@@ -26,6 +26,8 @@ Guidance during the project provided by [@Lneer](https://github.com/Lneer) and [
 - ```/components``` - custom React components
   - ```/components/common``` - common components (i.e. Button, Card, etc.)
   - ```/components/[page]``` - page-specific components
+- ```/data``` - algorithmic or data-related code
 - ```/pages``` - complete pages, ready to be put in router
 - ```/store``` - global store, managing app state (Redux)
 - ```/tests``` - Jest test files
+- ```/types``` - global types

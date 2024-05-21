@@ -1,0 +1,28 @@
+.password_box {
+  color: var(--dark-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password_hide {
+  all: unset;
+  display: flex;
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+.error {
+  color: var(--error);
+  white-space: pre-wrap;
+}

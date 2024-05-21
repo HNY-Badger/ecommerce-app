@@ -1,0 +1,48 @@
+.wrapper {
+  flex: 1;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-primary);
+  gap: 120px;
+  width: 100%;
+}
+
+.text {
+  width: min-content;
+  text-align: end;
+}
+
+.text,
+.code {
+  color: var(--white);
+  font-size: 8rem;
+}
+
+.code_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding: 60px;
+  background-color: #83a9ac;
+}
+
+@media (max-width: 890px) {
+  .wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .text,
+  .code {
+    text-align: center;
+    font-size: clamp(4rem, 15vw, 5rem);
+  }
+
+  .code_wrapper {
+    gap: 30px;
+    padding: 7.5vw;
+  }
+}

@@ -1,0 +1,43 @@
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.burger_open {
+  position: fixed;
+}
+
+.line {
+  width: 30px;
+  height: 2px;
+  background-color: var(--link-color);
+  transform-origin: 8%;
+  transition: all 0.3s;
+}
+
+.top_open {
+  transform: rotate(45deg);
+}
+
+.middle_open {
+  opacity: 0;
+  transition: all 0s;
+}
+
+.bottom_open {
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+}
