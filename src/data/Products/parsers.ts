@@ -13,7 +13,6 @@ function parseProductResult(result: ProductResult): Product {
   const parsed: Product = {
     id: result.id,
     categoryId: result.categories[0].id,
-    key: result.key,
     name: result.name['en-US'],
     description: result.description['en-US'],
     attributes: master.attributes,
@@ -37,7 +36,6 @@ function parseDetailedProductResult(result: DetailedProductResult): Product {
   const parsed: Product = {
     id: result.id,
     categoryId: current.categories[0].id,
-    key: result.key,
     name: current.name['en-US'],
     description: current.description['en-US'],
     attributes: master.attributes,

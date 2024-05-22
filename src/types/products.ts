@@ -68,7 +68,6 @@ export type ProductPrice = {
 
 export type ProductResult = {
   id: string;
-  key: string;
   name: {
     ['en-US']: string;
   };
@@ -87,7 +86,6 @@ export type ProductsResponse = Response<ProductResult[]>;
 
 export type DetailedProductResult = {
   id: string;
-  key: string;
   masterData: {
     current: {
       name: {
@@ -109,7 +107,6 @@ export type DetailedProductResult = {
 export type Product = {
   id: string;
   categoryId: string;
-  key: string;
   name: string;
   description: string;
   attributes: ProductAttribute[];
