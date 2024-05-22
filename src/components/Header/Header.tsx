@@ -1,5 +1,6 @@
 import React, { MouseEventHandler, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
 import * as style from './Header.module.css';
 import BurgerLogo from './BurgerLogo';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
@@ -29,6 +30,9 @@ function Header() {
         <NavLink to="/" end className={linkStyle} onClick={() => setIsMenuOpen(false)}>
           Home
         </NavLink>
+        <NavLink to="catalog" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
+          Catalog
+        </NavLink>
         {!customer && (
           <>
             <NavLink to="login" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
@@ -37,12 +41,23 @@ function Header() {
             <NavLink to="registration" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
               Registration
             </NavLink>
+            <NavLink to="/" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
+              Profile
+            </NavLink>
           </>
         )}
         {customer && (
-          <button type="button" className={`${style.link} ${style.logout}`} onClick={logoutHandler}>
-            Logout
-          </button>
+          <>
+            <button type="button" className={`${style.link} ${style.logout}`} onClick={logoutHandler}>
+              Logout
+            </button>
+            <div className={style.email}>
+              <NavLink to="profile" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
+                <FaUser className={style.icon} />
+                {customer.email}
+              </NavLink>
+            </div>
+          </>
         )}
       </nav>
     </header>
