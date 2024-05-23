@@ -1,10 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../../store/hooks/redux';
 import * as styles from './ActivePages.module.css';
 
 function ActivePages() {
-  const { customer } = useAppSelector((state) => state.customerReducer);
   return (
     <div className={styles.links_wrapper}>
       <h3>Our active pages</h3>
