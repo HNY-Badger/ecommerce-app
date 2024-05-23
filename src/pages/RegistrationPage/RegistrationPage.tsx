@@ -216,17 +216,11 @@ function RegistrationPage() {
       dispatch(setCustomer(resp.customer));
     } catch (e) {
       const err = e as AxiosError<APIErrorResponse>;
-      let inputType = '';
       const message = err.response?.data.message ?? 'An unexpected error occurred, please, try again later';
       if (message.toLowerCase().includes('email')) {
-        inputType = 'email';
-      } else if (message.toLowerCase().includes('address')) {
-        inputType = 'addresses';
-      }
-      if (inputType) {
         setInputsErrors((prev) => ({
           ...prev,
-          [inputType]: message,
+          email: message,
         }));
       } else {
         setGlobalError(message);
