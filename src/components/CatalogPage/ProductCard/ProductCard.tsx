@@ -19,7 +19,7 @@ function formatPrice(price: number, currencyCode: string): string {
 function ProductCard({ id, name, description, image, price, currencyCode, nonDiscountPrice }: Props) {
   const navigate = useNavigate();
 
-  const clickHandler = () => navigate(`product/${id}`);
+  const clickHandler = () => navigate(`/product/${id}`);
   const keyDownHandler: KeyboardEventHandler = (e) => {
     if (e.key === 'Enter') clickHandler();
   };
