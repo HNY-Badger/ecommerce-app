@@ -18,6 +18,7 @@ export default function App() {
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="registration" element={<RegistrationPage />} />
+          {/* <Route path="product/:id" element={<DetailedProductPage />} /> */}
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

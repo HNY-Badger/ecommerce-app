@@ -21,7 +21,7 @@ function ActivePages() {
         <NavLink to="registration" className={styles.link}>
           Registration
         </NavLink>
-        <NavLink to={customer ? 'profile' : '/'} className={styles.link}>
+        <NavLink to="profile" className={styles.link}>
           Profile
         </NavLink>
       </div>

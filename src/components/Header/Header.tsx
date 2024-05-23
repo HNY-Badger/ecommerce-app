@@ -41,9 +41,6 @@ function Header() {
             <NavLink to="registration" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
               Registration
             </NavLink>
-            <NavLink to="/" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
-              Profile
-            </NavLink>
           </>
         )}
         {customer && (
