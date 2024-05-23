@@ -1,6 +1,6 @@
+import api from '.';
 import { CustomerRegistrationData, CustomerResponse } from '../types/customer';
 import TokenAPI from './token';
-import api from '.';
 
 class AuthAPI {
   public static async register(data: CustomerRegistrationData): Promise<CustomerResponse> {

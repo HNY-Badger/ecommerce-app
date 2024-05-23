@@ -29,6 +29,7 @@ export type CustomerRegistrationData = CustomerBaseInfo & {
 
 export type Customer = CustomerBaseInfo & {
   id: string;
+  version: number;
   addresses: Address[];
   billingAddressIds: string[];
   defaultBillingAddressId: string;
