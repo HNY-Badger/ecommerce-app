@@ -10,7 +10,7 @@ import AuthAPI from '../../api/auth';
 import { APIErrorResponse } from '../../types/api';
 import Spinner from '../../components/Spinner/Spinner';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
-import { customerLogin } from '../../store/reducers/CustomerSlice';
+import { setCustomer } from '../../store/reducers/CustomerSlice';
 import TokenAPI from '../../api/token';
 import { notify } from '../../store/reducers/NotificationSlice';
 import AddressModal from '../../components/RegistrationPage/AddressModal/AddressModal';
@@ -213,7 +213,7 @@ function RegistrationPage() {
       });
       await TokenAPI.getCustomerToken(inputsData.email, inputsData.password);
       dispatch(notify({ text: 'Account successfully created', type: 'success' }));
-      dispatch(customerLogin(resp.customer));
+      dispatch(setCustomer(resp.customer));
     } catch (e) {
       const err = e as AxiosError<APIErrorResponse>;
       let inputType = '';

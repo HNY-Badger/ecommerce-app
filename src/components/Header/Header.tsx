@@ -4,7 +4,7 @@ import { FaUser } from 'react-icons/fa';
 import * as style from './Header.module.css';
 import BurgerLogo from './BurgerLogo';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
-import { customerLogout } from '../../store/reducers/CustomerSlice';
+import { deleteCustomer } from '../../store/reducers/CustomerSlice';
 
 function Header() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function Header() {
   };
   const logoutHandler: MouseEventHandler = () => {
     setIsMenuOpen(false);
-    dispatch(customerLogout());
+    dispatch(deleteCustomer());
     navigate('/login');
   };
 
