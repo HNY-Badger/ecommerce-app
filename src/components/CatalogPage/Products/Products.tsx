@@ -17,7 +17,7 @@ function Products() {
         <ProductCard
           key={product.id}
           id={product.id}
-          image={product.images[0].url}
+          image={product.images[0]}
           name={product.name}
           description={product.description}
           price={product.price.centValue / 100}

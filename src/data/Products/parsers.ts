@@ -16,7 +16,7 @@ function parseProductResult(result: ProductResult): Product {
     name: result.name['en-US'],
     description: result.description['en-US'],
     attributes: master.attributes,
-    images: master.images,
+    images: master.images.map((img) => img.url),
     price: {
       centValue: usPrice.value.centAmount,
       currencyCode: usPrice.value.currencyCode,
@@ -39,7 +39,7 @@ function parseDetailedProductResult(result: DetailedProductResult): Product {
     name: current.name['en-US'],
     description: current.description['en-US'],
     attributes: master.attributes,
-    images: master.images,
+    images: master.images.map((img) => img.url),
     price: {
       centValue: usPrice.value.centAmount,
       currencyCode: usPrice.value.currencyCode,
