@@ -11,6 +11,7 @@
   justify-content: center;
   gap: 20px;
   margin: 0 auto;
+  font-size: 1.1rem;
 }
 
 .logout {
@@ -21,16 +22,36 @@
 .link {
   text-decoration: none;
   color: var(--link-color);
+  transition: 0.2s;
 }
 
-.link:hover {
+.link:hover,
+.email:hover {
   color: var(--dark-primary);
+  transform: scale(1.07);
 }
 
 .link_active {
   font-family: 'Clash Display Medium';
   color: var(--dark-primary);
   text-decoration: none;
+  transition: 0.2s;
+}
+
+.link_active:hover {
+  transform: scale(1.07);
+}
+
+.icon {
+  margin-right: 3px;
+}
+
+.email {
+  white-space: nowrap;
+  max-width: 200px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  transition: 0.2s;
 }
 
 @media (max-width: 768px) {
@@ -57,5 +78,9 @@
 
   .nav_open {
     transform: translateX(0);
+  }
+
+  .email {
+    max-width: 90%;
   }
 }
