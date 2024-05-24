@@ -7,6 +7,7 @@ import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import CatalogPage from './pages/CatalogPage/CatalogPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import DetailedProductPage from './pages/DetailedProductPage/DetailedProductPage';
 
 export default function App() {
   return (
@@ -18,7 +19,7 @@ export default function App() {
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="registration" element={<RegistrationPage />} />
-          {/* <Route path="product/:id" element={<DetailedProductPage />} /> */}
+          <Route path="product/:id" element={<DetailedProductPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
