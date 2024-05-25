@@ -110,7 +110,7 @@ export type Product = {
   name: string;
   description: string;
   attributes: ProductAttribute[];
-  images: ProductImage[];
+  images: string[];
   price: {
     centValue: number;
     currencyCode: string;
