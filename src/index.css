@@ -23,6 +23,7 @@
 :root {
   --dark-primary: #004e5b;
   --primary: #83a9ac;
+  --light-primary: #83a9ac63;
   --light-grey: #f9f9f9;
   --border-grey: #ebe8f4;
   --border-dark: #cac6da;
