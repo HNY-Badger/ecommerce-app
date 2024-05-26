@@ -18,7 +18,7 @@ function ProfileEditSection({ heading, loading, onCancel, onSave, children }: Pr
       <div className={styles.buttons}>
         <Button onClick={onSave}>
           <div className={styles.button_loading}>
-            <p>Save changes</p>
+            <p>Save&nbsp;changes</p>
             {loading && <Spinner height="16px" />}
           </div>
         </Button>
