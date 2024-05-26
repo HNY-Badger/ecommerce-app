@@ -22,7 +22,9 @@ function ProfileEditSection({ heading, loading, onCancel, onSave, children }: Pr
             {loading && <Spinner height="16px" />}
           </div>
         </Button>
-        <Button onClick={onCancel}>Cancel</Button>
+        <Button onClick={onCancel} disabled={loading}>
+          Cancel
+        </Button>
       </div>
     </div>
   );
