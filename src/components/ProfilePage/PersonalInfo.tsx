@@ -13,14 +13,7 @@ import { setCustomer } from '../../store/reducers/CustomerSlice';
 import { notify } from '../../store/reducers/NotificationSlice';
 import * as styles from './PersonalInfo.module.css';
 import UpdateAPI from '../../api/update';
-
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}
+import formatDate from '../../utils/formatDate';
 
 type PersonalDetails = {
   email: string;
@@ -40,13 +33,13 @@ function PersonalInfo({ customer }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [globalError, setGlobalError] = useState<string>('');
 
-  const initialInputsData = {
+  const initialInputsData: PersonalDetails = {
     email: customer.email,
     firstName: customer.firstName,
     lastName: customer.lastName,
     dateOfBirth: customer.dateOfBirth,
   };
-  const initialInputsErrors = {
+  const initialInputsErrors: PersonalDetails = {
     email: '',
     firstName: '',
     lastName: '',

@@ -16,14 +16,14 @@ function ProfileEditSection({ heading, loading, onCancel, onSave, children }: Pr
       <h3>{heading}</h3>
       {children}
       <div className={styles.buttons}>
+        <Button onClick={onCancel} disabled={loading}>
+          Cancel
+        </Button>
         <Button onClick={onSave}>
           <div className={styles.button_loading}>
             <p>Save&nbsp;changes</p>
             {loading && <Spinner height="16px" />}
           </div>
-        </Button>
-        <Button onClick={onCancel} disabled={loading}>
-          Cancel
         </Button>
       </div>
     </div>

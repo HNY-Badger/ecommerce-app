@@ -17,6 +17,7 @@ import AddressModal from '../../components/RegistrationPage/AddressModal/Address
 import FormInput from '../../components/FormInput/FormInput';
 import Addresses from '../../components/RegistrationPage/Addresses/Addresses';
 import FormPassInput from '../../components/FormPassInput/FormPassInput';
+import formatDate from '../../utils/formatDate';
 
 type InputsState = Omit<
   CustomerRegistrationData,
@@ -36,14 +37,6 @@ type DefaultAddresses = {
 type InputErrors = InputsState & {
   addresses: string;
 };
-
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}
 
 function RegistrationPage() {
   const navigate = useNavigate();
