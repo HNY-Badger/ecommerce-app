@@ -5,21 +5,24 @@ type Props = {
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   id: string;
-  type?: 'password' | 'date' | 'text' | 'email';
+  type?: 'password' | 'date' | 'text' | 'email' | 'search';
   error?: boolean;
   max?: string;
+  placeholder?: string;
   testid?: string;
+  className?: string;
 };
 
-function Input({ value, onChange, id, type = 'text', error, max, testid }: Props) {
+function Input({ value, onChange, id, type = 'text', error, max, placeholder, testid, className }: Props) {
   return (
     <input
       value={value}
       onChange={onChange}
       id={id}
       type={type}
-      className={`${styles.input} ${error ? styles.input_error : ''}`}
+      className={`${styles.input} ${error ? styles.input_error : ''} ${className || ''}`}
       max={max}
+      placeholder={placeholder}
       data-testid={testid}
     />
   );
