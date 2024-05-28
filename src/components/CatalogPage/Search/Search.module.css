@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+}
+
+.searchbar {
+  flex: 1;
+}
+
+.search_btn {
+  all: unset;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-primary);
+  color: var(--white);
+  transition: 0.25s;
+}
+.search_btn:hover {
+  background-color: var(--primary);
+}
