@@ -7,9 +7,10 @@ interface Props {
   variant?: 'dark' | 'white' | 'grey' | 'transparent';
   type?: 'button' | 'submit';
   testid?: string;
+  disabled?: boolean;
 }
 
-function Button({ onClick, children, variant = 'dark', type = 'button', testid }: Props) {
+function Button({ onClick, children, variant = 'dark', type = 'button', testid, disabled = false }: Props) {
   return (
     // Type stupidity is made due to ESlint error :/
     <button
@@ -17,6 +18,7 @@ function Button({ onClick, children, variant = 'dark', type = 'button', testid }
       className={`${styles.button} ${styles[variant]}`}
       onClick={onClick}
       data-testid={testid}
+      disabled={disabled}
     >
       {children}
     </button>

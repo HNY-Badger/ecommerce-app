@@ -1,12 +1,14 @@
 import React from 'react';
-import { useAppSelector } from '../../store/hooks/redux';
 import AddressField from './AddressField';
 import ProfileSection from './ProfileSection';
+import { Customer } from '../../types/customer';
 
-function AddressesInfo() {
-  const { customer } = useAppSelector((state) => state.customerReducer);
+type Props = {
+  customer: Customer;
+};
 
-  const addresses = customer?.addresses.map((address) => ({
+function AddressesInfo({ customer }: Props) {
+  const addresses = customer.addresses.map((address) => ({
     ...address,
     isShipping: customer.shippingAddressIds.includes(address.id),
     isBilling: customer.billingAddressIds.includes(address.id),
@@ -15,13 +17,11 @@ function AddressesInfo() {
   }));
 
   return (
-    addresses && (
-      <ProfileSection heading="Addresses" buttonCaption="Edit Adresses">
-        {addresses.map((address) => (
-          <AddressField key={address.id} address={address} />
-        ))}
-      </ProfileSection>
-    )
+    <ProfileSection heading="Addresses" buttonCaption="Edit Adresses">
+      {addresses.map((address) => (
+        <AddressField key={address.id} address={address} />
+      ))}
+    </ProfileSection>
   );
 }
 
