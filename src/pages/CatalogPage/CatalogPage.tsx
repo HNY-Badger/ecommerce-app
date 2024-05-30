@@ -4,34 +4,18 @@ import Products from '../../components/CatalogPage/Products/Products';
 import fetchProducts from '../../store/async/ProductsThunk';
 import { useAppDispatch } from '../../store/hooks/redux';
 import Search from '../../components/CatalogPage/Search/Search';
-import { ProductsParams } from '../../types/products';
+import { ProductsParams, SortType, isSortType } from '../../types/products';
 import Sort from '../../components/CatalogPage/Sort/Sort';
-import ProductParamBuilder from '../../data/Products/paramBuilder';
-
-function formatSortType(sortType: string): string {
-  switch (sortType) {
-    case 'name-asc':
-      return ProductParamBuilder.sort.format('name', 'asc');
-    case 'name-desc':
-      return ProductParamBuilder.sort.format('name', 'desc');
-    case 'price-asc':
-      return ProductParamBuilder.sort.format('price', 'asc');
-    case 'price-desc':
-      return ProductParamBuilder.sort.format('price', 'desc');
-    default:
-      return ProductParamBuilder.sort.format('name', 'asc');
-  }
-}
 
 function CatalogPage() {
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [sortType, setSortType] = useState<string>('name-asc');
+  const [sortType, setSortType] = useState<SortType>('name.en-US asc');
 
   const fetchHandler = (prodParams: ProductsParams) => {
     const params: ProductsParams = { ...prodParams };
     if (searchQuery.length > 0) params['text.en-US'] = searchQuery;
-    if (!prodParams.sort) params.sort = formatSortType(sortType);
+    if (!prodParams.sort) params.sort = sortType;
     dispatch(fetchProducts(params));
   };
 
@@ -40,8 +24,11 @@ function CatalogPage() {
   }, []);
 
   const sortHandler: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setSortType(e.target.value);
-    fetchHandler({ sort: formatSortType(e.target.value) });
+    const { value } = e.target;
+    if (isSortType(value)) {
+      setSortType(value as SortType);
+      fetchHandler({ sort: value as SortType });
+    }
   };
 
   return (

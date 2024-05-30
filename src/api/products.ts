@@ -15,7 +15,7 @@ class ProductsAPI {
     return parseCategories(resp.data.results);
   }
 
-  // filter and sort should be built with data/Products/builder
+  // filter should be built with data/Products/builder
   public static async getProducts(params?: ProductsParams): Promise<Product[]> {
     const resp = await api.get<ProductsResponse>(`/${process.env.CTP_PROJECT_KEY}/product-projections/search`, {
       params,

@@ -31,12 +31,18 @@ export type Category = {
 };
 
 // Products
+export type SortType = 'name.en-US asc' | 'name.en-US desc' | 'price asc' | 'price desc';
+
+export function isSortType(type: string): type is SortType {
+  return ['name.en-US asc', 'name.en-US desc', 'price asc', 'price desc'].includes(type);
+}
+
 export type ProductsParams = {
   ['text.en-US']?: string;
   limit?: number;
   offset?: number;
   filter?: string[];
-  sort?: string;
+  sort?: SortType;
 };
 
 export type ProductCategory = {

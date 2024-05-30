@@ -14,10 +14,10 @@ function Sort({ value, onChange }: Props) {
       onChange={onChange}
       id="sort"
       options={[
-        { text: 'Name (A-Z)', value: 'name-asc' },
-        { text: 'Name (Z-A)', value: 'name-desc' },
-        { text: 'Ascending price', value: 'price-asc' },
-        { text: 'Descending price', value: 'price-desc' },
+        { text: 'Name (A-Z)', value: 'name.en-US asc' },
+        { text: 'Name (Z-A)', value: 'name.en-US desc' },
+        { text: 'Ascending price', value: 'price asc' },
+        { text: 'Descending price', value: 'price desc' },
       ]}
       className={styles.sort}
     />
