@@ -140,7 +140,7 @@ function Password({ customer }: Props) {
           value={inputsData.currentPassword}
           error={inputsErrors.currentPassword}
           onChange={(e) => inputHandler(e.target.value, 'currentPassword')}
-          testid="password"
+          testid="currentPassword"
         />
         <FormPassInput
           label="New password"
@@ -148,7 +148,7 @@ function Password({ customer }: Props) {
           value={inputsData.newPassword}
           error={inputsErrors.newPassword}
           onChange={(e) => inputHandler(e.target.value, 'newPassword')}
-          testid="password"
+          testid="newPassword"
         />
         <FormPassInput
           label="Confirm new password"
@@ -156,7 +156,7 @@ function Password({ customer }: Props) {
           value={inputsData.confirmPassword}
           error={inputsErrors.confirmPassword}
           onChange={(e) => inputHandler(e.target.value, 'confirmPassword')}
-          testid="password"
+          testid="confirmPpassword"
         />
       </form>
       {globalError && <p className={styles.error}>{globalError}</p>}
