@@ -30,12 +30,13 @@ function DetailedProductPage() {
           const links: BreadcrumbLink[] = [{ name: resp.name, to: `/product/${resp.id}` }];
           ProductsAPI.getCategoryById(resp.categoryId).then((cat) => {
             links.unshift({ name: cat.name['en-US'], to: `/category/${cat.id}` });
-            setBreadcrumb(links);
             if (cat.parent) {
               ProductsAPI.getCategoryById(cat.parent.id).then((parent) => {
                 links.unshift({ name: parent.name['en-US'], to: `/category/${parent.id}` });
                 setBreadcrumb(links);
               });
+            } else {
+              setBreadcrumb(links);
             }
           });
         } catch (e) {
