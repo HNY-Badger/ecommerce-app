@@ -16,13 +16,6 @@ class ProductParamBuilder {
     },
   };
 
-  public static sort = {
-    format: (type: 'name' | 'price', order: 'asc' | 'desc'): string => {
-      const sortType = type === 'name' ? 'name.en-US' : 'price';
-      return `${sortType} ${order}`;
-    },
-  };
-
   private static combine(values: string[]): string {
     return values.slice(1).reduce((prev, curr) => `${prev},"${curr}"`, `"${values[0]}"`);
   }
