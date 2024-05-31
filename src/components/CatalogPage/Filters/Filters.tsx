@@ -13,9 +13,10 @@ type Props = {
   priceRange: [number, number];
   priceLimits: [number, number];
   onPriceChange: (min: number, max: number) => void;
+  onReset: () => void;
 };
 
-function Filters({ attributes, onAttributeCheck, priceRange, priceLimits, onPriceChange }: Props) {
+function Filters({ attributes, onAttributeCheck, priceRange, priceLimits, onPriceChange, onReset }: Props) {
   const [active, setActive] = useState<boolean>(false);
 
   return (
@@ -27,6 +28,7 @@ function Filters({ attributes, onAttributeCheck, priceRange, priceLimits, onPric
         <button aria-label="Close" type="button" className={styles.close_btn} onClick={() => setActive(false)}>
           <IoIosCloseCircle />
         </button>
+        <Button onClick={onReset}>Reset</Button>
         {attributes.length > 1 &&
           attributes.map((attr) => (
             <FilterSection key={attr.name} heading={attr.name}>

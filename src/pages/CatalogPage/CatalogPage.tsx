@@ -151,6 +151,24 @@ function CatalogPage() {
     }
   };
 
+  const resetHandler = () => {
+    setAttributes((prev) => {
+      if (prev) {
+        const attrs = [...prev];
+        attrs.forEach((attr) => {
+          attr.values.forEach((_, key) => {
+            attr.values.set(key, false);
+          });
+        });
+        return attrs;
+      }
+      return undefined;
+    });
+    if (priceLimit) {
+      setPriceRange([priceLimit[0], priceLimit[1]]);
+    }
+  };
+
   return (
     <div className={styles.catalog}>
       {categories.length > 0 && <Categories categories={categories} />}
@@ -162,6 +180,7 @@ function CatalogPage() {
             priceLimits={priceLimit ?? [0, 0]}
             priceRange={priceRange ?? [0, 0]}
             onPriceChange={priceHandler}
+            onReset={resetHandler}
           />
         </div>
         <div className={styles.main}>
