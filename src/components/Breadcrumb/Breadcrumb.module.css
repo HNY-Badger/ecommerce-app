@@ -1,0 +1,30 @@
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  all: unset;
+  font-size: 1.2rem;
+}
+
+.breadcrumb a:not(:last-child) {
+  cursor: pointer;
+  color: var(--dark-primary);
+  font-weight: bold;
+  transition: 0.25s;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+.breadcrumb a:last-child {
+  pointer-events: none;
+}
+
+.breadcrumb a:not(:last-child)::after {
+  content: '>';
+  display: inline-block;
+  margin: 0 0.3rem;
+}
