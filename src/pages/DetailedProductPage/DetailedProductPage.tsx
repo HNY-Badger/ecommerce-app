@@ -7,6 +7,8 @@ import Spinner from '../../components/Spinner/Spinner';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import ProductDetails from '../../components/DetailedProductPage/ProductDetails/ProductDetails';
 import ImageSlider from '../../components/DetailedProductPage/ImageSlider/ImageSlider';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { BreadcrumbLink } from '../../types/breadcrumb';
 
 type ProductState = {
   product: Product | null;
@@ -17,12 +19,25 @@ type ProductState = {
 function DetailedProductPage() {
   const { id } = useParams();
   const [productState, setProductState] = useState<ProductState>({ product: null, loading: true, error: false });
+  const [breadcrumb, setBreadcrumb] = useState<BreadcrumbLink[]>([]);
+
   useEffect(() => {
     async function fn() {
       if (id) {
         try {
           const resp = await ProductsAPI.getDetailedProduct(id);
           setProductState((prev) => ({ ...prev, product: resp, loading: false }));
+          const links: BreadcrumbLink[] = [{ name: resp.name, to: `/product/${resp.id}` }];
+          ProductsAPI.getCategoryById(resp.categoryId).then((cat) => {
+            links.unshift({ name: cat.name['en-US'], to: `/category/${cat.id}` });
+            setBreadcrumb(links);
+            if (cat.parent) {
+              ProductsAPI.getCategoryById(cat.parent.id).then((parent) => {
+                links.unshift({ name: parent.name['en-US'], to: `/category/${parent.id}` });
+                setBreadcrumb(links);
+              });
+            }
+          });
         } catch (e) {
           setProductState((prev) => ({
             ...prev,
@@ -49,8 +64,11 @@ function DetailedProductPage() {
   }
   return (
     <div className={styles.product}>
-      <ImageSlider name={productState.product?.name!} images={productState.product?.images!} />
-      <ProductDetails product={productState.product!} />
+      <Breadcrumb links={[{ name: 'All', to: '/catalog' }, ...breadcrumb]} />
+      <div className={styles.details}>
+        <ImageSlider name={productState.product?.name!} images={productState.product?.images!} />
+        <ProductDetails product={productState.product!} />
+      </div>
     </div>
   );
 }
