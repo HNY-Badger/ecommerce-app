@@ -4,7 +4,7 @@ import { useAppSelector } from '../../store/hooks/redux';
 import * as styles from './ProfilePage.module.css';
 import PersonalInfo from '../../components/ProfilePage/PersonalInfo';
 import AddressesInfo from '../../components/ProfilePage/AddressesInfo';
-import ProfileSection from '../../components/ProfilePage/ProfileSection';
+import Password from '../../components/ProfilePage/Password';
 
 function ProfilePage() {
   const { customer } = useAppSelector((state) => state.customerReducer);
@@ -17,7 +17,7 @@ function ProfilePage() {
     <div className={styles.profile}>
       <PersonalInfo customer={customer} />
       <AddressesInfo customer={customer} />
-      <ProfileSection heading="Password" buttonCaption="Change Password" />
+      <Password customer={customer} />
     </div>
   );
 }
