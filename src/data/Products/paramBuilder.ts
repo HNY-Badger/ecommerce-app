@@ -1,9 +1,8 @@
 class ProductParamBuilder {
   public static filter = {
-    category: (ids: string[]): string => {
-      if (ids.length === 0) throw Error(`Empty values should be excluded from the query`);
-      const query = ids.length === 1 ? `"${ids[0]}"` : this.combine(ids);
-      return `categories.id:${query}`;
+    category: (id: string): string => {
+      const query = `"${id}"`;
+      return `categories.id: subtree(${query})`;
     },
     attribute: (key: string, values: string[]): string => {
       if (values.length === 0) throw Error(`Empty values should be excluded from the query`);
