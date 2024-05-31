@@ -5,8 +5,8 @@ import * as styles from './Search.module.css';
 import Input from '../../Input/Input';
 
 function Search() {
-  const [, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState<string>('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState<string>(searchParams.get('search') ?? '');
   const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     setSearchParams({ search });
