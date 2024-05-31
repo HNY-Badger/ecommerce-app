@@ -52,11 +52,11 @@ function parseDetailedProductResult(result: DetailedProductResult): Product {
   return parsed;
 }
 
-function parseCategories(results: CategoryResult[]): Category[] {
+function parseCategories(results: CategoryResult[], withParent?: boolean): Category[] {
   const categories: Category[] = [];
   const subcategories: Subcategory[] = [];
   results.forEach((result) => {
-    if (!result.parent) {
+    if (!result.parent || withParent) {
       const cat: Category = {
         id: result.id,
         name: result.name['en-US'],

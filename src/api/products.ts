@@ -2,6 +2,7 @@ import api from '.';
 import {
   CategoriesResponse,
   Category,
+  CategoryResult,
   DetailedProductResult,
   Product,
   ProductsParams,
@@ -10,9 +11,20 @@ import {
 import { parseCategories, parseDetailedProductResult, parseProductResult } from '../data/Products/parsers';
 
 class ProductsAPI {
-  public static async getCategories(): Promise<Category[]> {
-    const resp = await api.get<CategoriesResponse>(`/${process.env.CTP_PROJECT_KEY}/categories`);
-    return parseCategories(resp.data.results);
+  public static async getCategories(parentId?: string): Promise<Category[]> {
+    const params = parentId
+      ? {
+          where: `parent(id="${parentId}")`,
+        }
+      : {};
+    const resp = await api.get<CategoriesResponse>(`/${process.env.CTP_PROJECT_KEY}/categories`, { params });
+    const withParent = !!(parentId && parentId.length > 0);
+    return parseCategories(resp.data.results, withParent);
+  }
+
+  public static async getCategoryById(id: string): Promise<CategoryResult> {
+    const resp = await api.get<CategoryResult>(`/${process.env.CTP_PROJECT_KEY}/categories/${id}`);
+    return resp.data;
   }
 
   // filter should be built with data/Products/builder
