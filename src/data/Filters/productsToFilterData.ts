@@ -28,8 +28,10 @@ function productsToFilterData(products: Product[]): FilterData {
       return attr;
     });
   });
+  attrs = attrs.filter((attr) => attr.values.size > 1);
+  attrs = attrs.sort((a, b) => a.name.localeCompare(b.name));
   return {
-    attributes: attrs.filter((attr) => attr.values.size > 1),
+    attributes: attrs,
     minCentPrice,
     maxCentPrice,
   };

@@ -32,15 +32,17 @@ function Filters({ attributes, onAttributeCheck, priceRange, priceLimits, onPric
         {attributes.length > 1 &&
           attributes.map((attr) => (
             <FilterSection key={attr.name} heading={attr.name}>
-              {Array.from(attr.values.entries()).map(([key, value]) => (
-                <CheckBox
-                  label={key}
-                  key={key}
-                  id={key}
-                  checked={value}
-                  onChange={(e) => onAttributeCheck(attr.name, key, e.target.checked)}
-                />
-              ))}
+              {Array.from(attr.values.entries())
+                .sort((a, b) => a[0].localeCompare(b[0]))
+                .map(([key, value]) => (
+                  <CheckBox
+                    label={key}
+                    key={key}
+                    id={key}
+                    checked={value}
+                    onChange={(e) => onAttributeCheck(attr.name, key, e.target.checked)}
+                  />
+                ))}
             </FilterSection>
           ))}
         {priceLimits[0] !== priceLimits[1] && (
