@@ -33,7 +33,7 @@ function Filters({ attributes, onAttributeCheck, priceRange, priceLimits, onPric
           attributes.map((attr) => (
             <FilterSection key={attr.name} heading={attr.name}>
               {Array.from(attr.values.entries())
-                .sort((a, b) => a[0].localeCompare(b[0]))
+                .sort(([a], [b]) => a.localeCompare(b))
                 .map(([key, value]) => (
                   <CheckBox
                     label={key}
