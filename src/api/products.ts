@@ -5,6 +5,7 @@ import {
   CategoryResult,
   DetailedProductResult,
   Product,
+  ProductsData,
   ProductsParams,
   ProductsResponse,
 } from '../types/products';
@@ -28,11 +29,15 @@ class ProductsAPI {
   }
 
   // filter should be built with data/Products/builder
-  public static async getProducts(params?: ProductsParams): Promise<Product[]> {
+  public static async getProducts(params?: ProductsParams): Promise<ProductsData> {
     const resp = await api.get<ProductsResponse>(`/${process.env.CTP_PROJECT_KEY}/product-projections/search`, {
       params,
     });
-    return resp.data.results.map((result) => parseProductResult(result));
+    const data: ProductsData = {
+      total: resp.data.total,
+      products: resp.data.results.map((result) => parseProductResult(result)),
+    };
+    return data;
   }
 
   public static async getDetailedProduct(id: string): Promise<Product> {

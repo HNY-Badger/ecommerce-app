@@ -5,7 +5,10 @@ import { useAppSelector } from '../../../store/hooks/redux';
 import Spinner from '../../Spinner/Spinner';
 
 function Products() {
-  const { products, loading } = useAppSelector((state) => state.productsReducer);
+  const {
+    data: { products },
+    loading,
+  } = useAppSelector((state) => state.productsReducer);
 
   return loading ? (
     <div className={styles.spinner_wrapper}>
