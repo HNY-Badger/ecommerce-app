@@ -14,6 +14,7 @@ type Props = {
   defaultBilling?: string;
   defaultShipping?: string;
   error?: string;
+  hideHeading?: boolean;
 };
 
 function Addresses({
@@ -27,10 +28,11 @@ function Addresses({
   defaultBilling,
   defaultShipping,
   error,
+  hideHeading,
 }: Props) {
   return (
     <div className={styles.addresses_wrapper}>
-      <p>Addresses</p>
+      {hideHeading || <p>Addresses</p>}
       {error && <p className={styles.addresses_error}>{error}</p>}
       <div className={styles.addresses}>
         {addresses.map((address) => (

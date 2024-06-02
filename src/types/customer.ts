@@ -40,3 +40,13 @@ export type Customer = CustomerBaseInfo & {
 export type CustomerResponse = {
   customer: Customer;
 };
+
+export type SpecialAddresses = {
+  billingAddresses: string[];
+  shippingAddresses: string[];
+};
+
+export type DefaultAddresses = {
+  defaultBillingAddress?: string;
+  defaultShippingAddress?: string;
+};

@@ -132,7 +132,7 @@ function Password({ customer }: Props) {
   };
 
   return isEditModeOn ? (
-    <ProfileEditSection heading="Personal Details" loading={loading} onCancel={cancelHandler} onSave={saveHandler}>
+    <ProfileEditSection heading="Password" loading={loading} onCancel={cancelHandler} onSave={saveHandler}>
       <form className={styles.form}>
         <FormPassInput
           label="Current password"
@@ -156,7 +156,7 @@ function Password({ customer }: Props) {
           value={inputsData.confirmPassword}
           error={inputsErrors.confirmPassword}
           onChange={(e) => inputHandler(e.target.value, 'confirmPassword')}
-          testid="confirmPpassword"
+          testid="confirmPassword"
         />
       </form>
       {globalError && <p className={styles.error}>{globalError}</p>}

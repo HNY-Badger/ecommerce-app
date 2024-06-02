@@ -5,7 +5,7 @@ import * as styles from './RegistrationPage.module.css';
 import Button from '../../components/Button/Button';
 import Validation from '../../data/Validation/validation';
 import { InputType } from '../../types/input';
-import { AddressData, CustomerRegistrationData } from '../../types/customer';
+import { AddressData, CustomerRegistrationData, SpecialAddresses, DefaultAddresses } from '../../types/customer';
 import AuthAPI from '../../api/auth';
 import { APIErrorResponse } from '../../types/api';
 import Spinner from '../../components/Spinner/Spinner';
@@ -23,16 +23,6 @@ type InputsState = Omit<
   CustomerRegistrationData,
   'addresses' | 'billingAddresses' | 'defaultBillingAddress' | 'shippingAddresses' | 'defaultShippingAddress'
 >;
-
-type SpecialAddresses = {
-  billingAddresses: string[];
-  shippingAddresses: string[];
-};
-
-type DefaultAddresses = {
-  defaultBillingAddress?: string;
-  defaultShippingAddress?: string;
-};
 
 type InputErrors = InputsState & {
   addresses: string;

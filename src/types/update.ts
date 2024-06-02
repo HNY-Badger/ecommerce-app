@@ -38,7 +38,7 @@ export type AddressActions =
 export type AddressBody<T extends AddressActions> = T extends 'addAddress' | 'changeAddress'
   ? { address: AddressData }
   : T extends Omit<AddressActions, 'addAddress' | 'changeAddress'>
-    ? { addressKey: string }
+    ? { addressKey: string | undefined }
     : never;
 
 export type UpdateAddress<T extends AddressActions> = {
