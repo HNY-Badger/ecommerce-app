@@ -5,14 +5,16 @@
 }
 
 .content {
+  flex: 1;
   display: flex;
   gap: 20px;
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
   background-color: color-mix(in srgb, var(--white) 95%, black 5%);
   width: clamp(100px, 20vw, 300px);
-  min-height: 75px;
   flex-shrink: 0;
 }
 
@@ -36,6 +38,8 @@
   }
   .sidebar {
     width: 100%;
+    align-items: center;
+    background-color: transparent;
   }
   .top_bar {
     padding: 0 10px;

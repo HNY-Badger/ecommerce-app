@@ -3,24 +3,32 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import * as styles from './CatalogPage.module.css';
 import Products from '../../components/CatalogPage/Products/Products';
 import fetchProducts from '../../store/async/ProductsThunk';
-import { useAppDispatch } from '../../store/hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import Search from '../../components/CatalogPage/Search/Search';
-import { Category, ProductsParams, SortType, isSortType } from '../../types/products';
+import { Attribute, Category, ProductsParams, SortType, isSortType } from '../../types/products';
 import Categories from '../../components/CatalogPage/Categories/Categories';
 import ProductParamBuilder from '../../data/Products/paramBuilder';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import ProductsAPI from '../../api/products';
 import Sort from '../../components/CatalogPage/Sort/Sort';
 import { BreadcrumbLink } from '../../types/breadcrumb';
+import Filters from '../../components/CatalogPage/Filters/Filters';
+import productsToFilterData from '../../data/Filters/productsToFilterData';
 
 function CatalogPage() {
   const dispatch = useAppDispatch();
+  const products = useAppSelector((state) => state.productsReducer);
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const [sortType, setSortType] = useState<SortType>('name.en-US asc');
   const [categories, setCategories] = useState<Category[]>([]);
   const [breadcrumb, setBreadcrumb] = useState<BreadcrumbLink[]>([]);
+
+  const [attributes, setAttributes] = useState<Attribute[] | undefined>();
+  const [priceRange, setPriceRange] = useState<[number, number] | undefined>();
+  const [, setPriceTimer] = useState<NodeJS.Timeout>();
+  const [priceLimit, setPriceLimit] = useState<[number, number] | undefined>();
 
   const fetchHandler = () => {
     const params: ProductsParams = {};
@@ -32,22 +40,101 @@ function CatalogPage() {
     if (id) {
       filter.push(ProductParamBuilder.filter.category(id));
     }
+    if (priceRange) {
+      filter.push(ProductParamBuilder.filter.centValueRange(priceRange[0] * 100, priceRange[1] * 100));
+    }
+    if (attributes) {
+      attributes.forEach((attr) => {
+        const { name } = attr;
+        const values: string[] = [];
+        Array.from(attr.values.entries()).forEach(([key, value]) => {
+          if (value) {
+            values.push(key);
+          }
+        });
+        if (values.length > 0) {
+          filter.push(ProductParamBuilder.filter.attribute(name, values));
+        }
+      });
+    }
     params.filter = filter;
     dispatch(fetchProducts(params));
   };
 
   useEffect(() => {
     fetchHandler();
-  }, [sortType, searchParams.get('search'), id]);
+  }, [sortType, searchParams.get('search'), id, attributes]);
 
+  const priceHandler = (min: number, max: number) => {
+    if (
+      priceLimit &&
+      min >= priceLimit[0] &&
+      min <= priceLimit[1] &&
+      max >= priceLimit[0] &&
+      max <= priceLimit[1] &&
+      min < max
+    ) {
+      setPriceRange([min, max]);
+      const timeout = setTimeout(() => fetchHandler(), 1000);
+      setPriceTimer((prev) => {
+        clearTimeout(prev);
+        return timeout;
+      });
+    }
+  };
+
+  const attributeHandler = (name: string, key: string, value: boolean) => {
+    setAttributes((prev) => {
+      if (prev) {
+        let attrs = [...prev];
+        attrs = attrs.map((attr) => {
+          if (attr.name === name) {
+            attr.values.set(key, value);
+          }
+          return attr;
+        });
+        return attrs;
+      }
+      return undefined;
+    });
+  };
+
+  // Update attributes if they're undefined
+  useEffect(() => {
+    if (
+      !products.loading &&
+      products.error.length === 0 &&
+      attributes === undefined &&
+      priceRange === undefined &&
+      priceLimit === undefined
+    ) {
+      const { attributes: attrs, minCentPrice, maxCentPrice } = productsToFilterData(products.products);
+      setAttributes(attrs);
+      const limits: [number, number] = [minCentPrice / 100, maxCentPrice / 100];
+      setPriceLimit(limits);
+      setPriceRange(limits);
+    }
+  }, [products]);
+
+  // Reset and update attributes only if search query or category changes
+  useEffect(() => {
+    setAttributes(undefined);
+    setPriceRange(undefined);
+    setPriceLimit(undefined);
+  }, [searchParams.get('search'), id]);
+
+  // If category changes, update the breadcrumb
   useEffect(() => {
     if (id) {
       ProductsAPI.getCategoryById(id).then((cat) => {
-        setBreadcrumb([{ name: cat.name['en-US'], to: `/category/${cat.id}` }]);
+        const links: BreadcrumbLink[] = [{ name: cat.name['en-US'], to: `/category/${cat.id}` }];
         if (cat.parent) {
           ProductsAPI.getCategoryById(cat.parent.id).then((parent) => {
-            setBreadcrumb((prev) => [{ name: parent.name['en-US'], to: `/category/${parent.id}` }, ...prev]);
+            links.unshift({ name: parent.name['en-US'], to: `/category/${parent.id}` });
+            setBreadcrumb(links);
           });
+        } else {
+          setBreadcrumb(links);
         }
         ProductsAPI.getCategories(cat.id).then((ctgrs) => setCategories(ctgrs));
       });
@@ -64,11 +151,38 @@ function CatalogPage() {
     }
   };
 
+  const resetHandler = () => {
+    setAttributes((prev) => {
+      if (prev) {
+        const attrs = [...prev];
+        attrs.forEach((attr) => {
+          attr.values.forEach((_, key) => {
+            attr.values.set(key, false);
+          });
+        });
+        return attrs;
+      }
+      return undefined;
+    });
+    if (priceLimit) {
+      setPriceRange([priceLimit[0], priceLimit[1]]);
+    }
+  };
+
   return (
     <div className={styles.catalog}>
       {categories.length > 0 && <Categories categories={categories} />}
       <div className={styles.content}>
-        <div className={styles.sidebar}>Placeholder</div>
+        <div className={styles.sidebar}>
+          <Filters
+            attributes={attributes ?? []}
+            onAttributeCheck={attributeHandler}
+            priceLimits={priceLimit ?? [0, 0]}
+            priceRange={priceRange ?? [0, 0]}
+            onPriceChange={priceHandler}
+            onReset={resetHandler}
+          />
+        </div>
         <div className={styles.main}>
           <div className={styles.top_bar}>
             <Breadcrumb links={[{ name: 'All', to: '/catalog' }, ...breadcrumb]} />

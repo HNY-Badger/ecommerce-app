@@ -123,3 +123,8 @@ export type Product = {
     nonDiscountCentValue?: number;
   };
 };
+
+export type Attribute = {
+  name: string;
+  values: Map<string, boolean>;
+};
