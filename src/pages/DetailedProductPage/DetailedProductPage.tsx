@@ -9,6 +9,7 @@ import ProductDetails from '../../components/DetailedProductPage/ProductDetails/
 import ImageSlider from '../../components/DetailedProductPage/ImageSlider/ImageSlider';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { BreadcrumbLink } from '../../types/breadcrumb';
+import EnlargedImage from '../../components/DetailedProductPage/EnlargedImage/EnlargedImage';
 
 type ProductState = {
   product: Product | null;
@@ -20,6 +21,8 @@ function DetailedProductPage() {
   const { id } = useParams();
   const [productState, setProductState] = useState<ProductState>({ product: null, loading: true, error: false });
   const [breadcrumb, setBreadcrumb] = useState<BreadcrumbLink[]>([]);
+  const [imageIndex, setImageIndex] = useState<number>(0);
+  const [enlarged, setEnlarged] = useState<boolean>(false);
 
   useEffect(() => {
     async function fn() {
@@ -67,9 +70,26 @@ function DetailedProductPage() {
     <div className={styles.product}>
       <Breadcrumb links={[{ name: 'All', to: '/catalog' }, ...breadcrumb]} />
       <div className={styles.details}>
-        <ImageSlider name={productState.product?.name!} images={productState.product?.images!} />
+        <div className={styles.slider_wrapper}>
+          <ImageSlider
+            index={imageIndex}
+            onIndexChange={(i) => setImageIndex(i)}
+            name={productState.product?.name!}
+            images={productState.product?.images!}
+            onImageClick={() => setEnlarged(true)}
+          />
+        </div>
         <ProductDetails product={productState.product!} />
       </div>
+      {enlarged && (
+        <EnlargedImage
+          index={imageIndex}
+          onIndexChange={(i) => setImageIndex(i)}
+          name={productState.product?.name!}
+          images={productState.product?.images!}
+          onBackdropClick={() => setEnlarged(false)}
+        />
+      )}
     </div>
   );
 }

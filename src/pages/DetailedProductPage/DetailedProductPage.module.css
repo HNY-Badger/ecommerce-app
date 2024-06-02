@@ -11,6 +11,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 }
 
 .details {
@@ -18,8 +19,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
   gap: 50px;
+}
+
+.slider_wrapper {
+  width: clamp(200px, 50vw, 500px);
 }
 
 @media (max-width: 768px) {
@@ -27,5 +31,9 @@
     gap: 10px;
     justify-content: start;
     flex-direction: column;
+  }
+
+  .slider_wrapper {
+    width: clamp(200px, 70vw, 500px);
   }
 }
