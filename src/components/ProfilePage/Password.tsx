@@ -132,7 +132,7 @@ function Password({ customer }: Props) {
   };
 
   return isEditModeOn ? (
-    <ProfileEditSection heading="Personal Details" loading={loading} onCancel={cancelHandler} onSave={saveHandler}>
+    <ProfileEditSection heading="Password" loading={loading} onCancel={cancelHandler} onSave={saveHandler}>
       <form className={styles.form}>
         <FormPassInput
           label="Current password"
