@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useAppDispatch } from '../../store/hooks/redux';
-import { Customer, CountryType } from '../../types/customer';
+import { Customer, AddressData, SpecialAddresses, DefaultAddresses } from '../../types/customer';
 import { AddressActions, UpdateAddress } from '../../types/update';
 import { APIErrorResponse } from '../../types/api';
 import AddressField from './AddressField';
@@ -13,25 +13,6 @@ import Button from '../Button/Button';
 import UpdateAPI from '../../api/update';
 import { setCustomer } from '../../store/reducers/CustomerSlice';
 import { notify } from '../../store/reducers/NotificationSlice';
-
-type AddressData = {
-  id?: string;
-  key: string;
-  streetName: string;
-  city: string;
-  postalCode: string;
-  country: CountryType;
-};
-
-type SpecialAddresses = {
-  billingAddresses: string[];
-  shippingAddresses: string[];
-};
-
-type DefaultAddresses = {
-  defaultBillingAddress?: string;
-  defaultShippingAddress?: string;
-};
 
 type Props = {
   customer: Customer;
