@@ -156,7 +156,7 @@ function Password({ customer }: Props) {
           value={inputsData.confirmPassword}
           error={inputsErrors.confirmPassword}
           onChange={(e) => inputHandler(e.target.value, 'confirmPassword')}
-          testid="confirmPpassword"
+          testid="confirmPassword"
         />
       </form>
       {globalError && <p className={styles.error}>{globalError}</p>}
