@@ -15,6 +15,7 @@ import { BreadcrumbLink } from '../../types/breadcrumb';
 import Filters from '../../components/CatalogPage/Filters/Filters';
 import productsToFilterData from '../../data/Filters/productsToFilterData';
 import Pagination from '../../components/CatalogPage/Pagination/Pagination';
+import Spinner from '../../components/Spinner/Spinner';
 
 const productsOnPage = 10;
 
@@ -208,12 +209,20 @@ function CatalogPage() {
             <Search />
             <Sort value={sortType} onChange={sortHandler} />
           </div>
-          <Products />
-          <Pagination
-            currentPage={page}
-            onPageChange={(clickedPage) => setPage(clickedPage)}
-            totalPages={Math.ceil(productsState.data.total / productsOnPage)}
-          />
+          {productsState.loading ? (
+            <div className={styles.spinner_wrapper}>
+              <Spinner width="200px" />
+            </div>
+          ) : (
+            <>
+              <Products />
+              <Pagination
+                currentPage={page}
+                onPageChange={(clickedPage) => setPage(clickedPage)}
+                totalPages={Math.ceil(productsState.data.total / productsOnPage)}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

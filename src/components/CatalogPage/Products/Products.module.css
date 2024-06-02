@@ -1,10 +1,3 @@
-.spinner_wrapper {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .products {
   flex: 1;
   padding: 20px;
