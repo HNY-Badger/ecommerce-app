@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useAppDispatch } from '../../store/hooks/redux';
 import { Customer, AddressData, SpecialAddresses, DefaultAddresses } from '../../types/customer';
@@ -11,7 +12,8 @@ import ProfileSection from './ProfileSection';
 import ProfileEditSection from './ProfileEditSection';
 import Button from '../Button/Button';
 import UpdateAPI from '../../api/update';
-import { setCustomer } from '../../store/reducers/CustomerSlice';
+import AuthAPI from '../../api/auth';
+import { deleteCustomer, setCustomer } from '../../store/reducers/CustomerSlice';
 import { notify } from '../../store/reducers/NotificationSlice';
 
 type Props = {
@@ -20,6 +22,7 @@ type Props = {
 
 function AddressesInfo({ customer }: Props) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [isEditModeOn, setIsEditModeOn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -196,6 +199,39 @@ function AddressesInfo({ customer }: Props) {
     return actions;
   };
 
+  const sendRequest = async (
+    actions: UpdateAddress<AddressActions>[],
+    customerID: string,
+    customerVersion: number
+  ): Promise<void> => {
+    setLoading(true);
+    try {
+      const resp = await UpdateAPI.updateAddress({
+        id: customerID,
+        data: {
+          version: customerVersion,
+          actions,
+        },
+      });
+      dispatch(notify({ text: 'Addresses successfully updated', type: 'success' }));
+      dispatch(setCustomer(resp));
+      setIsEditModeOn(false);
+    } catch (e) {
+      const err = e as AxiosError<APIErrorResponse>;
+      const message = err.response?.data.message ?? 'An unexpected error occurred, please, try again later';
+      if (message.toLowerCase().includes('different version')) {
+        const newCustomer = await AuthAPI.getCustomerById(customerID);
+        sendRequest(actions, newCustomer.id, newCustomer.version);
+      } else if (message.toLowerCase().includes('invalid_token')) {
+        dispatch(deleteCustomer());
+        navigate('/login');
+      } else {
+        setError(message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   const saveHandler = async () => {
     if (error) {
       return;
@@ -212,26 +248,7 @@ function AddressesInfo({ customer }: Props) {
       setError('Make changes to save or click cancel');
       return;
     }
-
-    setLoading(true);
-    try {
-      const resp = await UpdateAPI.updateAddress({
-        id: customer.id,
-        data: {
-          version: customer.version,
-          actions,
-        },
-      });
-      dispatch(notify({ text: 'Addresses successfully updated', type: 'success' }));
-      dispatch(setCustomer(resp));
-      setIsEditModeOn(false);
-    } catch (e) {
-      const err = e as AxiosError<APIErrorResponse>;
-      const message = err.response?.data.message ?? 'An unexpected error occurred, please, try again later';
-      setError(message);
-    } finally {
-      setLoading(false);
-    }
+    sendRequest(actions, customer.id, customer.version);
   };
 
   const cancelHandler = () => {
