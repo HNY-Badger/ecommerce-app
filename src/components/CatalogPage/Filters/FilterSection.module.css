@@ -1,0 +1,9 @@
+.filter_section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.heading {
+  font-size: 1.2rem;
+}

@@ -2,11 +2,11 @@ import React, { MouseEventHandler, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import * as styles from './AddressModal.module.css';
 import FormInput from '../../FormInput/FormInput';
-import Select from '../../Select/Select';
 import Button from '../../Button/Button';
 import Validation from '../../../data/Validation/validation';
 import { InputType } from '../../../types/input';
 import { AddressData, CountryType } from '../../../types/customer';
+import FormSelect from '../../FormSelect/FormSelect';
 
 type AddressState = Omit<AddressData, 'key' | 'country'>;
 type InputErrors = {
@@ -106,7 +106,7 @@ function AddressModal({ onClose, addAddress, addressData, testid }: Props) {
           value={address.postalCode}
           onChange={(e) => inputHandler(e.target.value, country === 'US' ? 'postalCodeUS' : 'postalCodeCA')}
         />
-        <Select
+        <FormSelect
           value={country}
           onChange={(e) => inputHandler(e.target.value, 'country')}
           label="Country"
