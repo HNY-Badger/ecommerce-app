@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks/redux';
 import ProfileSection from './ProfileSection';
 import { Customer } from '../../types/customer';
@@ -7,7 +8,7 @@ import ProfileEditSection from './ProfileEditSection';
 import FormPassInput from '../FormPassInput/FormPassInput';
 import UpdateAPI from '../../api/update';
 import Validation from '../../data/Validation/validation';
-import { setCustomer } from '../../store/reducers/CustomerSlice';
+import { deleteCustomer, setCustomer } from '../../store/reducers/CustomerSlice';
 import { APIErrorResponse } from '../../types/api';
 import { notify } from '../../store/reducers/NotificationSlice';
 import * as styles from './PersonalInfo.module.css';
@@ -27,6 +28,7 @@ type Props = {
 
 function Password({ customer }: Props) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [isEditModeOn, setIsEditModeOn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -80,6 +82,42 @@ function Password({ customer }: Props) {
     setGlobalError('');
   };
 
+  const sendRequest = async (customerID: string, customerVersion: number): Promise<void> => {
+    setLoading(true);
+    try {
+      await UpdateAPI.updatePassword({
+        id: customerID,
+        version: customerVersion,
+        currentPassword: inputsData.currentPassword,
+        newPassword: inputsData.newPassword,
+      });
+      const resp = await AuthAPI.login(customer.email, inputsData.newPassword);
+      dispatch(setCustomer(resp.customer));
+      dispatch(notify({ text: 'Password successfully updated', type: 'success' }));
+      setIsEditModeOn(false);
+    } catch (e) {
+      const err = e as AxiosError<APIErrorResponse>;
+      const message = err.response?.data.message ?? 'An unexpected error occurred, please, try again later';
+      if (message.toLowerCase().includes('current password')) {
+        setInputsErrors((prev) => ({
+          ...prev,
+          currentPassword: message,
+        }));
+      } else if (message.toLowerCase().includes('different version')) {
+        const newCustomer = await AuthAPI.getCustomerById(customerID);
+        sendRequest(newCustomer.id, newCustomer.version);
+      } else if (message.toLowerCase().includes('invalid_token')) {
+        dispatch(deleteCustomer());
+        navigate('/login');
+      } else {
+        setGlobalError(message);
+      }
+    } finally {
+      setLoading(false);
+      setInputsData(initialData);
+    }
+  };
+
   const saveHandler = async () => {
     if (Object.values(inputsErrors).some((error) => error.length > 0)) {
       return;
@@ -102,33 +140,8 @@ function Password({ customer }: Props) {
       setGlobalError('New password must be different from the current one');
       return;
     }
-    setLoading(true);
-    try {
-      await UpdateAPI.updatePassword({
-        id: customer.id,
-        version: customer.version,
-        currentPassword: inputsData.currentPassword,
-        newPassword: inputsData.newPassword,
-      });
-      const resp = await AuthAPI.login(customer.email, inputsData.newPassword);
-      dispatch(setCustomer(resp.customer));
-      dispatch(notify({ text: 'Password successfully updated', type: 'success' }));
-      setIsEditModeOn(false);
-    } catch (e) {
-      const err = e as AxiosError<APIErrorResponse>;
-      const message = err.response?.data.message ?? 'An unexpected error occurred, please, try again later';
-      if (message.toLowerCase().includes('current password')) {
-        setInputsErrors((prev) => ({
-          ...prev,
-          currentPassword: message,
-        }));
-      } else {
-        setGlobalError(message);
-      }
-    } finally {
-      setLoading(false);
-      setInputsData(initialData);
-    }
+
+    sendRequest(customer.id, customer.version);
   };
 
   return isEditModeOn ? (
