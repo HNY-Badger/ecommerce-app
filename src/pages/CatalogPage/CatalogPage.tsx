@@ -14,6 +14,7 @@ import Sort from '../../components/CatalogPage/Sort/Sort';
 import { BreadcrumbLink } from '../../types/breadcrumb';
 import Filters from '../../components/CatalogPage/Filters/Filters';
 import productsToFilterData from '../../data/Filters/productsToFilterData';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 function CatalogPage() {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ function CatalogPage() {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const [sortType, setSortType] = useState<SortType>('name.en-US asc');
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[] | null>([]);
   const [breadcrumb, setBreadcrumb] = useState<BreadcrumbLink[]>([]);
 
   const [attributes, setAttributes] = useState<Attribute[] | undefined>();
@@ -129,18 +130,22 @@ function CatalogPage() {
   // If category changes, update the breadcrumb
   useEffect(() => {
     if (id) {
-      ProductsAPI.getCategoryById(id).then((cat) => {
-        const links: BreadcrumbLink[] = [{ name: cat.name['en-US'], to: `/category/${cat.id}` }];
-        if (cat.parent) {
-          ProductsAPI.getCategoryById(cat.parent.id).then((parent) => {
-            links.unshift({ name: parent.name['en-US'], to: `/category/${parent.id}` });
+      ProductsAPI.getCategoryById(id)
+        .then((cat) => {
+          const links: BreadcrumbLink[] = [{ name: cat.name['en-US'], to: `/category/${cat.id}` }];
+          if (cat.parent) {
+            ProductsAPI.getCategoryById(cat.parent.id).then((parent) => {
+              links.unshift({ name: parent.name['en-US'], to: `/category/${parent.id}` });
+              setBreadcrumb(links);
+            });
+          } else {
             setBreadcrumb(links);
-          });
-        } else {
-          setBreadcrumb(links);
-        }
-        ProductsAPI.getCategories(cat.id).then((ctgrs) => setCategories(ctgrs));
-      });
+          }
+          ProductsAPI.getCategories(cat.id).then((ctgrs) => setCategories(ctgrs));
+        })
+        .catch(() => {
+          setCategories(null);
+        });
     } else {
       setBreadcrumb([]);
       ProductsAPI.getCategories().then((ctgrs) => setCategories(ctgrs));
@@ -171,10 +176,13 @@ function CatalogPage() {
       setPriceRange([priceLimit[0], priceLimit[1]]);
     }
   };
+  if (categories === null) {
+    return <NotFoundPage />;
+  }
 
   return (
     <div className={styles.catalog}>
-      {categories.length > 0 && <Categories categories={categories} />}
+      {categories && categories.length > 0 && <Categories categories={categories} />}
       <div className={styles.content}>
         <div className={styles.sidebar}>
           <Filters
