@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useAppDispatch } from '../../store/hooks/redux';
 import PersonalInfoField from './PersonalInfoField';
@@ -9,11 +10,12 @@ import Validation from '../../data/Validation/validation';
 import { InputType } from '../../types/input';
 import { APIErrorResponse } from '../../types/api';
 import { Customer } from '../../types/customer';
-import { setCustomer } from '../../store/reducers/CustomerSlice';
+import { deleteCustomer, setCustomer } from '../../store/reducers/CustomerSlice';
 import { notify } from '../../store/reducers/NotificationSlice';
 import * as styles from './PersonalInfo.module.css';
 import UpdateAPI from '../../api/update';
 import formatDate from '../../utils/formatDate';
+import AuthAPI from '../../api/auth';
 
 type PersonalDetails = {
   email: string;
@@ -28,6 +30,7 @@ type Props = {
 
 function PersonalInfo({ customer }: Props) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [isEditModeOn, setIsEditModeOn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -67,23 +70,13 @@ function PersonalInfo({ customer }: Props) {
     setGlobalError('');
   };
 
-  const saveHandler = async () => {
-    // If any errors are present, don't submit
-    if (Object.values(inputsErrors).some((error) => error.length > 0)) {
-      return;
-    }
-
-    if (Object.entries(inputsData).every(([key, value]) => initialInputsData[key as keyof PersonalDetails] === value)) {
-      setGlobalError('Make changes to save or click cancel');
-      return;
-    }
-
+  const sendRequest = async (customerID: string, customerVersion: number): Promise<void> => {
     setLoading(true);
     try {
       const resp = await UpdateAPI.updatePersonal({
-        id: customer.id,
+        id: customerID,
         data: {
-          version: customer.version,
+          version: customerVersion,
           actions: [
             { action: 'changeEmail', email: inputsData.email },
             { action: 'setFirstName', firstName: inputsData.firstName },
@@ -103,12 +96,32 @@ function PersonalInfo({ customer }: Props) {
           ...prev,
           email: message,
         }));
+      } else if (message.toLowerCase().includes('different version')) {
+        const newCustomer = await AuthAPI.getCustomerById(customerID);
+        sendRequest(newCustomer.id, newCustomer.version);
+      } else if (message.toLowerCase().includes('invalid_token')) {
+        dispatch(deleteCustomer());
+        navigate('/login');
       } else {
         setGlobalError(message);
       }
     } finally {
       setLoading(false);
     }
+  };
+
+  const saveHandler = async () => {
+    // If any errors are present, don't submit
+    if (Object.values(inputsErrors).some((error) => error.length > 0)) {
+      return;
+    }
+
+    if (Object.entries(inputsData).every(([key, value]) => initialInputsData[key as keyof PersonalDetails] === value)) {
+      setGlobalError('Make changes to save or click cancel');
+      return;
+    }
+
+    sendRequest(customer.id, customer.version);
   };
 
   return isEditModeOn ? (

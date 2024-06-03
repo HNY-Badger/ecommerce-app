@@ -1,0 +1,24 @@
+.pages {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.page {
+  flex-basis: 100%;
+  all: unset;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid var(--dark-primary);
+  transition: 0.25s;
+
+  &:hover {
+    background-color: var(--primary);
+  }
+}
+
+.page.active {
+  color: white;
+  background-color: var(--dark-primary);
+}

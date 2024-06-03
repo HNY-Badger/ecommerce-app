@@ -1,4 +1,5 @@
 type Response<T> = {
+  total: number;
   count: number;
   limit: number;
   offset: number;
@@ -122,6 +123,11 @@ export type Product = {
     currencyCode: string;
     nonDiscountCentValue?: number;
   };
+};
+
+export type ProductsData = {
+  total: number;
+  products: Product[];
 };
 
 export type Attribute = {
