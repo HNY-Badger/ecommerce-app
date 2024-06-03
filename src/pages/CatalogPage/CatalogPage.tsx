@@ -30,7 +30,7 @@ function CatalogPage() {
   const [, setPriceTimer] = useState<NodeJS.Timeout>();
   const [priceLimit, setPriceLimit] = useState<[number, number] | undefined>();
 
-  const fetchHandler = () => {
+  const fetchHandler = (range?: [number, number]) => {
     const params: ProductsParams = {};
 
     params['text.en-US'] = searchParams.get('search') ?? '';
@@ -40,8 +40,9 @@ function CatalogPage() {
     if (id) {
       filter.push(ProductParamBuilder.filter.category(id));
     }
-    if (priceRange) {
-      filter.push(ProductParamBuilder.filter.centValueRange(priceRange[0] * 100, priceRange[1] * 100));
+    const price = range ?? priceRange;
+    if (price) {
+      filter.push(ProductParamBuilder.filter.centValueRange(price[0] * 100, price[1] * 100));
     }
     if (attributes) {
       attributes.forEach((attr) => {
@@ -75,7 +76,9 @@ function CatalogPage() {
       min < max
     ) {
       setPriceRange([min, max]);
-      const timeout = setTimeout(() => fetchHandler(), 1000);
+      const timeout = setTimeout(() => {
+        fetchHandler([min, max]);
+      }, 1000);
       setPriceTimer((prev) => {
         clearTimeout(prev);
         return timeout;
