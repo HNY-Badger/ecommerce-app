@@ -8,7 +8,7 @@ type Props = {
 
 function FilterSection({ heading, children }: Props) {
   return (
-    <div className={styles.filter_section}>
+    <div className={styles.filter_section} data-testid="filter-section">
       <p className={styles.heading}>{heading}</p>
       {children}
     </div>
