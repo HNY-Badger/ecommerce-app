@@ -1,10 +1,4 @@
-import { Attribute, Product } from '../../types/products';
-
-type FilterData = {
-  attributes: Attribute[];
-  minCentPrice: number;
-  maxCentPrice: number;
-};
+import { Attribute, FilterData, Product } from '../../types/products';
 
 function productsToFilterData(products: Product[]): FilterData {
   let minCentPrice = products[0].price.centValue;
