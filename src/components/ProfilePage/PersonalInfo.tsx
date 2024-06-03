@@ -109,7 +109,6 @@ function PersonalInfo({ customer }: Props) {
       setLoading(false);
     }
   };
-
   const saveHandler = async () => {
     // If any errors are present, don't submit
     if (Object.values(inputsErrors).some((error) => error.length > 0)) {
@@ -123,7 +122,6 @@ function PersonalInfo({ customer }: Props) {
 
     sendRequest(customer.id, customer.version);
   };
-
   return isEditModeOn ? (
     <ProfileEditSection heading="Personal Details" loading={loading} onCancel={cancelHandler} onSave={saveHandler}>
       <form className={styles.form}>

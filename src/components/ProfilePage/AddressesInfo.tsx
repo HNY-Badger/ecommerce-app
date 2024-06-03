@@ -232,7 +232,6 @@ function AddressesInfo({ customer }: Props) {
       setLoading(false);
     }
   };
-
   const saveHandler = async () => {
     if (error) {
       return;
