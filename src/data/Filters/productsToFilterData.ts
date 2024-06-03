@@ -7,6 +7,9 @@ type FilterData = {
 };
 
 function productsToFilterData(products: Product[]): FilterData {
+  if (products.length === 0) {
+    return { attributes: [], minCentPrice: 0, maxCentPrice: 0 };
+  }
   let minCentPrice = products[0].price.centValue;
   let maxCentPrice = 0;
   let attrs: Attribute[] = products[0].attributes.map((attr) => ({

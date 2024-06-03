@@ -33,10 +33,9 @@ function CatalogPage() {
   const [priceRange, setPriceRange] = useState<[number, number] | undefined>();
   const [, setPriceTimer] = useState<NodeJS.Timeout>();
   const [priceLimit, setPriceLimit] = useState<[number, number] | undefined>();
-
   const [page, setPage] = useState<number>(0);
 
-  const fetchHandler = () => {
+  const fetchHandler = (range?: [number, number]) => {
     const params: ProductsParams = {};
 
     params['text.en-US'] = searchParams.get('search') ?? '';
@@ -46,8 +45,9 @@ function CatalogPage() {
     if (id) {
       filter.push(ProductParamBuilder.filter.category(id));
     }
-    if (priceRange) {
-      filter.push(ProductParamBuilder.filter.centValueRange(priceRange[0] * 100, priceRange[1] * 100));
+    const price = range ?? priceRange;
+    if (price) {
+      filter.push(ProductParamBuilder.filter.centValueRange(price[0] * 100, price[1] * 100));
     }
     if (attributes) {
       attributes.forEach((attr) => {
@@ -90,7 +90,7 @@ function CatalogPage() {
       setPriceRange([min, max]);
       const timeout = setTimeout(() => {
         setPage(0);
-        fetchHandler();
+        fetchHandler([min, max]);
       }, 1000);
       setPriceTimer((prev) => {
         clearTimeout(prev);
@@ -142,18 +142,22 @@ function CatalogPage() {
   // If category changes, update the breadcrumb
   useEffect(() => {
     if (id) {
-      ProductsAPI.getCategoryById(id).then((cat) => {
-        const links: BreadcrumbLink[] = [{ name: cat.name['en-US'], to: `/category/${cat.id}` }];
-        if (cat.parent) {
-          ProductsAPI.getCategoryById(cat.parent.id).then((parent) => {
-            links.unshift({ name: parent.name['en-US'], to: `/category/${parent.id}` });
+      ProductsAPI.getCategoryById(id)
+        .then((cat) => {
+          const links: BreadcrumbLink[] = [{ name: cat.name['en-US'], to: `/category/${cat.id}` }];
+          if (cat.parent) {
+            ProductsAPI.getCategoryById(cat.parent.id).then((parent) => {
+              links.unshift({ name: parent.name['en-US'], to: `/category/${parent.id}` });
+              setBreadcrumb(links);
+            });
+          } else {
             setBreadcrumb(links);
-          });
-        } else {
-          setBreadcrumb(links);
-        }
-        ProductsAPI.getCategories(cat.id).then((ctgrs) => setCategories(ctgrs));
-      });
+          }
+          ProductsAPI.getCategories(cat.id).then((ctgrs) => setCategories(ctgrs));
+        })
+        .catch(() => {
+          setCategories([]);
+        });
     } else {
       setBreadcrumb([]);
       ProductsAPI.getCategories().then((ctgrs) => setCategories(ctgrs));
@@ -191,7 +195,7 @@ function CatalogPage() {
 
   return (
     <div className={styles.catalog}>
-      {categories.length > 0 && <Categories categories={categories} />}
+      {categories && categories.length > 0 && <Categories categories={categories} />}
       <div className={styles.content}>
         <div className={styles.sidebar}>
           <Filters
