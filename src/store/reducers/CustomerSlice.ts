@@ -25,6 +25,5 @@ export const customerSlice = createSlice({
     },
   },
 });
-
 export const { setCustomer, deleteCustomer } = customerSlice.actions;
 export default customerSlice.reducer;
