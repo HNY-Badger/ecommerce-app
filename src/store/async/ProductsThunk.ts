@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { Product, ProductsParams } from '../../types/products';
+import { ProductsData, ProductsParams } from '../../types/products';
 import ProductsAPI from '../../api/products';
 import { APIErrorResponse } from '../../types/api';
 
-const fetchProducts = createAsyncThunk<Product[] | undefined, ProductsParams, { rejectValue: string | undefined }>(
+const fetchProducts = createAsyncThunk<ProductsData | undefined, ProductsParams, { rejectValue: string | undefined }>(
   'products/fetchProducts',
   async (params: ProductsParams, thunkAPI) => {
     try {

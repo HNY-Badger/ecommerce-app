@@ -32,6 +32,13 @@
   padding: 0 40px;
 }
 
+.spinner_wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 1000px) {
   .content {
     flex-direction: column;

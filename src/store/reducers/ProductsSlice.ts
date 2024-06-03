@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Product } from '../../types/products';
+import { ProductsData } from '../../types/products';
 import fetchProducts from '../async/ProductsThunk';
 
-type ProductsState = { products: Product[]; loading: boolean; error: string };
+type ProductsState = { data: ProductsData; loading: boolean; error: string };
 
 const initialState: ProductsState = {
-  products: [],
+  data: { total: 0, products: [] },
   loading: true,
   error: '',
 };
@@ -18,7 +18,7 @@ export const productsSlice = createSlice({
     builder
       .addCase(fetchProducts.fulfilled, (state, action) => {
         const newState = { ...state };
-        newState.products = action.payload ? action.payload : [];
+        newState.data = action.payload ? action.payload : { total: 0, products: [] };
         newState.loading = false;
         newState.error = '';
         return newState;

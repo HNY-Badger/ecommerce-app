@@ -2,16 +2,13 @@ import React from 'react';
 import * as styles from './Products.module.css';
 import ProductCard from '../ProductCard/ProductCard';
 import { useAppSelector } from '../../../store/hooks/redux';
-import Spinner from '../../Spinner/Spinner';
 
 function Products() {
-  const { products, loading } = useAppSelector((state) => state.productsReducer);
+  const {
+    data: { products },
+  } = useAppSelector((state) => state.productsReducer);
 
-  return loading ? (
-    <div className={styles.spinner_wrapper}>
-      <Spinner width="200px" />
-    </div>
-  ) : (
+  return (
     <div className={styles.products}>
       {products.map((product) => (
         <ProductCard

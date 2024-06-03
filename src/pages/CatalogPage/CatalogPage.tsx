@@ -14,10 +14,14 @@ import Sort from '../../components/CatalogPage/Sort/Sort';
 import { BreadcrumbLink } from '../../types/breadcrumb';
 import Filters from '../../components/CatalogPage/Filters/Filters';
 import productsToFilterData from '../../data/Filters/productsToFilterData';
+import Pagination from '../../components/CatalogPage/Pagination/Pagination';
+import Spinner from '../../components/Spinner/Spinner';
+
+const productsOnPage = 10;
 
 function CatalogPage() {
   const dispatch = useAppDispatch();
-  const products = useAppSelector((state) => state.productsReducer);
+  const productsState = useAppSelector((state) => state.productsReducer);
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -29,6 +33,8 @@ function CatalogPage() {
   const [priceRange, setPriceRange] = useState<[number, number] | undefined>();
   const [, setPriceTimer] = useState<NodeJS.Timeout>();
   const [priceLimit, setPriceLimit] = useState<[number, number] | undefined>();
+
+  const [page, setPage] = useState<number>(0);
 
   const fetchHandler = () => {
     const params: ProductsParams = {};
@@ -58,12 +64,19 @@ function CatalogPage() {
       });
     }
     params.filter = filter;
+    params.limit = productsOnPage;
+    params.offset = productsOnPage * page;
     dispatch(fetchProducts(params));
   };
 
   useEffect(() => {
     fetchHandler();
-  }, [sortType, searchParams.get('search'), id, attributes]);
+  }, [sortType, page]);
+
+  useEffect(() => {
+    setPage(0);
+    fetchHandler();
+  }, [searchParams.get('search'), attributes, id]);
 
   const priceHandler = (min: number, max: number) => {
     if (
@@ -75,7 +88,10 @@ function CatalogPage() {
       min < max
     ) {
       setPriceRange([min, max]);
-      const timeout = setTimeout(() => fetchHandler(), 1000);
+      const timeout = setTimeout(() => {
+        setPage(0);
+        fetchHandler();
+      }, 1000);
       setPriceTimer((prev) => {
         clearTimeout(prev);
         return timeout;
@@ -102,19 +118,19 @@ function CatalogPage() {
   // Update attributes if they're undefined
   useEffect(() => {
     if (
-      !products.loading &&
-      products.error.length === 0 &&
+      !productsState.loading &&
+      productsState.error.length === 0 &&
       attributes === undefined &&
       priceRange === undefined &&
       priceLimit === undefined
     ) {
-      const { attributes: attrs, minCentPrice, maxCentPrice } = productsToFilterData(products.products);
+      const { attributes: attrs, minCentPrice, maxCentPrice } = productsToFilterData(productsState.data.products);
       setAttributes(attrs);
       const limits: [number, number] = [minCentPrice / 100, maxCentPrice / 100];
       setPriceLimit(limits);
       setPriceRange(limits);
     }
-  }, [products]);
+  }, [productsState]);
 
   // Reset and update attributes only if search query or category changes
   useEffect(() => {
@@ -143,6 +159,10 @@ function CatalogPage() {
       ProductsAPI.getCategories().then((ctgrs) => setCategories(ctgrs));
     }
   }, [id]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
 
   const sortHandler: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const { value } = e.target;
@@ -189,7 +209,20 @@ function CatalogPage() {
             <Search />
             <Sort value={sortType} onChange={sortHandler} />
           </div>
-          <Products />
+          {productsState.loading ? (
+            <div className={styles.spinner_wrapper}>
+              <Spinner width="200px" />
+            </div>
+          ) : (
+            <>
+              <Products />
+              <Pagination
+                currentPage={page}
+                onPageChange={(clickedPage) => setPage(clickedPage)}
+                totalPages={Math.ceil(productsState.data.total / productsOnPage)}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>
