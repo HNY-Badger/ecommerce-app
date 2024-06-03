@@ -23,7 +23,7 @@ function CatalogPage() {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const [sortType, setSortType] = useState<SortType>('name.en-US asc');
-  const [categories, setCategories] = useState<Category[] | null>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [breadcrumb, setBreadcrumb] = useState<BreadcrumbLink[]>([]);
 
   const [attributes, setAttributes] = useState<Attribute[] | undefined>();
@@ -144,7 +144,7 @@ function CatalogPage() {
           ProductsAPI.getCategories(cat.id).then((ctgrs) => setCategories(ctgrs));
         })
         .catch(() => {
-          setCategories(null);
+          setCategories([]);
         });
     } else {
       setBreadcrumb([]);
@@ -176,9 +176,6 @@ function CatalogPage() {
       setPriceRange([priceLimit[0], priceLimit[1]]);
     }
   };
-  if (categories === null) {
-    return <NotFoundPage />;
-  }
 
   return (
     <div className={styles.catalog}>
