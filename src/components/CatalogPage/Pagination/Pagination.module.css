@@ -1,6 +1,8 @@
 .pages {
   display: flex;
   justify-content: center;
+  align-items: center;
+  color: var(--dark-primary);
   gap: 5px;
   margin: 10px 0;
 }
