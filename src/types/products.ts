@@ -134,3 +134,9 @@ export type Attribute = {
   name: string;
   values: Map<string, boolean>;
 };
+
+export type FilterData = {
+  attributes: Attribute[];
+  minCentPrice: number;
+  maxCentPrice: number;
+};

@@ -34,8 +34,24 @@ function DualRangeSlider({ minValue, maxValue, onChange, min = 0, max = 100, gap
 
   return (
     <span className={styles.dual_slider}>
-      <input className={styles.min} type="range" value={minValue} min={min} max={max} onChange={minHandler} />
-      <input className={styles.max} type="range" value={maxValue} min={min} max={max} onChange={maxHandler} />
+      <input
+        className={styles.min}
+        type="range"
+        value={minValue}
+        min={min}
+        max={max}
+        onChange={minHandler}
+        data-testid="min-slider"
+      />
+      <input
+        className={styles.max}
+        type="range"
+        value={maxValue}
+        min={min}
+        max={max}
+        onChange={maxHandler}
+        data-testid="max-slider"
+      />
     </span>
   );
 }
