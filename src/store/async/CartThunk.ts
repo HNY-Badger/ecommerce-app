@@ -1,9 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
-import { APIErrorResponse } from '../../types/api';
 import { CartResponse } from '../../types/cart';
 import CartAPI from '../../api/cart';
-import { CartActions, CartThunkPayload, UpdateCartParams } from '../../types/updateCart';
+import { CartActions, CartThunkPayload } from '../../types/updateCart';
 
 const refreshCart = createAsyncThunk<CartResponse, void, { rejectValue: string }>('cart/refreshCart', async () => {
   try {
