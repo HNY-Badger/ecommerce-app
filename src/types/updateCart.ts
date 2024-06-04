@@ -31,3 +31,9 @@ export type UpdateCartParams<T extends CartActions> = {
     actions: UpdateCart<T>[];
   };
 };
+
+export type CartThunkPayload<T extends CartActions> = {
+  id: string;
+  version: number;
+  actionBody: CartBody<T>;
+};

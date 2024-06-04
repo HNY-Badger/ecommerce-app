@@ -3,41 +3,40 @@ import { AxiosError } from 'axios';
 import { APIErrorResponse } from '../../types/api';
 import { CartResponse } from '../../types/cart';
 import CartAPI from '../../api/cart';
-import { CartActions, UpdateCartParams } from '../../types/updateCart';
+import { CartActions, CartThunkPayload, UpdateCartParams } from '../../types/updateCart';
 
-const refreshCart = createAsyncThunk<CartResponse | undefined, void, { rejectValue: string | undefined }>(
-  'cart/refreshCart',
-  async (_, thunkAPI) => {
-    try {
-      await CartAPI.checkIfActiveCartExists();
-      const cart = await CartAPI.getActiveCart();
-      return cart;
-    } catch {
-      try {
-        const cart = await CartAPI.createCart();
-        return cart;
-      } catch (e) {
-        const err = e as AxiosError<APIErrorResponse>;
-        thunkAPI.rejectWithValue(err.response?.data.message);
-        return undefined;
-      }
-    }
-  }
-);
-
-const updateCart = createAsyncThunk<
-  CartResponse | undefined,
-  UpdateCartParams<CartActions>,
-  { rejectValue: string | undefined }
->('cart/updateCart', async (params, thunkAPI) => {
+const refreshCart = createAsyncThunk<CartResponse, void, { rejectValue: string }>('cart/refreshCart', async () => {
   try {
-    const cart = await CartAPI.updateCart(params);
+    await CartAPI.checkIfActiveCartExists();
+    const cart = await CartAPI.getActiveCart();
     return cart;
-  } catch (e) {
-    const err = e as AxiosError<APIErrorResponse>;
-    thunkAPI.rejectWithValue(err.response?.data.message);
-    return undefined;
+  } catch {
+    const cart = await CartAPI.createCart();
+    return cart;
   }
 });
+
+const updateCartThunk = <T extends CartActions>(action: T) =>
+  createAsyncThunk<CartResponse, CartThunkPayload<T>, { rejectValue: string }>(
+    `cart/${action}`,
+    async ({ id, version, actionBody }) => {
+      const cart = await CartAPI.updateCart({
+        id,
+        data: {
+          version,
+          actions: [{ action, ...actionBody }],
+        },
+      });
+      return cart;
+    }
+  );
+
+const updateCart = {
+  addLineItem: updateCartThunk('addLineItem'),
+  removeLineItem: updateCartThunk('removeLineItem'),
+  addDiscountCode: updateCartThunk('addDiscountCode'),
+  removeDiscountCode: updateCartThunk('removeDiscountCode'),
+  changeLineItemQuantity: updateCartThunk('changeLineItemQuantity'),
+};
 
 export { refreshCart, updateCart };
