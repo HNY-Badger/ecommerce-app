@@ -16,11 +16,11 @@ export type UpdatePersonal<T extends PersonalActions> = {
   action: T;
 } & PersonalBody<T>;
 
-export type UpdatePersonalParams = {
+export type UpdatePersonalParams<T extends PersonalActions> = {
   id: string;
   data: {
     version: number;
-    actions: UpdatePersonal<PersonalActions>[];
+    actions: UpdatePersonal<T>[];
   };
 };
 
@@ -45,11 +45,11 @@ export type UpdateAddress<T extends AddressActions> = {
   action: T;
 } & AddressBody<T>;
 
-export type UpdateAddressParams = {
+export type UpdateAddressParams<T extends AddressActions> = {
   id: string;
   data: {
     version: number;
-    actions: UpdateAddress<AddressActions>[];
+    actions: UpdateAddress<T>[];
   };
 };
 

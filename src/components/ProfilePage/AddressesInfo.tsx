@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useAppDispatch } from '../../store/hooks/redux';
 import { Customer, AddressData, SpecialAddresses, DefaultAddresses } from '../../types/customer';
-import { AddressActions, UpdateAddress } from '../../types/update';
+import { AddressActions, UpdateAddress } from '../../types/updateCustomer';
 import { APIErrorResponse } from '../../types/api';
 import AddressField from './AddressField';
 import Addresses from '../RegistrationPage/Addresses/Addresses';
