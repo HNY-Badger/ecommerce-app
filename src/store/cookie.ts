@@ -11,7 +11,7 @@ class Cookie {
   public static setCookie(key: CookieKey, value: string, expires?: number): void {
     let cookie = `${key}=${value};path=/;`;
     if (expires) {
-      const expireDate = new Date(new Date().getTime() + expires);
+      const expireDate = new Date(new Date().getTime() + expires * 1000);
       cookie += `expires=${expireDate.toUTCString()}`;
     }
     document.cookie = cookie;
