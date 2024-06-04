@@ -38,7 +38,9 @@ const baseConfig = {
     ],
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true
+    }),
     new CopyPlugin({
       patterns: [{ from: 'public' }],
     }),

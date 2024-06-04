@@ -9,25 +9,20 @@ export type Option = {
 type Props = {
   value: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
-  label: string;
   id: string;
   options: Option[];
+  className?: string;
 };
 
-function Select({ value, onChange, id, label, options }: Props) {
+function Select({ value, onChange, id, options, className }: Props) {
   return (
-    <div className={styles.select_wrapper}>
-      <label htmlFor={id} className={styles.label}>
-        {label}
-      </label>
-      <select value={value} onChange={onChange} id={id} className={styles.select}>
-        {options.map((option) => (
-          <option key={option.value} className={styles.option} value={option.value}>
-            {option.text}
-          </option>
-        ))}
-      </select>
-    </div>
+    <select value={value} onChange={onChange} id={id} className={`${styles.select} ${className || ''}`}>
+      {options.map((option) => (
+        <option key={option.value} className={styles.option} value={option.value}>
+          {option.text}
+        </option>
+      ))}
+    </select>
   );
 }
 

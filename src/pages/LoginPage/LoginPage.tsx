@@ -10,7 +10,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import AuthAPI from '../../api/auth';
 import { APIErrorResponse } from '../../types/api';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
-import { customerLogin } from '../../store/reducers/CustomerSlice';
+import { setCustomer } from '../../store/reducers/CustomerSlice';
 import FormPassInput from '../../components/FormPassInput/FormPassInput';
 
 type Inputs = {
@@ -68,7 +68,7 @@ function LoginPage() {
     try {
       setLoading(true);
       const resp = await AuthAPI.login(inputsData.email, inputsData.password);
-      dispatch(customerLogin(resp.customer));
+      dispatch(setCustomer(resp.customer));
       navigate('/');
     } catch (e) {
       const err = e as AxiosError<APIErrorResponse>;

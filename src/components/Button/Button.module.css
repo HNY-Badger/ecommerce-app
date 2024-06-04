@@ -30,4 +30,9 @@
   &.transparent:hover {
     background-color: #ffffff28;
   }
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
 }

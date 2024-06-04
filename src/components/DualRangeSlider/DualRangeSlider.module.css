@@ -1,0 +1,42 @@
+.dual_slider {
+  display: flex;
+  position: relative;
+  height: 15px;
+  align-items: center;
+}
+
+.min,
+.max {
+  position: absolute;
+  appearance: none;
+  height: 2px;
+  width: 100%;
+  pointer-events: none;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    pointer-events: all;
+    width: 15px;
+    height: 15px;
+    background-color: var(--dark-primary);
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px var(--primary);
+    cursor: pointer;
+    transition: 0.25s;
+  }
+  &::-webkit-slider-thumb:hover {
+    background-color: var(--primary);
+    box-shadow: inset 0 0 0 1px var(--dark-primary);
+  }
+  &::-webkit-slider-thumb:active {
+    box-shadow: 0 0 9px var(--dark-primary);
+  }
+}
+
+.min {
+  background-color: var(--primary);
+}
+
+.max {
+  background: none;
+}

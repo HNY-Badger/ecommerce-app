@@ -5,45 +5,28 @@ import * as styles from './RegistrationPage.module.css';
 import Button from '../../components/Button/Button';
 import Validation from '../../data/Validation/validation';
 import { InputType } from '../../types/input';
-import { AddressData, CustomerRegistrationData } from '../../types/customer';
+import { AddressData, CustomerRegistrationData, SpecialAddresses, DefaultAddresses } from '../../types/customer';
 import AuthAPI from '../../api/auth';
 import { APIErrorResponse } from '../../types/api';
 import Spinner from '../../components/Spinner/Spinner';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
-import { customerLogin } from '../../store/reducers/CustomerSlice';
+import { setCustomer } from '../../store/reducers/CustomerSlice';
 import TokenAPI from '../../api/token';
 import { notify } from '../../store/reducers/NotificationSlice';
 import AddressModal from '../../components/RegistrationPage/AddressModal/AddressModal';
 import FormInput from '../../components/FormInput/FormInput';
 import Addresses from '../../components/RegistrationPage/Addresses/Addresses';
 import FormPassInput from '../../components/FormPassInput/FormPassInput';
+import formatDate from '../../utils/formatDate';
 
 type InputsState = Omit<
   CustomerRegistrationData,
   'addresses' | 'billingAddresses' | 'defaultBillingAddress' | 'shippingAddresses' | 'defaultShippingAddress'
 >;
 
-type SpecialAddresses = {
-  billingAddresses: string[];
-  shippingAddresses: string[];
-};
-
-type DefaultAddresses = {
-  defaultBillingAddress?: string;
-  defaultShippingAddress?: string;
-};
-
 type InputErrors = InputsState & {
   addresses: string;
 };
-
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}
 
 function RegistrationPage() {
   const navigate = useNavigate();
@@ -213,20 +196,14 @@ function RegistrationPage() {
       });
       await TokenAPI.getCustomerToken(inputsData.email, inputsData.password);
       dispatch(notify({ text: 'Account successfully created', type: 'success' }));
-      dispatch(customerLogin(resp.customer));
+      dispatch(setCustomer(resp.customer));
     } catch (e) {
       const err = e as AxiosError<APIErrorResponse>;
-      let inputType = '';
       const message = err.response?.data.message ?? 'An unexpected error occurred, please, try again later';
       if (message.toLowerCase().includes('email')) {
-        inputType = 'email';
-      } else if (message.toLowerCase().includes('address')) {
-        inputType = 'addresses';
-      }
-      if (inputType) {
         setInputsErrors((prev) => ({
           ...prev,
-          [inputType]: message,
+          email: message,
         }));
       } else {
         setGlobalError(message);

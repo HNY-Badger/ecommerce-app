@@ -13,11 +13,11 @@ export const customerSlice = createSlice({
   name: 'customer',
   initialState,
   reducers: {
-    customerLogin(_, action: PayloadAction<Customer>) {
+    setCustomer(_, action: PayloadAction<Customer>) {
       LocalStorage.setItem('customer', action.payload);
       return { customer: action.payload };
     },
-    customerLogout() {
+    deleteCustomer() {
       LocalStorage.removeItem('customer');
       Cookie.removeCookie('accessToken');
       Cookie.removeCookie('refreshToken');
@@ -25,6 +25,5 @@ export const customerSlice = createSlice({
     },
   },
 });
-
-export const { customerLogin, customerLogout } = customerSlice.actions;
+export const { setCustomer, deleteCustomer } = customerSlice.actions;
 export default customerSlice.reducer;
