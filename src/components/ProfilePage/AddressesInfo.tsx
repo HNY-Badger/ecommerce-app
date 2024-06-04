@@ -11,7 +11,7 @@ import AddressModal from '../RegistrationPage/AddressModal/AddressModal';
 import ProfileSection from './ProfileSection';
 import ProfileEditSection from './ProfileEditSection';
 import Button from '../Button/Button';
-import UpdateAPI from '../../api/update';
+import UpdateAPI from '../../api/updateCustomer';
 import AuthAPI from '../../api/auth';
 import { deleteCustomer, setCustomer } from '../../store/reducers/CustomerSlice';
 import { notify } from '../../store/reducers/NotificationSlice';

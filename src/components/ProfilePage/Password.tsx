@@ -6,7 +6,7 @@ import ProfileSection from './ProfileSection';
 import { Customer } from '../../types/customer';
 import ProfileEditSection from './ProfileEditSection';
 import FormPassInput from '../FormPassInput/FormPassInput';
-import UpdateAPI from '../../api/update';
+import UpdateAPI from '../../api/updateCustomer';
 import Validation from '../../data/Validation/validation';
 import { deleteCustomer, setCustomer } from '../../store/reducers/CustomerSlice';
 import { APIErrorResponse } from '../../types/api';
