@@ -124,11 +124,27 @@ function CatalogPage() {
       priceRange === undefined &&
       priceLimit === undefined
     ) {
-      const { attributes: attrs, minCentPrice, maxCentPrice } = productsToFilterData(productsState.data.products);
-      setAttributes(attrs);
-      const limits: [number, number] = [minCentPrice / 100, maxCentPrice / 100];
-      setPriceLimit(limits);
-      setPriceRange(limits);
+      const params: ProductsParams = {
+        limit: 300,
+      };
+      params['text.en-US'] = searchParams.get('search') ?? '';
+      if (id) {
+        params.filter = [ProductParamBuilder.filter.category(id)];
+      }
+      ProductsAPI.getProducts(params)
+        .then((data) => {
+          const { attributes: attrs, minCentPrice, maxCentPrice } = productsToFilterData(data.products);
+          setAttributes(attrs);
+          const limits: [number, number] = [minCentPrice / 100, maxCentPrice / 100];
+          setPriceLimit(limits);
+          setPriceRange(limits);
+        })
+        .catch(() => {
+          setAttributes([]);
+          const limits: [number, number] = [0, 0];
+          setPriceLimit(limits);
+          setPriceRange(limits);
+        });
     }
   }, [productsState]);
 
