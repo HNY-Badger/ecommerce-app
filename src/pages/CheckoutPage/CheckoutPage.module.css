@@ -1,0 +1,15 @@
+.checkout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.message {
+  color: var(--dark-primary);
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+}
