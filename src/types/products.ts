@@ -1,4 +1,4 @@
-type Response<T> = {
+export type Response<T> = {
   total: number;
   count: number;
   limit: number;
