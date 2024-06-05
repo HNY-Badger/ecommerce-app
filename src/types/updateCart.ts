@@ -8,7 +8,7 @@ export type CartActions =
 export type CartBody<T extends CartActions> = T extends 'addLineItem'
   ? { productId: string; quantity: number }
   : T extends 'removeLineItem' | 'changeLineItemQuantity'
-    ? { lineItemId: string; quantity: string }
+    ? { lineItemId: string; quantity: number }
     : T extends 'addDiscountCode'
       ? { code: string }
       : T extends 'removeDiscountCode'
