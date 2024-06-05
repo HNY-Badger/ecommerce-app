@@ -3,7 +3,9 @@
   border: none;
   padding: 16px 32px 16px 32px;
   color: var(--white);
-  transition: 0.25s;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
 
   &.dark {
     background-color: var(--dark-primary);
@@ -16,11 +18,18 @@
     color: var(--dark-primary);
     background-color: var(--light-grey);
   }
+  &.remove {
+    color: var(--error);
+    background-color: color-mix(in srgb, var(--light-grey) 90%, var(--error) 10%);
+  }
   &.dark:hover,
   &.white:hover,
   &.grey:hover {
     color: var(--white);
     background-color: var(--primary);
+  }
+  &.remove:hover {
+    background-color: color-mix(in srgb, var(--light-grey) 60%, var(--error) 40%);
   }
 
   /* Questionable decision since its not tied to global colors. Opacity is not an option */

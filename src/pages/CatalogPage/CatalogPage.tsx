@@ -16,12 +16,21 @@ import Filters from '../../components/CatalogPage/Filters/Filters';
 import productsToFilterData from '../../data/Filters/productsToFilterData';
 import Pagination from '../../components/CatalogPage/Pagination/Pagination';
 import Spinner from '../../components/Spinner/Spinner';
+import { refreshCart } from '../../store/async/CartThunk';
 
 const productsOnPage = 10;
 
 function CatalogPage() {
   const dispatch = useAppDispatch();
   const productsState = useAppSelector((state) => state.productsReducer);
+
+  // Refresh cart if its hasn't been fetched yet
+  const cartState = useAppSelector((state) => state.cartReducer);
+  useEffect(() => {
+    if ((!cartState.data && !cartState.loading) || cartState.error.length > 0) {
+      dispatch(refreshCart());
+    }
+  }, [cartState]);
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();

@@ -5,6 +5,7 @@ import * as style from './Header.module.css';
 import BurgerLogo from './BurgerLogo';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { deleteCustomer } from '../../store/reducers/CustomerSlice';
+import { resetCartStore } from '../../store/reducers/CartSlice';
 
 function Header() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function Header() {
   const logoutHandler: MouseEventHandler = () => {
     setIsMenuOpen(false);
     dispatch(deleteCustomer());
+    dispatch(resetCartStore());
     navigate('/login');
   };
 
