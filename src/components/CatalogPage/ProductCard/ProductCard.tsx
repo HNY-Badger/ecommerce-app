@@ -79,8 +79,8 @@ function ProductCard({ id, name, description, image, price, currencyCode, nonDis
         </div>
       </div>
       {productInCart ? (
-        <Button variant="remove" onClick={removeButtonClickHandler}>
-          Remove from the cart
+        <Button variant="remove" onClick={removeButtonClickHandler} className={styles.remove_btn}>
+          Remove from cart
         </Button>
       ) : (
         <Button onClick={addButtonClickHandler}>Add to cart</Button>

@@ -1,11 +1,11 @@
 .product_card_wrapper {
   display: flex;
   flex-direction: column;
+  width: 300px;
 }
 
 .product_card {
   padding: 2px;
-  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -65,8 +65,13 @@
   text-decoration: line-through;
 }
 
+.remove_btn {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 @media (max-width: 768px) {
-  .product_card {
+  .product_card_wrapper {
     width: 170px;
   }
 

@@ -3,7 +3,9 @@
   border: none;
   padding: 16px 32px 16px 32px;
   color: var(--white);
-  transition: 0.25s;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
 
   &.dark {
     background-color: var(--dark-primary);
