@@ -25,7 +25,9 @@ export type LineItem = {
   id: string;
   productId: string;
   productKey: string;
-  name: string;
+  name: {
+    ['en-US']: string;
+  };
   variant: ProductVariant;
   price: ProductPrice;
   quantity: number;
