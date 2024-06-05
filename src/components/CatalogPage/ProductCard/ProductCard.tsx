@@ -31,21 +31,27 @@ function ProductCard({ id, name, description, image, price, currencyCode, nonDis
     if (e.key === 'Enter') cardClickHandler();
   };
 
-  const buttonClickHandler = () => {
+  const addButtonClickHandler = () => {
     if (cart !== null) {
-      if (productInCart) {
-        dispatch(
-          updateCart.removeLineItem({
-            id: cart.id,
-            version: cart.version,
-            actionBody: { lineItemId: productInCart.id, quantity: productInCart.quantity },
-          })
-        );
-      } else {
-        dispatch(
-          updateCart.addLineItem({ id: cart.id, version: cart.version, actionBody: { productId: id, quantity: 1 } })
-        );
-      }
+      dispatch(
+        updateCart.addLineItem({
+          id: cart.id,
+          version: cart.version,
+          actionBody: { productId: id, quantity: 1 },
+        })
+      );
+    }
+  };
+
+  const removeButtonClickHandler = () => {
+    if (cart !== null && productInCart) {
+      dispatch(
+        updateCart.removeLineItem({
+          id: cart.id,
+          version: cart.version,
+          actionBody: { lineItemId: productInCart.id, quantity: productInCart.quantity },
+        })
+      );
     }
   };
 
@@ -73,11 +79,11 @@ function ProductCard({ id, name, description, image, price, currencyCode, nonDis
         </div>
       </div>
       {productInCart ? (
-        <Button variant="remove" onClick={buttonClickHandler}>
+        <Button variant="remove" onClick={removeButtonClickHandler}>
           Remove from the cart
         </Button>
       ) : (
-        <Button onClick={buttonClickHandler}>Add to cart</Button>
+        <Button onClick={addButtonClickHandler}>Add to cart</Button>
       )}
     </div>
   );
