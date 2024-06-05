@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
-import Button from '../Button/Button';
-import Spinner from '../Spinner/Spinner';
+import Button from '../../components/Button/Button';
+import Spinner from '../../components/Spinner/Spinner';
 import * as styles from './ProfileSection.module.css';
 
 type Props = {

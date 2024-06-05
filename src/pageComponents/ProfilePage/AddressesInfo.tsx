@@ -10,7 +10,7 @@ import Addresses from '../RegistrationPage/Addresses/Addresses';
 import AddressModal from '../RegistrationPage/AddressModal/AddressModal';
 import ProfileSection from './ProfileSection';
 import ProfileEditSection from './ProfileEditSection';
-import Button from '../Button/Button';
+import Button from '../../components/Button/Button';
 import UpdateAPI from '../../api/updateCustomer';
 import AuthAPI from '../../api/auth';
 import { deleteCustomer, setCustomer } from '../../store/reducers/CustomerSlice';

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as styles from './PriceFilter.module.css';
-import Input from '../../Input/Input';
-import DualRangeSlider from '../../DualRangeSlider/DualRangeSlider';
+import Input from '../../../components/Input/Input';
+import DualRangeSlider from '../../../components/DualRangeSlider/DualRangeSlider';
 
 type Props = {
   priceRange: [number, number];

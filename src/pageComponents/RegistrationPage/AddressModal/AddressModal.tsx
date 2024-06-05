@@ -1,12 +1,12 @@
 import React, { MouseEventHandler, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import * as styles from './AddressModal.module.css';
-import FormInput from '../../FormInput/FormInput';
-import Button from '../../Button/Button';
+import FormInput from '../../../components/FormInput/FormInput';
+import Button from '../../../components/Button/Button';
 import Validation from '../../../data/Validation/validation';
 import { InputType } from '../../../types/input';
 import { AddressData, CountryType } from '../../../types/customer';
-import FormSelect from '../../FormSelect/FormSelect';
+import FormSelect from '../../../components/FormSelect/FormSelect';
 
 type AddressState = Omit<AddressData, 'key' | 'country'>;
 type InputErrors = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import PriceFilter from '../../../components/CatalogPage/Filters/PriceFilter';
+import PriceFilter from '../../../pageComponents/CatalogPage/Filters/PriceFilter';
 import '@testing-library/jest-dom';
 
 describe('PriceFilter', () => {

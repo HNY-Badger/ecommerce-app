@@ -1,20 +1,20 @@
 import React, { ChangeEventHandler, useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import * as styles from './CatalogPage.module.css';
-import Products from '../../components/CatalogPage/Products/Products';
+import Products from '../../pageComponents/CatalogPage/Products/Products';
 import fetchProducts from '../../store/async/ProductsThunk';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
-import Search from '../../components/CatalogPage/Search/Search';
+import Search from '../../pageComponents/CatalogPage/Search/Search';
 import { Attribute, Category, ProductsParams, SortType, isSortType } from '../../types/products';
-import Categories from '../../components/CatalogPage/Categories/Categories';
+import Categories from '../../pageComponents/CatalogPage/Categories/Categories';
 import ProductParamBuilder from '../../data/Products/paramBuilder';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import ProductsAPI from '../../api/products';
-import Sort from '../../components/CatalogPage/Sort/Sort';
+import Sort from '../../pageComponents/CatalogPage/Sort/Sort';
 import { BreadcrumbLink } from '../../types/breadcrumb';
-import Filters from '../../components/CatalogPage/Filters/Filters';
+import Filters from '../../pageComponents/CatalogPage/Filters/Filters';
 import productsToFilterData from '../../data/Filters/productsToFilterData';
-import Pagination from '../../components/CatalogPage/Pagination/Pagination';
+import Pagination from '../../pageComponents/CatalogPage/Pagination/Pagination';
 import Spinner from '../../components/Spinner/Spinner';
 
 const productsOnPage = 10;

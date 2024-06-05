@@ -2,7 +2,7 @@ import React, { FormEventHandler, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useSearchParams } from 'react-router-dom';
 import * as styles from './Search.module.css';
-import Input from '../../Input/Input';
+import Input from '../../../components/Input/Input';
 
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();

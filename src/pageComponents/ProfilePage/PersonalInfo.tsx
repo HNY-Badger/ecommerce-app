@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../store/hooks/redux';
 import PersonalInfoField from './PersonalInfoField';
 import ProfileSection from './ProfileSection';
 import ProfileEditSection from './ProfileEditSection';
-import FormInput from '../FormInput/FormInput';
+import FormInput from '../../components/FormInput/FormInput';
 import Validation from '../../data/Validation/validation';
 import { InputType } from '../../types/input';
 import { APIErrorResponse } from '../../types/api';

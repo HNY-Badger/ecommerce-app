@@ -13,9 +13,9 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { setCustomer } from '../../store/reducers/CustomerSlice';
 import TokenAPI from '../../api/token';
 import { notify } from '../../store/reducers/NotificationSlice';
-import AddressModal from '../../components/RegistrationPage/AddressModal/AddressModal';
+import AddressModal from '../../pageComponents/RegistrationPage/AddressModal/AddressModal';
 import FormInput from '../../components/FormInput/FormInput';
-import Addresses from '../../components/RegistrationPage/Addresses/Addresses';
+import Addresses from '../../pageComponents/RegistrationPage/Addresses/Addresses';
 import FormPassInput from '../../components/FormPassInput/FormPassInput';
 import formatDate from '../../utils/formatDate';
 

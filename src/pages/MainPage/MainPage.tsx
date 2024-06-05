@@ -1,7 +1,7 @@
 import React from 'react';
-import ShopDescription from '../../components/MainPage/ShopDescription/ShopDescription';
-import ShopFeatures from '../../components/MainPage/ShopFeatures/ShopFeatures';
-import ActivePages from '../../components/MainPage/ActivePages/ActivePages';
+import ShopDescription from '../../pageComponents/MainPage/ShopDescription/ShopDescription';
+import ShopFeatures from '../../pageComponents/MainPage/ShopFeatures/ShopFeatures';
+import ActivePages from '../../pageComponents/MainPage/ActivePages/ActivePages';
 
 function MainPage() {
   return (

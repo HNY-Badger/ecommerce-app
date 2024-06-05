@@ -2,9 +2,9 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks/redux';
 import * as styles from './ProfilePage.module.css';
-import PersonalInfo from '../../components/ProfilePage/PersonalInfo';
-import AddressesInfo from '../../components/ProfilePage/AddressesInfo';
-import Password from '../../components/ProfilePage/Password';
+import PersonalInfo from '../../pageComponents/ProfilePage/PersonalInfo';
+import AddressesInfo from '../../pageComponents/ProfilePage/AddressesInfo';
+import Password from '../../pageComponents/ProfilePage/Password';
 
 function ProfilePage() {
   const { customer } = useAppSelector((state) => state.customerReducer);

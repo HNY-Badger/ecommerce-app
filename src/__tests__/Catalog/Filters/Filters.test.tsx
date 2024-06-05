@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Filters from '../../../components/CatalogPage/Filters/Filters';
+import Filters from '../../../pageComponents/CatalogPage/Filters/Filters';
 import '@testing-library/jest-dom';
 
 describe('Filters', () => {

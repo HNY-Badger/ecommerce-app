@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import CategoryItem from '../../../components/CatalogPage/Categories/CategoryItem';
+import CategoryItem from '../../../pageComponents/CatalogPage/Categories/CategoryItem';
 import { Category } from '../../../types/products';
 import '@testing-library/jest-dom';
 
