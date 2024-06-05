@@ -13,7 +13,7 @@ import { Customer } from '../../types/customer';
 import { deleteCustomer, setCustomer } from '../../store/reducers/CustomerSlice';
 import { notify } from '../../store/reducers/NotificationSlice';
 import * as styles from './PersonalInfo.module.css';
-import UpdateAPI from '../../api/update';
+import UpdateAPI from '../../api/updateCustomer';
 import formatDate from '../../utils/formatDate';
 import AuthAPI from '../../api/auth';
 

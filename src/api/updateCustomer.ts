@@ -1,14 +1,20 @@
 import api from '.';
 import { Customer } from '../types/customer';
-import { UpdateAddressParams, UpdatePasswordParams, UpdatePersonalParams } from '../types/update';
+import {
+  AddressActions,
+  PersonalActions,
+  UpdateAddressParams,
+  UpdatePasswordParams,
+  UpdatePersonalParams,
+} from '../types/updateCustomer';
 
 class UpdateAPI {
-  public static async updatePersonal(params: UpdatePersonalParams): Promise<Customer> {
+  public static async updatePersonal<T extends PersonalActions>(params: UpdatePersonalParams<T>): Promise<Customer> {
     const resp = await api.post<Customer>(`/${process.env.CTP_PROJECT_KEY}/customers/${params.id}`, params.data);
     return resp.data;
   }
 
-  public static async updateAddress(params: UpdateAddressParams): Promise<Customer> {
+  public static async updateAddress<T extends AddressActions>(params: UpdateAddressParams<T>): Promise<Customer> {
     const resp = await api.post<Customer>(`/${process.env.CTP_PROJECT_KEY}/customers/${params.id}`, params.data);
     return resp.data;
   }

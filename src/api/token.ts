@@ -37,7 +37,7 @@ class TokenAPI {
     );
     const accessLifetime = resp.data.expires_in;
     const refreshLifetime = 2592000000; // 30 days
-    Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime);
+    Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime * 1000);
     Cookie.setCookie('refreshToken', resp.data.refresh_token, refreshLifetime);
     return resp.data;
   }
@@ -50,7 +50,7 @@ class TokenAPI {
     const resp = await this.tokenAPI.post<TokenResponse>('/token', data);
     if (resp.status === 200) {
       const accessLifetime = resp.data.expires_in;
-      Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime);
+      Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime * 1000);
     }
     return resp.data;
   }
@@ -63,7 +63,7 @@ class TokenAPI {
     const resp = await this.tokenAPI.post<TokenResponse>(`/${process.env.CTP_PROJECT_KEY}/anonymous/token`, data);
     if (resp.status === 200) {
       const accessLifetime = resp.data.expires_in;
-      Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime);
+      Cookie.setCookie('accessToken', resp.data.access_token, accessLifetime * 1000);
     }
     return resp.data;
   }

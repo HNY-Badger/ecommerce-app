@@ -8,10 +8,10 @@ class Cookie {
     return undefined;
   }
 
-  public static setCookie(key: CookieKey, value: string, expires?: number): void {
+  public static setCookie(key: CookieKey, value: string, expiresMilisec?: number): void {
     let cookie = `${key}=${value};path=/;`;
-    if (expires) {
-      const expireDate = new Date(new Date().getTime() + expires);
+    if (expiresMilisec) {
+      const expireDate = new Date(new Date().getTime() + expiresMilisec);
       cookie += `expires=${expireDate.toUTCString()}`;
     }
     document.cookie = cookie;
