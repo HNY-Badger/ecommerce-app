@@ -4,6 +4,7 @@ import * as styles from './ProductCard.module.css';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
 import { updateCart } from '../../../store/async/CartThunk';
 import Button from '../../../components/Button/Button';
+import formatPrice from '../../../utils/formatPrice';
 
 type Props = {
   id: string;
@@ -14,10 +15,6 @@ type Props = {
   currencyCode: string;
   nonDiscountPrice?: number;
 };
-
-function formatPrice(price: number, currencyCode: string): string {
-  return Intl.NumberFormat('en-US', { style: 'currency', currency: currencyCode }).format(price);
-}
 
 function ProductCard({ id, name, description, image, price, currencyCode, nonDiscountPrice }: Props) {
   const navigate = useNavigate();
