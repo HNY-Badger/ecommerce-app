@@ -1,8 +1,8 @@
 import React from 'react';
 import { MdEdit, MdRemoveCircle } from 'react-icons/md';
 import * as styles from './AddressCard.module.css';
-import CheckBox from '../../CheckBox/CheckBox';
 import { AddressData } from '../../../types/customer';
+import CheckBox from '../../../components/CheckBox/CheckBox';
 
 type Props = {
   addressData: AddressData;

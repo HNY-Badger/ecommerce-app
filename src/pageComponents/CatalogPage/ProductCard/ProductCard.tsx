@@ -1,9 +1,9 @@
 import React, { KeyboardEventHandler } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as styles from './ProductCard.module.css';
-import Button from '../../Button/Button';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
 import { updateCart } from '../../../store/async/CartThunk';
+import Button from '../../../components/Button/Button';
 
 type Props = {
   id: string;

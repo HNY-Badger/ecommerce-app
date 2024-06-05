@@ -5,11 +5,11 @@ import ProductsAPI from '../../api/products';
 import { Product } from '../../types/products';
 import Spinner from '../../components/Spinner/Spinner';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
-import ProductDetails from '../../components/DetailedProductPage/ProductDetails/ProductDetails';
-import ImageSlider from '../../components/DetailedProductPage/ImageSlider/ImageSlider';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { BreadcrumbLink } from '../../types/breadcrumb';
-import EnlargedImage from '../../components/DetailedProductPage/EnlargedImage/EnlargedImage';
+import ImageSlider from '../../pageComponents/DetailedProductPage/ImageSlider/ImageSlider';
+import EnlargedImage from '../../pageComponents/DetailedProductPage/EnlargedImage/EnlargedImage';
+import ProductDetails from '../../pageComponents/DetailedProductPage/ProductDetails/ProductDetails';
 
 type ProductState = {
   product: Product | null;

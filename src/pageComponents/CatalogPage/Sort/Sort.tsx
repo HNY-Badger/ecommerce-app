@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler } from 'react';
 import * as styles from './Sort.module.css';
-import Select from '../../Select/Select';
+import Select from '../../../components/Select/Select';
 
 type Props = {
   value: string;
