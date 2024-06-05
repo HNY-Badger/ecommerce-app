@@ -1,4 +1,5 @@
 import { CentPrecisionMoney, ProductPrice, ProductVariant } from './products';
+import { CartBody } from './updateCart';
 
 export type DiscountCode = {
   id: string;
@@ -47,4 +48,10 @@ export type CartResponse = {
     };
   };
   discountCodes: DiscountCodeInfo[];
+};
+
+export type ClearCartParams = {
+  id: string;
+  version: number;
+  items: CartBody<'removeLineItem'>[];
 };

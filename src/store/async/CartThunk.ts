@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CartResponse } from '../../types/cart';
+import { CartResponse, ClearCartParams } from '../../types/cart';
 import CartAPI from '../../api/cart';
 import { CartActions, CartThunkPayload } from '../../types/updateCart';
 
@@ -13,6 +13,24 @@ const refreshCart = createAsyncThunk<CartResponse, void, { rejectValue: string }
     return cart;
   }
 });
+
+const clearCart = createAsyncThunk<CartResponse, ClearCartParams, { rejectValue: string }>(
+  `cart/clearCart`,
+  async ({ id, version, items }) => {
+    const cart = await CartAPI.updateCart({
+      id,
+      data: {
+        version,
+        actions: items.map((item) => ({
+          action: 'removeLineItem',
+          lineItemId: item.lineItemId,
+          quantity: item.quantity,
+        })),
+      },
+    });
+    return cart;
+  }
+);
 
 const updateCartThunk = <T extends CartActions>(action: T) =>
   createAsyncThunk<CartResponse, CartThunkPayload<T>, { rejectValue: string }>(
@@ -37,4 +55,4 @@ const updateCart = {
   changeLineItemQuantity: updateCartThunk('changeLineItemQuantity'),
 };
 
-export { refreshCart, updateCart };
+export { refreshCart, updateCart, clearCart };
