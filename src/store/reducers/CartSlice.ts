@@ -20,9 +20,9 @@ const handleAsyncCases = <ThunkArg>(
       loading: false,
       error: '',
     }))
-    .addCase(asyncThunk.pending, (state) => ({ ...state, loading: true }))
-    .addCase(asyncThunk.rejected, (_, action) => ({
-      data: null,
+    .addCase(asyncThunk.pending, (state) => ({ ...state, error: '', loading: true }))
+    .addCase(asyncThunk.rejected, (state, action) => ({
+      ...state,
       loading: false,
       error: action.payload ?? 'Unexpected error occurred',
     }));
@@ -31,7 +31,9 @@ const handleAsyncCases = <ThunkArg>(
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    resetCartStore: () => initialState,
+  },
   extraReducers(builder) {
     handleAsyncCases(builder, refreshCart);
     handleAsyncCases(builder, updateCart.addLineItem);
@@ -41,5 +43,7 @@ export const cartSlice = createSlice({
     handleAsyncCases(builder, updateCart.changeLineItemQuantity);
   },
 });
+
+export const { resetCartStore } = cartSlice.actions;
 
 export default cartSlice.reducer;
