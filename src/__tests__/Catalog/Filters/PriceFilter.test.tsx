@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import PriceFilter from '../../../components/CatalogPage/Filters/PriceFilter';
 import '@testing-library/jest-dom';
+import PriceFilter from '../../../pageComponents/CatalogPage/Filters/PriceFilter';
 
 describe('PriceFilter', () => {
   it('renders inputs with correct initial values', () => {

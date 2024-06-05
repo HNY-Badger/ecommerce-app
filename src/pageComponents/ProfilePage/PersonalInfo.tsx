@@ -5,7 +5,6 @@ import { useAppDispatch } from '../../store/hooks/redux';
 import PersonalInfoField from './PersonalInfoField';
 import ProfileSection from './ProfileSection';
 import ProfileEditSection from './ProfileEditSection';
-import FormInput from '../FormInput/FormInput';
 import Validation from '../../data/Validation/validation';
 import { InputType } from '../../types/input';
 import { APIErrorResponse } from '../../types/api';
@@ -16,6 +15,7 @@ import * as styles from './PersonalInfo.module.css';
 import UpdateAPI from '../../api/updateCustomer';
 import formatDate from '../../utils/formatDate';
 import AuthAPI from '../../api/auth';
+import FormInput from '../../components/FormInput/FormInput';
 
 type PersonalDetails = {
   email: string;

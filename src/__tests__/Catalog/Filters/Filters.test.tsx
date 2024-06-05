@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Filters from '../../../components/CatalogPage/Filters/Filters';
 import '@testing-library/jest-dom';
+import Filters from '../../../pageComponents/CatalogPage/Filters/Filters';
 
 describe('Filters', () => {
   it('renders with correct attributes, price range, and active state', () => {

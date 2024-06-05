@@ -4,8 +4,8 @@ import * as styles from './Filters.module.css';
 import FilterSection from './FilterSection';
 import PriceFilter from './PriceFilter';
 import { Attribute } from '../../../types/products';
-import CheckBox from '../../CheckBox/CheckBox';
-import Button from '../../Button/Button';
+import Button from '../../../components/Button/Button';
+import CheckBox from '../../../components/CheckBox/CheckBox';
 
 type Props = {
   attributes: Attribute[];

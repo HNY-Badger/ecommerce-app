@@ -3,8 +3,8 @@ import * as styles from './ProductDetails.module.css';
 import { Product } from '../../../types/products';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
 import { refreshCart, updateCart } from '../../../store/async/CartThunk';
-import Button from '../../Button/Button';
-import Counter from '../../Counter/Counter';
+import Button from '../../../components/Button/Button';
+import Counter from '../../../components/Counter/Counter';
 
 function formatPrice(price: number, currencyCode: string): string {
   return Intl.NumberFormat('en-US', { style: 'currency', currency: currencyCode }).format(price);

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
-import Button from '../Button/Button';
 import * as styles from './ProfileSection.module.css';
+import Button from '../../components/Button/Button';
 
 type Props = {
   heading: string;

@@ -3,7 +3,7 @@ import { IoIosCloseCircle } from 'react-icons/io';
 import * as styles from './Categories.module.css';
 import { Category } from '../../../types/products';
 import CategoryItem from './CategoryItem';
-import Button from '../../Button/Button';
+import Button from '../../../components/Button/Button';
 
 type Props = {
   categories: Category[];
