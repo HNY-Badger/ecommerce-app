@@ -12,6 +12,7 @@ import { APIErrorResponse } from '../../types/api';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { setCustomer } from '../../store/reducers/CustomerSlice';
 import FormPassInput from '../../components/FormPassInput/FormPassInput';
+import { resetCartStore } from '../../store/reducers/CartSlice';
 
 type Inputs = {
   email: string;
@@ -69,6 +70,7 @@ function LoginPage() {
       setLoading(true);
       const resp = await AuthAPI.login(inputsData.email, inputsData.password);
       dispatch(setCustomer(resp.customer));
+      dispatch(resetCartStore());
       navigate('/');
     } catch (e) {
       const err = e as AxiosError<APIErrorResponse>;
