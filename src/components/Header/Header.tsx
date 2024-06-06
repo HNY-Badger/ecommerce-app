@@ -6,6 +6,7 @@ import BurgerLogo from './BurgerLogo';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { deleteCustomer } from '../../store/reducers/CustomerSlice';
 import { resetCartStore } from '../../store/reducers/CartSlice';
+import HeaderCart from '../../pageComponents/BasketPage/HeaderCart/HeaderCart';
 
 function Header() {
   const navigate = useNavigate();
@@ -58,6 +59,9 @@ function Header() {
             </div>
           </>
         )}
+        <NavLink to="basket" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
+          <HeaderCart />
+        </NavLink>
       </nav>
     </header>
   );

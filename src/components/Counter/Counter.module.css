@@ -1,6 +1,7 @@
 .counter {
   box-sizing: border-box;
   min-height: 40px;
+  min-width: 0;
   border: 1px solid var(--dark-primary);
   display: flex;
   font-weight: bold;

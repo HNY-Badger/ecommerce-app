@@ -1,0 +1,33 @@
+.basket {
+  flex: 1;
+  align-self: center;
+  display: flex;
+  padding: 10px 20px;
+  max-width: 500px;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.headbar {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.cart_text {
+  font-size: 2.25rem;
+  color: var(--dark-primary);
+}
+
+.remove_btn {
+  align-self: flex-end;
+}
+
+.subtotal {
+  align-self: flex-end;
+}
