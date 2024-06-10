@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.heading {
+  font-size: 30px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--link-color);
+}
+
+.image {
+  display: inline-block;
+  vertical-align: middle;
+  width: 45px;
+}
+
+.image:hover {
+  opacity: 0.8;
+}
+
+.link {
+  text-decoration: none;
+  align-items: center;
+  margin: 0 10px 0;
+  cursor: pointer;
+}
+
+.span {
+  color: var(--dark-primary);
+}
+
+@media (max-width: 750px) {
+  .heading {
+    font-size: 24px;
+  }
+}
