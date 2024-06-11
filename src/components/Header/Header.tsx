@@ -36,6 +36,9 @@ function Header() {
         <NavLink to="catalog" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
           Catalog
         </NavLink>
+        <NavLink to="about" className={linkStyle} onClick={() => setIsMenuOpen(false)}>
+          About Us
+        </NavLink>
         {!customer && (
           <>
             <NavLink to="login" className={linkStyle} onClick={() => setIsMenuOpen(false)}>

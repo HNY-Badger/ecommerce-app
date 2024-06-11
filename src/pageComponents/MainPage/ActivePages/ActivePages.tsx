@@ -13,6 +13,9 @@ function ActivePages() {
         <NavLink to="catalog" className={styles.link}>
           Catalog
         </NavLink>
+        <NavLink to="about" className={styles.link}>
+          About Us
+        </NavLink>
         <NavLink to="login" className={styles.link}>
           Login
         </NavLink>
