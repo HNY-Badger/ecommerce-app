@@ -15,7 +15,6 @@ export type DiscountCode = {
 
 export type DiscountCodeReference = {
   id: string;
-  obj: DiscountCode;
 };
 
 export type DiscountCodeInfo = {
