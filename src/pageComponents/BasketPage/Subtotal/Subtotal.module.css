@@ -11,8 +11,20 @@
 }
 
 .text {
+  align-self: flex-end;
   color: var(--primary);
   font-size: 1.25rem;
+}
+
+.prices {
+  display: flex;
+  flex-direction: column;
+}
+
+.non_discount_price {
+  align-self: flex-end;
+  color: var(--dark-primary);
+  text-decoration: line-through;
 }
 
 .price {
