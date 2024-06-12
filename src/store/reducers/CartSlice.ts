@@ -12,7 +12,7 @@ const initialState: CartState = {
 
 const handleAsyncCases = <ThunkArg>(
   builder: ActionReducerMapBuilder<CartState>,
-  asyncThunk: AsyncThunk<CartResponse, ThunkArg, { rejectValue: string }>
+  asyncThunk: AsyncThunk<CartResponse | undefined, ThunkArg, { rejectValue: string | undefined }>
 ) => {
   builder
     .addCase(asyncThunk.fulfilled, (_, action) => ({
