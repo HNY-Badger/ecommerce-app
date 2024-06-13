@@ -16,7 +16,7 @@ function HeaderCart() {
       if (error.includes('version')) {
         dispatch(notify({ text: 'Whoa! Slow down a bit', type: 'error' }));
         dispatch(refreshCart());
-      } else if (cart === null) {
+      } else if (cart === null && error !== `Cart doesn't exist`) {
         dispatch(refreshCart());
       }
     }

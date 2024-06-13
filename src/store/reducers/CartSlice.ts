@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, AsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CartResponse } from '../../types/cart';
-import { clearCart, refreshCart, updateCart } from '../async/CartThunk';
+import { clearCart, createFirstCart, refreshCart, updateCart } from '../async/CartThunk';
 
 type CartState = { data: CartResponse | null; loading: boolean; error: string };
 
@@ -35,6 +35,7 @@ export const cartSlice = createSlice({
     resetCartStore: () => initialState,
   },
   extraReducers(builder) {
+    handleAsyncCases(builder, createFirstCart);
     handleAsyncCases(builder, refreshCart);
     handleAsyncCases(builder, updateCart.addLineItem);
     handleAsyncCases(builder, updateCart.removeLineItem);

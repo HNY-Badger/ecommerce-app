@@ -65,6 +65,13 @@
   text-decoration: line-through;
 }
 
+.add_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
 .remove_btn {
   padding-left: 10px;
   padding-right: 10px;
