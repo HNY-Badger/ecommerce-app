@@ -30,7 +30,7 @@ function BasketPage() {
           <Spinner width="200px" />
         </div>
       )}
-      {!loading && cart && cart.lineItems.length > 0 ? (
+      {cart !== null && cart.lineItems.length > 0 ? (
         <div className={styles.content}>
           <div className={styles.headbar}>
             <p className={styles.cart_text}>Your shopping cart</p>
@@ -60,7 +60,7 @@ function BasketPage() {
           )}
         </div>
       ) : (
-        <EmptyBasketPage />
+        !loading && <EmptyBasketPage />
       )}
     </div>
   );
