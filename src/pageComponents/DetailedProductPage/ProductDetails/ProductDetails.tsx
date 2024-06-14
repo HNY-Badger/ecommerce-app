@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as styles from './ProductDetails.module.css';
 import { Product } from '../../../types/products';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
-import { createFirstCart, refreshCart, updateCart } from '../../../store/async/CartThunk';
+import { createFirstCart, updateCart } from '../../../store/async/CartThunk';
 import Button from '../../../components/Button/Button';
 import Counter from '../../../components/Counter/Counter';
 
