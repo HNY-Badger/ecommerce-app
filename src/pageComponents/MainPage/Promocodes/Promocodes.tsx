@@ -1,33 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { AxiosError } from 'axios';
+import React, { useEffect } from 'react';
 import * as styles from './Promocodes.module.css';
-import { Promocode } from '../../../types/promocode';
 import Spinner from '../../../components/Spinner/Spinner';
-import { useAppDispatch } from '../../../store/hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
 import { notify } from '../../../store/reducers/NotificationSlice';
-import PromocodeAPI from '../../../api/promocode';
-import { APIErrorResponse } from '../../../types/api';
-
-type PromocodesState = {
-  codes: Promocode[];
-  error: string;
-  loading: boolean;
-};
+import fetchActivePromocodes from '../../../store/async/PromocodesThunk';
 
 function Promocodes() {
   const dispatch = useAppDispatch();
-  const [codeState, setCodeState] = useState<PromocodesState>({
-    codes: [],
-    error: '',
-    loading: false,
-  });
+  const { data: codes, loading, error } = useAppSelector((state) => state.promocodesReducer);
 
   useEffect(() => {
-    PromocodeAPI.getActivePromocodes()
-      .then((resp) => setCodeState((prev) => ({ ...prev, loading: false, codes: resp.results })))
-      .catch((e: AxiosError<APIErrorResponse>) =>
-        setCodeState((prev) => ({ ...prev, error: e.response?.data.message ?? 'Unexpected error occured' }))
-      );
+    if (codes === null) {
+      dispatch(fetchActivePromocodes());
+    }
   }, []);
 
   const codeClickHandler = (code: string) => {
@@ -38,20 +23,20 @@ function Promocodes() {
   return (
     <div className={styles.promocodes}>
       <h3>Active promocodes</h3>
-      {!codeState.loading ? (
+      {!loading ? (
         <div className={styles.codes}>
-          {codeState.error.length === 0 ? (
-            codeState.codes.map((code) => (
+          {error.length === 0 && codes != null ? (
+            codes.map((code) => (
               <button type="button" onClick={() => codeClickHandler(code.code)} key={code.id} className={styles.code}>
                 {code.code}
               </button>
             ))
           ) : (
-            <p>{codeState.error}</p>
+            <p>{error}</p>
           )}
         </div>
       ) : (
-        <div>
+        <div className={styles.loading}>
           <Spinner width="32px" />
         </div>
       )}

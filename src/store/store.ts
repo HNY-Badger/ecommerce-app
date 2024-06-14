@@ -3,12 +3,14 @@ import notificationReducer from './reducers/NotificationSlice';
 import customerReducer from './reducers/CustomerSlice';
 import productsReducer from './reducers/ProductsSlice';
 import cartReducer from './reducers/CartSlice';
+import promocodesReducer from './reducers/PromocodesSlice';
 
 const rootReducer = combineReducers({
   notificationReducer,
   customerReducer,
   productsReducer,
   cartReducer,
+  promocodesReducer,
 });
 
 export const store = configureStore({

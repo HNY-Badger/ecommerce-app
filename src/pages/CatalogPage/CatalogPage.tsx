@@ -10,7 +10,6 @@ import ProductsAPI from '../../api/products';
 import { BreadcrumbLink } from '../../types/breadcrumb';
 import productsToFilterData from '../../data/Filters/productsToFilterData';
 import Spinner from '../../components/Spinner/Spinner';
-import { refreshCart } from '../../store/async/CartThunk';
 import Pagination from '../../pageComponents/CatalogPage/Pagination/Pagination';
 import Categories from '../../pageComponents/CatalogPage/Categories/Categories';
 import Filters from '../../pageComponents/CatalogPage/Filters/Filters';
@@ -23,14 +22,6 @@ const productsOnPage = 10;
 function CatalogPage() {
   const dispatch = useAppDispatch();
   const productsState = useAppSelector((state) => state.productsReducer);
-
-  // Refresh cart if its hasn't been fetched yet
-  const cartState = useAppSelector((state) => state.cartReducer);
-  useEffect(() => {
-    if ((!cartState.data && !cartState.loading) || cartState.error.length > 0) {
-      dispatch(refreshCart());
-    }
-  }, [cartState]);
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();

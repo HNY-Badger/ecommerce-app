@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as styles from './ProductDetails.module.css';
 import { Product } from '../../../types/products';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
-import { refreshCart, updateCart } from '../../../store/async/CartThunk';
+import { createFirstCart, refreshCart, updateCart } from '../../../store/async/CartThunk';
 import Button from '../../../components/Button/Button';
 import Counter from '../../../components/Counter/Counter';
 
@@ -16,14 +16,8 @@ type Props = {
 
 function ProductDetails({ product }: Props) {
   const dispatch = useAppDispatch();
-  const { data: cart, loading, error } = useAppSelector((state) => state.cartReducer);
+  const { data: cart } = useAppSelector((state) => state.cartReducer);
   const productInCart = cart?.lineItems.find((item) => item.productId === product.id);
-
-  useEffect(() => {
-    if ((!cart && !loading) || error.length > 0) {
-      dispatch(refreshCart());
-    }
-  }, [cart, loading, error]);
 
   const addButtonClickHandler = () => {
     if (cart !== null) {
@@ -31,6 +25,12 @@ function ProductDetails({ product }: Props) {
         updateCart.addLineItem({
           id: cart.id,
           version: cart.version,
+          actionBody: { productId: product.id, quantity: 1 },
+        })
+      );
+    } else {
+      dispatch(
+        createFirstCart({
           actionBody: { productId: product.id, quantity: 1 },
         })
       );

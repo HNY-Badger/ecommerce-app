@@ -1,10 +1,11 @@
-import React, { KeyboardEventHandler } from 'react';
+import React, { KeyboardEventHandler, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as styles from './ProductCard.module.css';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
-import { updateCart } from '../../../store/async/CartThunk';
+import { createFirstCart, updateCart } from '../../../store/async/CartThunk';
 import Button from '../../../components/Button/Button';
 import formatPrice from '../../../utils/formatPrice';
+import Spinner from '../../../components/Spinner/Spinner';
 
 type Props = {
   id: string;
@@ -20,8 +21,14 @@ function ProductCard({ id, name, description, image, price, currencyCode, nonDis
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const { data: cart } = useAppSelector((state) => state.cartReducer);
+  const { data: cart, loading } = useAppSelector((state) => state.cartReducer);
   const productInCart = cart?.lineItems.find((item) => item.productId === id);
+  const [localLoading, setLocalLoading] = useState<boolean>(false);
+  useEffect(() => {
+    if (!loading && localLoading) {
+      setLocalLoading(false);
+    }
+  }, [loading]);
 
   const cardClickHandler = () => navigate(`/product/${id}`);
   const keyDownHandler: KeyboardEventHandler = (e) => {
@@ -29,11 +36,18 @@ function ProductCard({ id, name, description, image, price, currencyCode, nonDis
   };
 
   const addButtonClickHandler = () => {
+    setLocalLoading(true);
     if (cart !== null) {
       dispatch(
         updateCart.addLineItem({
           id: cart.id,
           version: cart.version,
+          actionBody: { productId: id, quantity: 1 },
+        })
+      );
+    } else {
+      dispatch(
+        createFirstCart({
           actionBody: { productId: id, quantity: 1 },
         })
       );
@@ -80,7 +94,10 @@ function ProductCard({ id, name, description, image, price, currencyCode, nonDis
           Remove from cart
         </Button>
       ) : (
-        <Button onClick={addButtonClickHandler}>Add to cart</Button>
+        <Button onClick={addButtonClickHandler} className={styles.add_btn}>
+          <p>Add to cart</p>
+          {localLoading && <Spinner width="16px" />}
+        </Button>
       )}
     </div>
   );
