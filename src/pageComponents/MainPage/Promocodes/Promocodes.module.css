@@ -25,6 +25,7 @@
 
 .code {
   all: unset;
+  position: relative;
   cursor: pointer;
   padding: 5px;
   color: var(--dark-primary);
@@ -36,4 +37,23 @@
     color: var(--primary);
     border-color: var(--primary);
   }
+}
+
+.code .tooltip {
+  visibility: hidden;
+  box-sizing: border-box;
+  background-color: black;
+  color: var(--white);
+  text-align: center;
+  padding: 5px;
+
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+}
+
+.code:hover .tooltip {
+  visibility: visible;
 }

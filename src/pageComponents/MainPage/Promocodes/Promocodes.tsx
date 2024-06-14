@@ -28,7 +28,12 @@ function Promocodes() {
           {error.length === 0 && codes != null ? (
             codes.map((code) => (
               <button type="button" onClick={() => codeClickHandler(code.code)} key={code.id} className={styles.code}>
-                {code.code}
+                <div>
+                  <p>{code.code}</p>
+                  {code.description['en-US'].length > 0 && (
+                    <span className={styles.tooltip}>{code.description['en-US']}</span>
+                  )}
+                </div>
               </button>
             ))
           ) : (

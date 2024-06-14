@@ -7,6 +7,9 @@ export type Promocode = {
   name: {
     ['en-US']: string;
   };
+  description: {
+    ['en-US']: string;
+  };
 };
 
 export type PromocodeResponse = Response<Promocode[]>;
