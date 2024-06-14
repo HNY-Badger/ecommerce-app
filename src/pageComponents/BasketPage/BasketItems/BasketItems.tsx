@@ -4,7 +4,7 @@ import { LineItem } from '../../../types/cart';
 import BasketItem from '../BasketItem/BasketItem';
 
 type Props = {
-  items?: LineItem[];
+  items: LineItem[];
 };
 
 function BasketItems({ items }: Props) {
