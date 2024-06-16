@@ -56,6 +56,11 @@
   font-size: 1.5rem;
 }
 
+.total_original {
+  font-size: 1rem;
+  text-decoration: line-through;
+}
+
 .remove {
   all: unset;
   cursor: pointer;

@@ -25,6 +25,9 @@ function ActivePages() {
         <NavLink to="profile" className={styles.link}>
           Profile
         </NavLink>
+        <NavLink to="basket" className={styles.link}>
+          Cart
+        </NavLink>
       </div>
     </div>
   );

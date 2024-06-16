@@ -11,6 +11,11 @@ type Props = {
   item: LineItem;
 };
 
+function originalTotalCentPrice(item: LineItem): number {
+  const price = item.price.discounted?.value.centAmount ?? item.price.value.centAmount;
+  return price * item.quantity;
+}
+
 function BasketItem({ item }: Props) {
   const dispatch = useAppDispatch();
   const { data: cart } = useAppSelector((state) => state.cartReducer);
@@ -69,6 +74,11 @@ function BasketItem({ item }: Props) {
             )}
           </div>
           <Counter value={item.quantity} onChange={quantityHandler} className={styles.counter} />
+          {originalTotalCentPrice(item) !== item.totalPrice.centAmount && (
+            <p className={styles.total_original}>
+              {formatPrice(originalTotalCentPrice(item) / 100, item.totalPrice.currencyCode)}
+            </p>
+          )}
           <p className={styles.total}>{formatPrice(item.totalPrice.centAmount / 100, item.totalPrice.currencyCode)}</p>
         </div>
       </div>

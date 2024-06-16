@@ -9,6 +9,15 @@ import EmptyBasketPage from './EmptyBasketPage';
 import BasketPromocodes from '../../pageComponents/BasketPage/BasketPromocodes/BasketPromocodes';
 import Spinner from '../../components/Spinner/Spinner';
 import ClearBasketModal from '../../pageComponents/BasketPage/ClearBasketModal/ClearBasketModal';
+import { LineItem } from '../../types/cart';
+
+function itemsTotalCentPrice(items: LineItem[]): number {
+  let centTotal = 0;
+  items.forEach((item) => {
+    centTotal += item.variant.prices[0].value.centAmount * item.quantity;
+  });
+  return centTotal;
+}
 
 function BasketPage() {
   const { data: cart, loading } = useAppSelector((state) => state.cartReducer);
@@ -30,26 +39,17 @@ function BasketPage() {
               Clear&nbsp;cart
             </Button>
           </div>
-          <BasketItems items={cart?.lineItems} />
+          <BasketItems items={cart.lineItems} />
           <BasketPromocodes />
-          {cart.discountOnTotalPrice ? (
-            <Subtotal
-              className={styles.subtotal}
-              price={formatPrice(cart.totalPrice.centAmount / 100, cart.totalPrice.currencyCode)}
-              nonDiscountPrice={
-                cart.discountOnTotalPrice &&
-                formatPrice(
-                  (cart.discountOnTotalPrice.discountedAmount.centAmount + cart.totalPrice.centAmount) / 100,
-                  cart.totalPrice.currencyCode
-                )
-              }
-            />
-          ) : (
-            <Subtotal
-              className={styles.subtotal}
-              price={formatPrice(cart.totalPrice.centAmount / 100, cart.totalPrice.currencyCode)}
-            />
-          )}
+          <Subtotal
+            className={styles.subtotal}
+            price={formatPrice(cart.totalPrice.centAmount / 100, cart.totalPrice.currencyCode)}
+            nonDiscountPrice={
+              cart.totalPrice.centAmount !== itemsTotalCentPrice(cart.lineItems)
+                ? formatPrice(itemsTotalCentPrice(cart.lineItems) / 100, cart.totalPrice.currencyCode)
+                : undefined
+            }
+          />
         </div>
       ) : (
         !loading && <EmptyBasketPage />
