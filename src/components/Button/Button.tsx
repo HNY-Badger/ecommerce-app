@@ -4,7 +4,7 @@ import * as styles from './Button.module.css';
 interface Props {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
-  variant?: 'dark' | 'white' | 'grey' | 'transparent';
+  variant?: 'dark' | 'white' | 'grey' | 'transparent' | 'remove';
   type?: 'button' | 'submit';
   testid?: string;
   disabled?: boolean;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import CategoryItem from '../../../components/CatalogPage/Categories/CategoryItem';
 import { Category } from '../../../types/products';
 import '@testing-library/jest-dom';
+import CategoryItem from '../../../pageComponents/CatalogPage/Categories/CategoryItem';
 
 const mockUseNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({

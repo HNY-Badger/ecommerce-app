@@ -1,0 +1,27 @@
+import React, { ChangeEventHandler } from 'react';
+import * as styles from './Sort.module.css';
+import Select from '../../../components/Select/Select';
+
+type Props = {
+  value: string;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
+};
+
+function Sort({ value, onChange }: Props) {
+  return (
+    <Select
+      value={value}
+      onChange={onChange}
+      id="sort"
+      options={[
+        { text: 'Name (A-Z)', value: 'name.en-US asc' },
+        { text: 'Name (Z-A)', value: 'name.en-US desc' },
+        { text: 'Ascending price', value: 'price asc' },
+        { text: 'Descending price', value: 'price desc' },
+      ]}
+      className={styles.sort}
+    />
+  );
+}
+
+export default Sort;

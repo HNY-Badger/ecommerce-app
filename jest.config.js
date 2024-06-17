@@ -4,5 +4,6 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '\\.(css|less)$': '<rootDir>/src/__mocks__/styleMock.ts',
-  }
+    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/src/__mocks__/styleMock.ts',
+  },
 };

@@ -1,0 +1,37 @@
+.subtotal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price_wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.text {
+  align-self: flex-end;
+  color: var(--primary);
+  font-size: 1.25rem;
+}
+
+.prices {
+  display: flex;
+  flex-direction: column;
+}
+
+.non_discount_price {
+  align-self: flex-end;
+  color: var(--dark-primary);
+  text-decoration: line-through;
+}
+
+.price {
+  color: var(--dark-primary);
+  font-size: 1.5rem;
+}
+
+.btn {
+  align-self: flex-end;
+}

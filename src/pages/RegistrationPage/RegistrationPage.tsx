@@ -13,11 +13,12 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { setCustomer } from '../../store/reducers/CustomerSlice';
 import TokenAPI from '../../api/token';
 import { notify } from '../../store/reducers/NotificationSlice';
-import AddressModal from '../../components/RegistrationPage/AddressModal/AddressModal';
 import FormInput from '../../components/FormInput/FormInput';
-import Addresses from '../../components/RegistrationPage/Addresses/Addresses';
 import FormPassInput from '../../components/FormPassInput/FormPassInput';
 import formatDate from '../../utils/formatDate';
+import { resetCartStore } from '../../store/reducers/CartSlice';
+import AddressModal from '../../pageComponents/RegistrationPage/AddressModal/AddressModal';
+import Addresses from '../../pageComponents/RegistrationPage/Addresses/Addresses';
 
 type InputsState = Omit<
   CustomerRegistrationData,
@@ -197,6 +198,7 @@ function RegistrationPage() {
       await TokenAPI.getCustomerToken(inputsData.email, inputsData.password);
       dispatch(notify({ text: 'Account successfully created', type: 'success' }));
       dispatch(setCustomer(resp.customer));
+      dispatch(resetCartStore());
     } catch (e) {
       const err = e as AxiosError<APIErrorResponse>;
       const message = err.response?.data.message ?? 'An unexpected error occurred, please, try again later';

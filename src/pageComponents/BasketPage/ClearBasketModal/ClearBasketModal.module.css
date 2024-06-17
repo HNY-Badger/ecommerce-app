@@ -1,0 +1,36 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--modal-backdrop);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.prompt_box {
+  padding: 20px;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  text-align: center;
+  color: var(--dark-primary);
+  font-size: 1.2rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.button {
+  flex: 1;
+}
