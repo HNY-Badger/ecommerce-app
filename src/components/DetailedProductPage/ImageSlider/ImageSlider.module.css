@@ -1,0 +1,101 @@
+.slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.images {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: 0.25s;
+}
+
+.image {
+  cursor: pointer;
+  object-fit: contain;
+  aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.prev,
+.next {
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  color: var(--dark-primary);
+  transition: 0.25s;
+
+  & svg {
+    width: 30px;
+    height: 30px;
+  }
+  &:hover,
+  &:focus-visible {
+    color: var(--primary);
+  }
+}
+.next {
+  right: 0;
+}
+
+.left_gradient,
+.right_gradient {
+  --gradient-color: #00000041;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: 0.25s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.left_gradient {
+  background: linear-gradient(0.25turn, var(--gradient-color), #00000000);
+}
+.right_gradient {
+  background: linear-gradient(0.75turn, var(--gradient-color), #00000000);
+}
+
+.pages {
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.page {
+  all: unset;
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--border-grey);
+  background-color: var(--dark-primary);
+  transition: 0.25s;
+}
+.page:hover,
+.page:focus-visible {
+  background-color: color-mix(in srgb, var(--primary) 50%, var(--dark-primary) 50%);
+}
+
+.active_page {
+  pointer-events: none;
+  background-color: var(--primary);
+}

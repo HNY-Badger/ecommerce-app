@@ -1,0 +1,55 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 30px;
+  color: var(--dark-primary);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.name {
+  font-size: 2rem;
+}
+
+.prices {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  gap: 5px;
+}
+
+.discount_price {
+  padding: 10px;
+  color: var(--white);
+  background-color: var(--dark-primary);
+}
+
+.non_discount_price {
+  text-decoration: line-through;
+  font-size: 1.25rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.attributes {
+  padding-left: 18px;
+
+  & span {
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 768px) {
+  .info {
+    padding: 20px 10px;
+  }
+}

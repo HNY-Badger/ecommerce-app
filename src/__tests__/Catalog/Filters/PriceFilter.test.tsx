@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import PriceFilter from '../../../pageComponents/CatalogPage/Filters/PriceFilter';
 
+
 describe('PriceFilter', () => {
   it('renders inputs with correct initial values', () => {
     const priceRange: [number, number] = [50, 150];

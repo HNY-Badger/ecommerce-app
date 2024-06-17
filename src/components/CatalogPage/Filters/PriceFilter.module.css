@@ -1,0 +1,22 @@
+.price_filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+
+  & input {
+    flex: 1;
+    width: 50px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .price_filter {
+    max-width: 390px;
+  }
+}
