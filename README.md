@@ -21,13 +21,14 @@ Guidance during the project provided by [@Lneer](https://github.com/Lneer) and [
 5. In case of encountering error ```'Cannot find module...'``` while trying to import assets, add your asset extension to the ```declarations.d.ts``` file.
 
 ## Folders structure 📁
+- ```/__mocks__``` - Jest mock files
+- ```/__tests__``` - Jest test files
 - ```/api``` - api-related manipulations
-- ```/assets``` - self-explanatory
-- ```/components``` - custom React components
-  - ```/components/common``` - common components (i.e. Button, Card, etc.)
-  - ```/components/[page]``` - page-specific components
+- ```/assets``` - images, fonts or other assets
+- ```/components``` - common React components
+- ```/pageComponents``` - page-specific React components
 - ```/data``` - algorithmic or data-related code
 - ```/pages``` - complete pages, ready to be put in router
 - ```/store``` - global store, managing app state (Redux)
-- ```/tests``` - Jest test files
 - ```/types``` - global types
+- ```/utils``` - utility functions
