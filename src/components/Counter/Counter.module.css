@@ -1,0 +1,33 @@
+.counter {
+  box-sizing: border-box;
+  min-height: 40px;
+  min-width: 0;
+  border: 1px solid var(--dark-primary);
+  display: flex;
+  font-weight: bold;
+  color: var(--dark-primary);
+}
+
+.counter_btn,
+.counter_input {
+  all: unset;
+  flex: 1;
+  text-align: center;
+}
+
+.counter_btn {
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    background-color: var(--primary);
+  }
+}
+
+.counter_input {
+  min-width: 0;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}

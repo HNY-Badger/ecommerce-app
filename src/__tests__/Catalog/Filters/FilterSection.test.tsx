@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import FilterSection from '../../../components/CatalogPage/Filters/FilterSection';
+import FilterSection from '../../../pageComponents/CatalogPage/Filters/FilterSection';
 
 describe('FilterSection', () => {
   it('renders with correct heading and children', () => {

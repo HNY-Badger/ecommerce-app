@@ -1,0 +1,27 @@
+.promocode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.code {
+  color: var(--dark-primary);
+  font-weight: bold;
+}
+
+.remove_btn {
+  all: unset;
+  cursor: pointer;
+  color: var(--dark-primary);
+  transition: 0.25s;
+
+  & svg {
+    height: 20px;
+    width: 20px;
+  }
+
+  &:hover {
+    color: var(--error);
+  }
+}

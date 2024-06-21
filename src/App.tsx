@@ -8,6 +8,9 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import CatalogPage from './pages/CatalogPage/CatalogPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import DetailedProductPage from './pages/DetailedProductPage/DetailedProductPage';
+import BasketPage from './pages/BasketPage/BasketPage';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 
 export default function App() {
   return (
@@ -21,6 +24,9 @@ export default function App() {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="registration" element={<RegistrationPage />} />
           <Route path="product/:id" element={<DetailedProductPage />} />
+          <Route path="basket" element={<BasketPage />} />
+          <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="about" element={<AboutUsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

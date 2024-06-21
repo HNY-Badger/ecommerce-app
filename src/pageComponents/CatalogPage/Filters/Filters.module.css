@@ -1,0 +1,53 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.toggle_btn,
+.close_btn {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .toggle_btn {
+    display: block;
+  }
+
+  .filters.active {
+    overflow-x: auto;
+    transform: translateX(0%);
+  }
+
+  .filters {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    padding: 100px 50px;
+    background-color: var(--white);
+    z-index: 2;
+    transform: translateX(100%);
+    transition: 0.3s;
+  }
+
+  .close_btn {
+    display: block;
+    all: unset;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 35px;
+    height: 35px;
+    color: var(--link-color);
+
+    & svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

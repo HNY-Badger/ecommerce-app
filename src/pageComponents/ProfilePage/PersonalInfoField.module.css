@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  width: 100%;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--light-primary);
+}
+
+.name {
+  margin-right: 15px;
+  font-size: 1.1rem;
+  color: var(--dark-primary);
+  white-space: nowrap;
+}
+
+.value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}

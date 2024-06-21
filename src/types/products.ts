@@ -1,4 +1,4 @@
-type Response<T> = {
+export type Response<T> = {
   total: number;
   count: number;
   limit: number;
@@ -59,18 +59,23 @@ export type ProductImage = {
   url: string;
 };
 
+export type CentPrecisionMoney = {
+  centAmount: number;
+  currencyCode: string;
+};
+
 export type ProductPrice = {
   country: string;
-  value: {
-    centAmount: number;
-    currencyCode: string;
-  };
+  value: CentPrecisionMoney;
   discounted?: {
-    value: {
-      centAmount: number;
-      currencyCode: string;
-    };
+    value: CentPrecisionMoney;
   };
+};
+
+export type ProductVariant = {
+  attributes: ProductAttribute[];
+  images: ProductImage[];
+  prices: ProductPrice[];
 };
 
 export type ProductResult = {
@@ -82,11 +87,7 @@ export type ProductResult = {
     ['en-US']: string;
   };
   categories: ProductCategory[];
-  masterVariant: {
-    attributes: ProductAttribute[];
-    images: ProductImage[];
-    prices: ProductPrice[];
-  };
+  masterVariant: ProductVariant;
 };
 
 export type ProductsResponse = Response<ProductResult[]>;
